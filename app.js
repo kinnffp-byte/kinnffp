@@ -64,6 +64,18 @@
     document.documentElement.style.setProperty('--page-image',
       pi ? 'url("' + pi.replace(/"/g, '%22') + '")' : 'none');
 
+    /* 로고: 값이 있으면 이미지, 비우면 글자로 되돌아간다 */
+    var lg = el('brandLogo'), bn = el('brandName');
+    var lgSrc = txt(T['logo-image']).trim();
+    if (lg) {
+      if (lgSrc) { lg.src = lgSrc; lg.alt = txt(T['brand-name']); lg.hidden = false; if (bn) bn.hidden = true; }
+      else { lg.hidden = true; if (bn) bn.hidden = false; }
+    }
+    /* 엠블럼: 섹션 제목 옆 장식 링 안에 배경으로 얹는다 */
+    var emSrc = txt(T['logo-emblem']).trim();
+    document.documentElement.style.setProperty('--logo-emblem',
+      emSrc ? 'url("' + emSrc.replace(/"/g, '%22') + '")' : 'none');
+
     var sl = el('soopLink');
     if (sl) {
       var su = txt(T['soop-url']).trim();

@@ -1,23 +1,23 @@
 :root {
-  --ink: #11131a;
-  --muted: #6f7480;
-  --paper: #f7f7f3;
+  --ink: #243447;
+  --muted: #526B85;
+  --paper: #F7FAFC;
+  --sheet: #EFF5FA;
   --white: #ffffff;
-  --night: #131620;
-  --night-soft: #1d2230;
-  --iris: #737de8;
-  --ice: #b8e9ef;
-  --rose: #e9bfd0;
-  --sand: #d9c89e;
-  --mint: #cce2d8;
-  --page: #dff4f3;
-  --screen: #fffaf0;
-  --line: rgba(17, 19, 26, 0.14);
-  --line-dark: rgba(255, 255, 255, 0.15);
-  --shadow: 0 24px 80px rgba(19, 22, 32, 0.14);
-  --night-deep: #111216;   /* 사이드바 등 더 진한 검정 */
-  --hero: #1d2b3c;         /* 히어로 배경 */
-  --sheet: #f4f2ed;        /* 내용이 올라가는 시트 배경 */
+  --night: #2C4A63;
+  --night-soft: #3A5C77;
+  --night-deep: #1E3448;
+  --hero: #2C4A63;
+  --iris: #1F6A97;
+  --ice: #CDEAF7;
+  --rose: #F6DCE2;
+  --sand: #F0C43C;
+  --mint: #D8EDE4;
+  --page: #E8F4FB;
+  --screen: #FBFDFE;
+  --line: rgba(36, 52, 71, 0.16);
+  --line-dark: rgba(255, 255, 255, 0.2);
+  --shadow: 0 24px 80px rgba(36, 52, 71, 0.16);
 }
 
 * {
@@ -539,6 +539,11 @@ img {
   height: 72px;
   border: 1px solid var(--line);
   border-radius: 50%;
+  /* 비어 있던 장식 링 안에 로고 엠블럼을 얹는다 (없으면 링만) */
+  background-image: var(--logo-emblem, none);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 58%;
   content: "";
 }
 
@@ -4322,8 +4327,8 @@ body.dark .editorial-index button:hover { background: #232733; }
 
 /* 다크모드: 뒷배경·화면 바닥도 같이 어둡게 */
 body.dark {
-  --page: #0d0f14;
-  --screen: #14161d;
+  --page: #0B1622;
+  --screen: #14202C;
 }
 
 /* ── 확정 방셀 단가: tone 데이터를 팔레트 색으로 표시 ──────────────
@@ -4995,3 +5000,26 @@ body.dark {
 .look-split[data-open="a"] .look-a .look-meta { max-width: 62%; }
 .look-split:has(.look-b:hover) .look-b .look-meta,
 .look-split[data-open="b"] .look-b .look-meta { max-width: 62%; }
+
+/* ══════════════════════════════════════════════════════════════════
+   로고 배치 (워드마크 · 엠블럼)
+   ════════════════════════════════════════════════════════════════ */
+.brand-logo {
+  display: block;
+  width: 100%;
+  max-width: 132px;
+  height: auto;
+}
+
+.brand-block:has(.brand-logo) span { margin-top: 6px; }
+
+
+@media (max-width: 700px) {
+  .brand-logo { max-width: 96px; }
+
+}
+
+/* 모바일: 링이 작아지므로 엠블럼도 함께 */
+@media (max-width: 700px) {
+  .view-experience[data-view="ipad"] .section-title::after { background-size: 62%; }
+}
