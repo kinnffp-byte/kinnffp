@@ -134,6 +134,28 @@ textarea.input { resize:vertical; min-height:64px; }
   .color-row { grid-template-columns:minmax(0,1fr); }
   .preview { grid-template-columns:minmax(0,1fr); }
 }
+
+.fs-list { display: grid; gap: 2px; }
+.fs-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,300px); gap: 14px;
+  align-items: center; padding: 12px 0; border-bottom: 1px solid var(--adm-line); }
+.fs-row:last-child { border-bottom: 0; }
+.fs-meta strong { display: block; font-size: 13px; }
+.fs-meta span { display: block; margin-top: 3px; color: var(--adm-muted); font-size: 11px; line-height: 1.5; }
+.fs-ctl { display: grid; grid-template-columns: minmax(0,1fr) 74px 46px; gap: 8px; align-items: center; }
+.fs-ctl input[type=range] { width: 100%; accent-color: var(--adm-iris); }
+.fs-num { text-align: center; }
+.fs-ctl em { color: var(--adm-muted); font-size: 11px; font-style: normal; text-align: right; }
+.fs-preview { padding: 18px; border: 1px solid var(--adm-line); background: #f7fafc; }
+.fs-preview .fp-kicker { display: block; color: #1F6A97; font-size: calc(8px * var(--pf-kicker,1) * var(--pf-all,1));
+  font-weight: 900; letter-spacing: .14em; }
+.fs-preview .fp-title { margin: 8px 0 0; font-size: calc(52px * var(--pf-title,1) * var(--pf-all,1));
+  font-weight: 800; letter-spacing: -.04em; }
+.fs-preview .fp-body { margin: 8px 0 0; color: #526B85; font-size: calc(13px * var(--pf-body,1) * var(--pf-all,1)); }
+.fs-preview .fp-card { margin-top: 16px; padding: 14px; border: 1px solid var(--adm-line); background: #fff; }
+.fs-preview .fp-num { display: block; margin-top: 8px; color: #1F6A97;
+  font-family: Georgia, serif; font-size: calc(32px * var(--pf-number,1) * var(--pf-all,1)); }
+.fs-preview .fp-sub { margin: 6px 0 0; font-size: calc(27px * var(--pf-sub,1) * var(--pf-all,1)); font-weight: 800; }
+@media (max-width: 760px) { .fs-row { grid-template-columns: minmax(0,1fr); gap: 8px; } }
 </style>
 </head>
 <body>
@@ -155,7 +177,7 @@ textarea.input { resize:vertical; min-height:64px; }
   <a href="../index.html" target="_blank" rel="noreferrer" style="color:#fff;font-size:12px;">사이트 열기 ↗</a>
 </header>
 
-<div class="tabs"><button class="tab" data-tab="site">🏠 사이트</button><button class="tab" data-tab="nav">🧭 목차</button><button class="tab" data-tab="main">📄 메인</button><button class="tab" data-tab="promise">📈 누적공약</button><button class="tab" data-tab="reward">🎲 방셀보상</button><button class="tab" data-tab="goods">🎁 굿즈</button><button class="tab" data-tab="outfit">👗 의상</button><button class="tab" data-tab="theme">🎨 테마</button></div>
+<div class="tabs"><button class="tab" data-tab="site">🏠 사이트</button><button class="tab" data-tab="nav">🧭 목차</button><button class="tab" data-tab="main">📄 메인</button><button class="tab" data-tab="promise">📈 누적공약</button><button class="tab" data-tab="reward">🎲 방셀보상</button><button class="tab" data-tab="goods">🎁 굿즈</button><button class="tab" data-tab="outfit">👗 의상</button><button class="tab" data-tab="theme">🎨 테마</button><button class="tab" data-tab="font">🔤 글자크기</button></div>
 
 <main>
   <div class="card" id="dbWarn" hidden>
@@ -244,7 +266,26 @@ textarea.input { resize:vertical; min-height:64px; }
     <button class="btn ghost" data-add="outfits">+ 줄 추가</button>
     <button class="btn primary" data-savetable="outfits">저장</button>
   </div>
-</div><div class="row-end sticky-save"><button class="btn primary" data-savetext="outfit">이 탭 문구 저장</button></div></div><div class="tab-panel" id="tab-theme" hidden>
+</div><div class="row-end sticky-save"><button class="btn primary" data-savetext="outfit">이 탭 문구 저장</button></div></div><div class="tab-panel" id="tab-font" hidden>
+  <div class="card">
+    <div class="card-title">🔤 글자 크기</div>
+    <div class="card-note">숫자는 <b>배율</b>입니다. <code>1</code> 이 기본이고 <code>1.2</code> 면 20% 큼, <code>0.85</code> 면 15% 작음. 화면 폭에 따라 자동으로 줄어드는 동작은 그대로 유지되고, 거기에 배율만 곱해집니다.</div>
+    <div class="fs-list"><div class="fs-row"><div class="fs-meta"><strong>전체</strong><span>모든 글자를 한 번에 키우거나 줄입니다. 다른 항목과 곱해집니다.</span></div><div class="fs-ctl"><input type="range" id="r-font-all" min="0.6" max="1.8" step="0.05" value="1"><input class="input fs-num" id="f-font-all" type="text" value="1" spellcheck="false"><em id="p-font-all">100%</em></div></div><div class="fs-row"><div class="fs-meta"><strong>히어로 대문짝</strong><span>메인 첫 화면의 큰 KIMFP 글자.</span></div><div class="fs-ctl"><input type="range" id="r-font-hero" min="0.6" max="1.8" step="0.05" value="1"><input class="input fs-num" id="f-font-hero" type="text" value="1" spellcheck="false"><em id="p-font-hero">100%</em></div></div><div class="fs-row"><div class="fs-meta"><strong>화면 제목</strong><span>누적공약·방셀보상·굿즈보상·한정의상 제목.</span></div><div class="fs-ctl"><input type="range" id="r-font-title" min="0.6" max="1.8" step="0.05" value="1"><input class="input fs-num" id="f-font-title" type="text" value="1" spellcheck="false"><em id="p-font-title">100%</em></div></div><div class="fs-row"><div class="fs-meta"><strong>소제목</strong><span>확정 방셀 단가, 굿즈 단계명, 의상 카드 제목, 포스터 이름.</span></div><div class="fs-ctl"><input type="range" id="r-font-sub" min="0.6" max="1.8" step="0.05" value="1"><input class="input fs-num" id="f-font-sub" type="text" value="1" spellcheck="false"><em id="p-font-sub">100%</em></div></div><div class="fs-row"><div class="fs-meta"><strong>영문 라벨</strong><span>CUMULATIVE PROMISE·MINI 같은 작은 영문 글자.</span></div><div class="fs-ctl"><input type="range" id="r-font-kicker" min="0.6" max="1.8" step="0.05" value="1"><input class="input fs-num" id="f-font-kicker" type="text" value="1" spellcheck="false"><em id="p-font-kicker">100%</em></div></div><div class="fs-row"><div class="fs-meta"><strong>본문 설명</strong><span>화면 설명문, 굿즈 구성 설명, 공약 내용, 룰렛 항목.</span></div><div class="fs-ctl"><input type="range" id="r-font-body" min="0.6" max="1.8" step="0.05" value="1"><input class="input fs-num" id="f-font-body" type="text" value="1" spellcheck="false"><em id="p-font-body">100%</em></div></div><div class="fs-row"><div class="fs-meta"><strong>숫자·강조</strong><span>582개·1111·10만 같은 큰 숫자와 번호.</span></div><div class="fs-ctl"><input type="range" id="r-font-number" min="0.6" max="1.8" step="0.05" value="1"><input class="input fs-num" id="f-font-number" type="text" value="1" spellcheck="false"><em id="p-font-number">100%</em></div></div><div class="fs-row"><div class="fs-meta"><strong>목차·버튼</strong><span>왼쪽 목차, 탭 버튼, 목차 카드 제목.</span></div><div class="fs-ctl"><input type="range" id="r-font-nav" min="0.6" max="1.8" step="0.05" value="1"><input class="input fs-num" id="f-font-nav" type="text" value="1" spellcheck="false"><em id="p-font-nav">100%</em></div></div></div>
+    <div class="row-end">
+      <button class="btn ghost" id="fontReset">기본값으로</button>
+      <button class="btn primary" data-savetext="font">글자 크기 저장</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">미리보기</div>
+    <div class="fs-preview" id="fontPreview">
+      <span class="fp-kicker">LIMITED MERCHANDISE</span>
+      <h2 class="fp-title">굿즈보상</h2>
+      <p class="fp-body">선택형 굿즈부터 모든 색상 풀세트까지 단계별로 정리했습니다.</p>
+      <div class="fp-card"><small class="fp-kicker">MINI</small><strong class="fp-num">582개</strong><h3 class="fp-sub">미니굿즈</h3><p class="fp-body">미니 아크릴 키링</p></div>
+    </div>
+  </div>
+</div><div class="tab-panel" id="tab-theme" hidden>
   <div class="card">
     <div class="card-title">🎨 색 팔레트</div>
     <div class="card-note">색을 바꾸면 아래 미리보기에 바로 반영됩니다. 저장하면 사이트 전체에 적용됩니다.
@@ -392,6 +433,14 @@ var profileKeys = [
  "cover-logo",
  "logo-emblem",
  "page-image",
+ "font-all",
+ "font-hero",
+ "font-title",
+ "font-sub",
+ "font-kicker",
+ "font-body",
+ "font-number",
+ "font-nav",
  "soop-id",
  "soop-url",
  "loader-image",
@@ -486,8 +535,18 @@ var profileKeys = [
  "col2-note",
  "col2-cover"
 ];
+var fontKeys    = [
+ "font-all",
+ "font-hero",
+ "font-title",
+ "font-sub",
+ "font-kicker",
+ "font-body",
+ "font-number",
+ "font-nav"
+];
 var themeKeys   = ["theme-ink", "theme-muted", "theme-paper", "theme-sheet", "theme-night", "theme-night-soft", "theme-iris", "theme-ice", "theme-rose", "theme-sand", "theme-mint", "theme-night-deep", "theme-hero", "theme-page", "theme-screen"];
-var tabFields   = {"site": ["logo-image", "hero-logo", "cover-logo", "logo-emblem", "page-image", "soop-id", "soop-url", "site-title", "site-desc", "brand-name", "brand-sub", "mobile-brand", "status-time", "status-title", "side-kicker", "side-title", "footer-left", "footer-right", "loader-image", "trans-prefix"], "nav": ["nav1-mark", "nav1-eyebrow", "nav1-label", "nav2-mark", "nav2-eyebrow", "nav2-label", "nav3-mark", "nav3-eyebrow", "nav3-label", "nav4-mark", "nav4-eyebrow", "nav4-label", "nav5-mark", "nav5-eyebrow", "nav5-label"], "main": ["hero-overline-l", "hero-overline-r", "hero-title-a", "hero-title-b", "hero-title-sub", "hero-lead", "hero-btn1", "hero-btn2", "hero-ghost", "signal-text", "signal-channel", "idx1-small", "idx1-strong", "idx1-em", "idx2-small", "idx2-strong", "idx2-em", "idx3-small", "idx3-strong", "idx3-em", "lookbook-kicker", "lookbook-title", "lookbook-btn", "ledger-kicker", "ledger-title", "ledger-btn", "goodsfeat-kicker", "goodsfeat-title", "goodsfeat-desc", "goodsfeat-btn"], "promise": ["promise-kicker", "promise-title", "promise-desc", "promise-live", "promise-current", "promise-final", "promise-note", "promise-foot-strong", "promise-foot-desc"], "reward": ["reward-kicker", "reward-title", "reward-desc", "rp1-num", "rp1-small", "rp1-title", "rp1-note", "rp2-num", "rp2-small", "rp2-title", "roulette-badge-num", "roulette-badge-text", "roulette-percol"], "goods": ["goods-kicker", "goods-title", "goods-desc", "goods-caution-strong", "goods-caution-text", "merch-kicker", "merch-title", "merch-note"], "outfit": ["outfit-kicker", "outfit-title", "outfit-desc", "empty-outfit", "col1-index", "col1-eyebrow", "col1-title", "col1-note", "col1-cover", "col2-index", "col2-eyebrow", "col2-title", "col2-note", "col2-cover"]};
+var tabFields   = {"font": ["font-all", "font-hero", "font-title", "font-sub", "font-kicker", "font-body", "font-number", "font-nav"], "site": ["logo-image", "hero-logo", "cover-logo", "logo-emblem", "page-image", "soop-id", "soop-url", "site-title", "site-desc", "brand-name", "brand-sub", "mobile-brand", "status-time", "status-title", "side-kicker", "side-title", "footer-left", "footer-right", "loader-image", "trans-prefix"], "nav": ["nav1-mark", "nav1-eyebrow", "nav1-label", "nav2-mark", "nav2-eyebrow", "nav2-label", "nav3-mark", "nav3-eyebrow", "nav3-label", "nav4-mark", "nav4-eyebrow", "nav4-label", "nav5-mark", "nav5-eyebrow", "nav5-label"], "main": ["hero-overline-l", "hero-overline-r", "hero-title-a", "hero-title-b", "hero-title-sub", "hero-lead", "hero-btn1", "hero-btn2", "hero-ghost", "signal-text", "signal-channel", "idx1-small", "idx1-strong", "idx1-em", "idx2-small", "idx2-strong", "idx2-em", "idx3-small", "idx3-strong", "idx3-em", "lookbook-kicker", "lookbook-title", "lookbook-btn", "ledger-kicker", "ledger-title", "ledger-btn", "goodsfeat-kicker", "goodsfeat-title", "goodsfeat-desc", "goodsfeat-btn"], "promise": ["promise-kicker", "promise-title", "promise-desc", "promise-live", "promise-current", "promise-final", "promise-note", "promise-foot-strong", "promise-foot-desc"], "reward": ["reward-kicker", "reward-title", "reward-desc", "rp1-num", "rp1-small", "rp1-title", "rp1-note", "rp2-num", "rp2-small", "rp2-title", "roulette-badge-num", "roulette-badge-text", "roulette-percol"], "goods": ["goods-kicker", "goods-title", "goods-desc", "goods-caution-strong", "goods-caution-text", "merch-kicker", "merch-title", "merch-note"], "outfit": ["outfit-kicker", "outfit-title", "outfit-desc", "empty-outfit", "col1-index", "col1-eyebrow", "col1-title", "col1-note", "col1-cover", "col2-index", "col2-eyebrow", "col2-title", "col2-note", "col2-cover"]};
 var tableCols   = {"promises": [["amount", "text"], ["title", "text"]], "fixed_rewards": [["count", "text"], ["title", "text"], ["tone", "tone"]], "roulette": [["title", "text"], ["chance", "text"]], "goods_tiers": [["count", "text"], ["label", "text"], ["title", "text"], ["description", "area"], ["images", "imgs"], ["tone", "tone"]], "merch": [["image_url", "img"], ["name", "text"]], "outfits": [["collection", "coll"], ["name", "text"], ["image_url", "img"], ["origin_url", "img"]]};
 var DEFAULTS    = {
  "site-title": "김쁘피 여름 보상 아카이브",
@@ -502,7 +561,7 @@ var DEFAULTS    = {
  "footer-left": "KIMFP · REWARD ARCHIVE",
  "footer-right": "SUMMER 2026",
  "logo-image": "",
- "hero-logo": "",
+ "hero-logo": "assets/logo-wordmark.png",
  "cover-logo": "assets/logo-wordmark-white.png",
  "logo-emblem": "assets/logo-emblem.png",
  "page-image": "",
@@ -599,6 +658,14 @@ var DEFAULTS    = {
  "col2-note": "각 의상의 디테일과 포즈를 천천히 확인해보세요.",
  "col2-cover": "assets/ppeukini-outfits.png",
  "empty-outfit": "이 컬렉션에는 아직 송출된 프레임이 없어요.",
+ "font-all": "1",
+ "font-hero": "1",
+ "font-title": "1",
+ "font-sub": "1",
+ "font-kicker": "1",
+ "font-body": "1",
+ "font-number": "1",
+ "font-nav": "1",
  "theme-ink": "#243447",
  "theme-muted": "#526B85",
  "theme-paper": "#F7FAFC",

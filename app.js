@@ -494,6 +494,7 @@
             if (prof[k] !== undefined && prof[k] !== null && prof[k] !== '') T[k] = prof[k];
           });
           if (typeof applyTheme === 'function') applyTheme(prof);
+          if (typeof applyFonts === 'function') applyFonts(prof);
         }
       }
       if (typeof fetchAll === 'function') {

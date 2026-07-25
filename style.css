@@ -1,4 +1,12 @@
 :root {
+  --fs-all: 1;
+  --fs-hero: 1;
+  --fs-title: 1;
+  --fs-sub: 1;
+  --fs-kicker: 1;
+  --fs-body: 1;
+  --fs-number: 1;
+  --fs-nav: 1;
   --ink: #243447;
   --muted: #526B85;
   --paper: #F7FAFC;
@@ -211,7 +219,7 @@ img {
 .side-note span {
   margin-bottom: 10px;
   color: var(--ice);
-  font-size: 8px;
+  font-size: calc((8px) * var(--fs-kicker, 1) * var(--fs-all, 1));
   font-weight: 800;
   letter-spacing: 0.17em;
 }
@@ -305,7 +313,7 @@ img {
 
 .hero-title h1 {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(58px, 9vw, 124px);
+  font-size: calc((clamp(58px, 9vw, 124px)) * var(--fs-hero, 1) * var(--fs-all, 1));
   font-weight: 400;
   letter-spacing: -0.075em;
   line-height: 0.8;
@@ -318,7 +326,7 @@ img {
 
 .hero-title h2 {
   margin-top: 28px;
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: calc((clamp(28px, 4vw, 52px)) * var(--fs-sub, 1) * var(--fs-all, 1));
   font-weight: 700;
   letter-spacing: -0.055em;
 }
@@ -393,7 +401,7 @@ img {
   display: block;
   margin-bottom: 8px;
   color: var(--iris);
-  font-size: 8px;
+  font-size: calc((8px) * var(--fs-kicker, 1) * var(--fs-all, 1));
   font-weight: 900;
   letter-spacing: 0.17em;
 }
@@ -401,7 +409,7 @@ img {
 .editorial-heading h3,
 .subsection-heading h3 {
   margin: 0;
-  font-size: clamp(25px, 3vw, 38px);
+  font-size: calc((clamp(25px, 3vw, 38px)) * var(--fs-sub, 1) * var(--fs-all, 1));
   letter-spacing: -0.055em;
 }
 
@@ -550,7 +558,7 @@ img {
 .section-title h2 {
   margin: 28px 0 14px;
   font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
-  font-size: clamp(58px, 7.6vw, 104px);
+  font-size: calc((clamp(58px, 7.6vw, 104px)) * var(--fs-title, 1) * var(--fs-all, 1));
   font-weight: 400;
   letter-spacing: -0.08em;
   line-height: 0.95;
@@ -560,7 +568,7 @@ img {
   max-width: 520px;
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: calc((13px) * var(--fs-body, 1) * var(--fs-all, 1));
   line-height: 1.75;
 }
 
@@ -753,7 +761,7 @@ img {
   grid-row: 1 / 3;
   color: var(--iris);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 20px;
+  font-size: calc((20px) * var(--fs-number, 1) * var(--fs-all, 1));
 }
 
 .roulette-panel .panel-number {
@@ -768,7 +776,7 @@ img {
 
 .panel-heading h3 {
   margin: 7px 0 0;
-  font-size: clamp(24px, 3vw, 36px);
+  font-size: calc((clamp(24px, 3vw, 36px)) * var(--fs-sub, 1) * var(--fs-all, 1));
   letter-spacing: -0.05em;
 }
 
@@ -780,7 +788,7 @@ img {
 .panel-note {
   margin: 24px 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: calc((11px) * var(--fs-body, 1) * var(--fs-all, 1));
   line-height: 1.7;
 }
 
@@ -801,12 +809,12 @@ img {
 .fixed-reward strong {
   color: var(--iris);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 24px;
+  font-size: calc((24px) * var(--fs-number, 1) * var(--fs-all, 1));
   font-weight: 400;
 }
 
 .fixed-reward span {
-  font-size: 13px;
+  font-size: calc((13px) * var(--fs-body, 1) * var(--fs-all, 1));
 }
 
 .roulette-badge {
@@ -821,7 +829,7 @@ img {
 .roulette-badge strong {
   color: var(--ice);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 38px;
+  font-size: calc((38px) * var(--fs-number, 1) * var(--fs-all, 1));
   font-weight: 400;
 }
 
@@ -886,7 +894,7 @@ img {
 
 .goods-tier-copy small {
   color: var(--iris);
-  font-size: 8px;
+  font-size: calc((8px) * var(--fs-kicker, 1) * var(--fs-all, 1));
   font-weight: 900;
   letter-spacing: 0.15em;
 }
@@ -895,20 +903,20 @@ img {
   margin-top: auto;
   color: var(--iris);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 32px;
+  font-size: calc((32px) * var(--fs-number, 1) * var(--fs-all, 1));
   font-weight: 400;
 }
 
 .goods-tier-copy h3 {
   margin: 9px 0 12px;
-  font-size: 27px;
+  font-size: calc((27px) * var(--fs-sub, 1) * var(--fs-all, 1));
   letter-spacing: -0.05em;
 }
 
 .goods-tier-copy p {
   margin: 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: calc((11px) * var(--fs-body, 1) * var(--fs-all, 1));
   line-height: 1.65;
 }
 
@@ -1002,7 +1010,7 @@ img {
 .merch-gallery figcaption {
   padding: 13px 15px;
   border-top: 1px solid var(--line);
-  font-size: 11px;
+  font-size: calc((11px) * var(--fs-sub, 1) * var(--fs-all, 1));
 }
 
 .lookbook-grid {
@@ -1046,13 +1054,13 @@ img {
 .lookbook-label small {
   margin-bottom: 5px;
   color: var(--muted);
-  font-size: 7px;
+  font-size: calc((7px) * var(--fs-kicker, 1) * var(--fs-all, 1));
   font-weight: 900;
   letter-spacing: 0.14em;
 }
 
 .lookbook-label h3 {
-  font-size: 20px;
+  font-size: calc((20px) * var(--fs-sub, 1) * var(--fs-all, 1));
   letter-spacing: -0.04em;
   word-break: keep-all;
 }
@@ -1137,7 +1145,7 @@ img {
 .lookbook-card > p {
   margin: 16px 0 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: calc((11px) * var(--fs-body, 1) * var(--fs-all, 1));
 }
 
 .carousel-count {
@@ -1149,7 +1157,7 @@ img {
 .carousel-count strong {
   color: var(--iris);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 33px;
+  font-size: calc((33px) * var(--fs-number, 1) * var(--fs-all, 1));
   font-weight: 400;
 }
 
@@ -1169,7 +1177,7 @@ img {
   border: 0;
   color: var(--muted);
   background: transparent;
-  font-size: 11px;
+  font-size: calc((11px) * var(--fs-nav, 1) * var(--fs-all, 1));
   font-weight: 800;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -1285,7 +1293,7 @@ img {
 
 .poster-serial {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 15px;
+  font-size: calc((15px) * var(--fs-number, 1) * var(--fs-all, 1));
   letter-spacing: 0.06em;
   text-shadow: 0 1px 5px rgba(4, 30, 40, 0.7);
 }
@@ -1300,7 +1308,7 @@ img {
   padding: 4px 8px;
   color: #fff;
   background: var(--iris);
-  font-size: 7px;
+  font-size: calc((7px) * var(--fs-kicker, 1) * var(--fs-all, 1));
   font-weight: 900;
   letter-spacing: 0.14em;
 }
@@ -1327,7 +1335,7 @@ img {
 
 .poster-bottom strong {
   display: block;
-  font-size: 14px;
+  font-size: calc((14px) * var(--fs-sub, 1) * var(--fs-all, 1));
   letter-spacing: -0.02em;
   line-height: 1.2;
   text-shadow: 0 2px 8px rgba(4, 30, 40, 0.7);
@@ -1353,11 +1361,11 @@ img {
 }
 
 .poster-grid > .poster-tile:first-child .poster-serial {
-  font-size: 24px;
+  font-size: calc((24px) * var(--fs-number, 1) * var(--fs-all, 1));
 }
 
 .poster-grid > .poster-tile:first-child .poster-bottom strong {
-  font-size: 25px;
+  font-size: calc((25px) * var(--fs-sub, 1) * var(--fs-all, 1));
 }
 
 .poster-grid > .poster-tile:first-child .poster-rule {
@@ -1623,7 +1631,7 @@ img {
   }
 
 .hero-title h1 {
-    font-size: clamp(56px, 13vw, 100px);
+    font-size: calc((clamp(56px, 13vw, 100px)) * var(--fs-hero, 1) * var(--fs-all, 1));
   }
 
 .hero-lower,
@@ -1762,11 +1770,11 @@ swipeable product strips with a visible bottom scrollbar. */
   }
 
 .hero-title h1 {
-    font-size: clamp(49px, 15vw, 72px);
+    font-size: calc((clamp(49px, 15vw, 72px)) * var(--fs-hero, 1) * var(--fs-all, 1));
   }
 
 .hero-title h2 {
-    font-size: 28px;
+    font-size: calc((28px) * var(--fs-sub, 1) * var(--fs-all, 1));
   }
 
 .hero-lower {
@@ -1805,7 +1813,7 @@ swipeable product strips with a visible bottom scrollbar. */
   }
 
 .section-title h2 {
-    font-size: 56px;
+    font-size: calc((56px) * var(--fs-title, 1) * var(--fs-all, 1));
   }
 
 .section-title::after {
@@ -1894,11 +1902,11 @@ swipeable product strips with a visible bottom scrollbar. */
   }
 
 .poster-bottom strong {
-    font-size: 12px;
+    font-size: calc((12px) * var(--fs-sub, 1) * var(--fs-all, 1));
   }
 
 .poster-grid > .poster-tile:first-child .poster-bottom strong {
-    font-size: 19px;
+    font-size: calc((19px) * var(--fs-sub, 1) * var(--fs-all, 1));
   }
 
 .site-footer {
@@ -2209,7 +2217,7 @@ body::before,
 .promise-node strong {
   display: block;
   margin-bottom: 9px;
-  font-size: 21px;
+  font-size: calc((21px) * var(--fs-number, 1) * var(--fs-all, 1));
   letter-spacing: -0.04em;
 }
 
@@ -2217,7 +2225,7 @@ body::before,
   min-height: 42px;
   margin: 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: calc((11px) * var(--fs-body, 1) * var(--fs-all, 1));
   font-weight: 600;
   line-height: 1.45;
   word-break: keep-all;
@@ -2777,7 +2785,7 @@ body {
 }
 
 .view-experience[data-view="ipad"] .panel-heading h3 {
-  font-size: 30px;
+  font-size: calc((30px) * var(--fs-sub, 1) * var(--fs-all, 1));
   white-space: nowrap;
 }
 
@@ -3158,12 +3166,12 @@ body[data-view-mode="ipad"] {
 }
 
 .view-experience[data-view="ipad"] .hero-title h1 {
-  font-size: clamp(58px, 7vw, 78px);
+  font-size: calc((clamp(58px, 7vw, 78px)) * var(--fs-hero, 1) * var(--fs-all, 1));
   transform: translateY(-58px);
 }
 
 .view-experience[data-view="ipad"] .hero-title h2 {
-  font-size: 32px;
+  font-size: calc((32px) * var(--fs-sub, 1) * var(--fs-all, 1));
 }
 
 .view-experience[data-view="ipad"] .hero-lower {
@@ -3500,13 +3508,13 @@ body[data-view-mode="ipad"] {
 
 .view-experience[data-view="ipad"] .hero-title h1 {
   color: #fff;
-  font-size: clamp(74px, 6vw, 116px);
+  font-size: calc((clamp(74px, 6vw, 116px)) * var(--fs-hero, 1) * var(--fs-all, 1));
   transform: translateY(-22px);
 }
 
 .view-experience[data-view="ipad"] .hero-title h2 {
   color: #fff;
-  font-size: clamp(32px, 3vw, 46px);
+  font-size: calc((clamp(32px, 3vw, 46px)) * var(--fs-sub, 1) * var(--fs-all, 1));
 }
 
 .view-experience[data-view="ipad"] .hero-lower {
@@ -3532,15 +3540,15 @@ body[data-view-mode="ipad"] {
 }
 
 .view-experience[data-view="ipad"] .poster-bottom strong {
-  font-size: 11px;
+  font-size: calc((11px) * var(--fs-sub, 1) * var(--fs-all, 1));
 }
 
 .view-experience[data-view="ipad"] .poster-grid > .poster-tile:first-child .poster-bottom strong {
-  font-size: 19px;
+  font-size: calc((19px) * var(--fs-sub, 1) * var(--fs-all, 1));
 }
 
 .view-experience[data-view="ipad"] .poster-grid > .poster-tile:first-child .poster-serial {
-  font-size: 19px;
+  font-size: calc((19px) * var(--fs-number, 1) * var(--fs-all, 1));
 }
 
 @media (max-width: 860px) {.view-experience[data-view="ipad"] {
@@ -3598,7 +3606,7 @@ body[data-view-mode="ipad"] {
   }
 
 .view-experience[data-view="ipad"] .hero-title h1 {
-    font-size: clamp(48px, 9vw, 72px);
+    font-size: calc((clamp(48px, 9vw, 72px)) * var(--fs-hero, 1) * var(--fs-all, 1));
   }
 
 .view-experience[data-view="ipad"] .hero-lower {
@@ -4056,11 +4064,11 @@ body.dark .poster-viewer figcaption a { color: var(--ice); }
 
   .view-experience[data-view="ipad"] .panel-heading h3 {
     min-width: 0;
-    font-size: 15px;
+    font-size: calc((15px) * var(--fs-sub, 1) * var(--fs-all, 1));
     word-break: keep-all;
   }
 
-  .view-experience[data-view="ipad"] .panel-number { font-size: 18px; }
+  .view-experience[data-view="ipad"] .panel-number { font-size: calc((18px) * var(--fs-number, 1) * var(--fs-all, 1)); }
 
   .view-experience[data-view="ipad"] .reward-panel { padding: 16px; }
 
@@ -4074,8 +4082,8 @@ body.dark .poster-viewer figcaption a { color: var(--ice); }
 @media (max-width: 520px) {
   .view-experience[data-view="ipad"] .page-content { padding: 18px 14px; }
   .view-experience[data-view="ipad"] .main-page { padding-top: 16px; }
-  .view-experience[data-view="ipad"] .goods-tier-copy strong { font-size: 18px; }
-  .view-experience[data-view="ipad"] .goods-tier-copy h3 { font-size: 15px; }
+  .view-experience[data-view="ipad"] .goods-tier-copy strong { font-size: calc((18px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .goods-tier-copy h3 { font-size: calc((15px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .site-footer { margin: 0 14px; }
 }
 
@@ -4117,24 +4125,24 @@ body.dark .poster-viewer figcaption a { color: var(--ice); }
 
 @media (max-width: 760px) {
   .view-experience[data-view="ipad"] .poster-top { padding: 11px 11px 0; gap: 5px; }
-  .view-experience[data-view="ipad"] .poster-serial { font-size: 11px; }
-  .view-experience[data-view="ipad"] .poster-badge { padding: 3px 5px; font-size: 6px; letter-spacing: .08em; }
+  .view-experience[data-view="ipad"] .poster-serial { font-size: calc((11px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .poster-badge { padding: 3px 5px; font-size: calc((6px) * var(--fs-kicker, 1) * var(--fs-all, 1)); letter-spacing: .08em; }
   .view-experience[data-view="ipad"] .poster-grid > .poster-tile:not(:first-child) .poster-badge { display: none; }
   .view-experience[data-view="ipad"] .poster-bottom { padding: 0 11px 11px; }
 
-  .view-experience[data-view="ipad"] .goods-tier-copy strong { font-size: 20px; }
-  .view-experience[data-view="ipad"] .goods-tier-copy h3 { font-size: 15px; word-break: keep-all; }
-  .view-experience[data-view="ipad"] .goods-tier-copy small { font-size: 6.5px; letter-spacing: .1em; }
-  .view-experience[data-view="ipad"] .goods-tier-copy p { font-size: 10.5px; word-break: keep-all; }
+  .view-experience[data-view="ipad"] .goods-tier-copy strong { font-size: calc((20px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .goods-tier-copy h3 { font-size: calc((15px) * var(--fs-sub, 1) * var(--fs-all, 1)); word-break: keep-all; }
+  .view-experience[data-view="ipad"] .goods-tier-copy small { font-size: calc((6.5px) * var(--fs-kicker, 1) * var(--fs-all, 1)); letter-spacing: .1em; }
+  .view-experience[data-view="ipad"] .goods-tier-copy p { font-size: calc((10.5px) * var(--fs-body, 1) * var(--fs-all, 1)); word-break: keep-all; }
 }
 
 @media (max-width: 520px) {
-  .view-experience[data-view="ipad"] .hero-title h1 { font-size: 40px; transform: translateY(-24px); }
-  .view-experience[data-view="ipad"] .hero-title h2 { font-size: 20px; }
+  .view-experience[data-view="ipad"] .hero-title h1 { font-size: calc((40px) * var(--fs-hero, 1) * var(--fs-all, 1)); transform: translateY(-24px); }
+  .view-experience[data-view="ipad"] .hero-title h2 { font-size: calc((20px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .hero-title { padding-top: 30px; }
   .view-experience[data-view="ipad"] .poster-badge { display: none; }
-  .view-experience[data-view="ipad"] .goods-tier-copy strong { font-size: 17px; }
-  .view-experience[data-view="ipad"] .goods-tier-copy h3 { font-size: 13px; }
+  .view-experience[data-view="ipad"] .goods-tier-copy strong { font-size: calc((17px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .goods-tier-copy h3 { font-size: calc((13px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
 }
 
 /* ── 좁은 폭에서 글자가 "잘리는" 대신 "줄바꿈"되게 ──────────────
@@ -4152,7 +4160,7 @@ body.dark .poster-viewer figcaption a { color: var(--ice); }
 }
 
 @media (max-width: 400px) {
-  .view-experience[data-view="ipad"] .hero-title h1 { font-size: 32px; }
+  .view-experience[data-view="ipad"] .hero-title h1 { font-size: calc((32px) * var(--fs-hero, 1) * var(--fs-all, 1)); }
 }
 
 /* ══ 특이도 보정 + 줄바꿈 불가 한글 라벨 대응 ══════════════════
@@ -4174,18 +4182,18 @@ body.dark .poster-viewer figcaption a { color: var(--ice); }
     padding: 16px;
   }
 
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: 20px; }
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: 15px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: calc((20px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: calc((15px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .content-sheet .goods-tier-image { min-height: 150px; }
 }
 
 @media (max-width: 520px) {
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: 17px; }
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: 13px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: calc((17px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: calc((13px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
 }
 
 @media (max-width: 400px) {
-  .view-experience[data-view="ipad"] .content-sheet .hero-title h1 { font-size: 32px; }
+  .view-experience[data-view="ipad"] .content-sheet .hero-title h1 { font-size: calc((32px) * var(--fs-hero, 1) * var(--fs-all, 1)); }
 }
 
 /* ══ editorial-index — 캐논 정의 (구 52개 규칙 통합) ═══════════════
@@ -4228,7 +4236,7 @@ body.dark .poster-viewer figcaption a { color: var(--ice); }
   display: block;
   color: var(--iris);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 24px;
+  font-size: calc((24px) * var(--fs-number, 1) * var(--fs-all, 1));
   font-weight: 400;
 }
 
@@ -4246,7 +4254,7 @@ body.dark .poster-viewer figcaption a { color: var(--ice); }
 }
 
 .editorial-index strong {
-  font-size: 20px;
+  font-size: calc((20px) * var(--fs-nav, 1) * var(--fs-all, 1));
   letter-spacing: -0.04em;
   word-break: keep-all;
   overflow-wrap: anywhere;   /* 어떤 폭에서도 넘치지 않는 안전망 */
@@ -4271,19 +4279,19 @@ body.dark .poster-viewer figcaption a { color: var(--ice); }
     border-left: 1px solid var(--line);
     min-height: 90px;
   }
-  .editorial-index strong { font-size: 18px; }
+  .editorial-index strong { font-size: calc((18px) * var(--fs-nav, 1) * var(--fs-all, 1)); }
 }
 
 @media (max-width: 400px) {
-  .editorial-index strong { font-size: 12px; }
+  .editorial-index strong { font-size: calc((12px) * var(--fs-nav, 1) * var(--fs-all, 1)); }
   .editorial-index small { font-size: 5px; }
 }
 
 @media (max-width: 520px) {
   .editorial-index { padding: 0 14px; }
   .editorial-index button { grid-template-columns: 26px minmax(0, 1fr) 16px; gap: 8px; padding: 0 12px; min-height: 76px; }
-  .editorial-index > button > span { font-size: 17px; }
-  .editorial-index strong { font-size: 15px; }
+  .editorial-index > button > span { font-size: calc((17px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .editorial-index strong { font-size: calc((15px) * var(--fs-nav, 1) * var(--fs-all, 1)); }
   .editorial-index small { font-size: 5.5px; letter-spacing: .06em; }
   .editorial-index b { font-size: 15px; }
 }
@@ -4413,7 +4421,7 @@ body.dark {
   .view-experience[data-view="ipad"] .side-navigation nav button:hover,
   .view-experience[data-view="ipad"] .side-navigation nav button.active { padding-left: 2px; }
 
-  .view-experience[data-view="ipad"] .side-navigation nav button strong { font-size: 10.5px; }
+  .view-experience[data-view="ipad"] .side-navigation nav button strong { font-size: calc((10.5px) * var(--fs-nav, 1) * var(--fs-all, 1)); }
 
   /* 좁으니 부가 요소는 접는다 */
   .view-experience[data-view="ipad"] .side-navigation nav small,
@@ -4494,22 +4502,22 @@ body.dark {
   }
 
   .view-experience[data-view="ipad"] .content-sheet .section-title h2 {
-    font-size: 30px;
+    font-size: calc((30px) * var(--fs-title, 1) * var(--fs-all, 1));
     line-height: 1.02;
   }
 
-  .view-experience[data-view="ipad"] .content-sheet .section-title p { font-size: 10.5px; }
+  .view-experience[data-view="ipad"] .content-sheet .section-title p { font-size: calc((10.5px) * var(--fs-body, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .subsection-heading,
   .view-experience[data-view="ipad"] .editorial-heading { margin-bottom: 12px; padding-bottom: 10px; }
 
   /* 히어로 */
   .view-experience[data-view="ipad"] .editorial-hero { min-height: 0; padding: 16px 12px 18px; }
-  .view-experience[data-view="ipad"] .hero-lower p { font-size: 11px; }
+  .view-experience[data-view="ipad"] .hero-lower p { font-size: calc((11px) * var(--fs-body, 1) * var(--fs-all, 1)); }
 
   /* 큰 이미지 높이 (310px → 176px) */
   .view-experience[data-view="ipad"] .lookbook-image img { height: 176px; }
   .view-experience[data-view="ipad"] .content-sheet .lookbook-card { padding: 12px; }
-  .view-experience[data-view="ipad"] .lookbook-card > p { margin-top: 10px; font-size: 10px; }
+  .view-experience[data-view="ipad"] .lookbook-card > p { margin-top: 10px; font-size: calc((10px) * var(--fs-body, 1) * var(--fs-all, 1)); }
 
   /* 굿즈: 카드 높이 축소 + 갤러리 3열 (6줄 → 4줄) */
   .view-experience[data-view="ipad"] .content-sheet .goods-tier { min-height: 0; }
@@ -4522,7 +4530,7 @@ body.dark {
     gap: 6px;
   }
 
-  .view-experience[data-view="ipad"] .merch-gallery figcaption { padding: 6px 0; font-size: 8.5px; }
+  .view-experience[data-view="ipad"] .merch-gallery figcaption { padding: 6px 0; font-size: calc((8.5px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
 
   /* 룰렛: 2열로 (18줄 → 9줄) */
   .view-experience[data-view="ipad"] .roulette-columns {
@@ -4532,11 +4540,11 @@ body.dark {
   }
 
   .view-experience[data-view="ipad"] .roulette-list > div { min-height: 0; padding: 7px 0; gap: 6px; }
-  .view-experience[data-view="ipad"] .roulette-list > div span { font-size: 9.5px; }
+  .view-experience[data-view="ipad"] .roulette-list > div span { font-size: calc((9.5px) * var(--fs-body, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .roulette-list > div strong { font-size: 9.5px; }
   .view-experience[data-view="ipad"] .content-sheet .reward-panel { padding: 12px; }
   .view-experience[data-view="ipad"] .panel-heading { padding-bottom: 12px; }
-  .view-experience[data-view="ipad"] .panel-note { font-size: 10px; }
+  .view-experience[data-view="ipad"] .panel-note { font-size: calc((10px) * var(--fs-body, 1) * var(--fs-all, 1)); }
 
   /* 목록 행 높이 */
   .view-experience[data-view="ipad"] .fixed-reward { min-height: 50px; }
@@ -4560,9 +4568,9 @@ body.dark {
   }
 
   .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy { padding: 10px; }
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: 15px; }
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: 12px; }
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > p { font-size: 9.5px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: calc((15px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: calc((12px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > p { font-size: calc((9.5px) * var(--fs-body, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .content-sheet .goods-tier-image { min-height: 88px; }
 
   /* 굿즈 갤러리: 썸네일 칸을 정사각으로 (행 높이 235 → 130) */
@@ -4584,9 +4592,9 @@ body.dark {
   .view-experience[data-view="ipad"] .lookbook-image img { height: 148px; }
   .view-experience[data-view="ipad"] .lookbook-label { gap: 6px 8px; margin-bottom: 10px; }
   .view-experience[data-view="ipad"] .lookbook-label > span { font-size: 18px; }
-  .view-experience[data-view="ipad"] .lookbook-label h3 { font-size: 13px; }
+  .view-experience[data-view="ipad"] .lookbook-label h3 { font-size: calc((13px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .lookbook-flag { display: none; }
-  .view-experience[data-view="ipad"] .lookbook-card > p { font-size: 9.5px; margin-top: 8px; }
+  .view-experience[data-view="ipad"] .lookbook-card > p { font-size: calc((9.5px) * var(--fs-body, 1) * var(--fs-all, 1)); margin-top: 8px; }
   .view-experience[data-view="ipad"] .lookbook-cue { padding: 5px 7px; font-size: 6.5px; }
 
   /* 포스터 격자: 히어로 확대 해제 (2열 3줄) */
@@ -4597,15 +4605,15 @@ body.dark {
 
   .view-experience[data-view="ipad"] .poster-grid > .poster-tile:first-child .poster-serial,
   .view-experience[data-view="ipad"] .poster-grid > .poster-tile:first-child .poster-bottom strong {
-    font-size: inherit;
+    font-size: calc((inherit) * var(--fs-sub, 1) * var(--fs-all, 1));
   }
 
   .view-experience[data-view="ipad"] .poster-grid { gap: 6px; }
 
   /* 히어로 추가 압축 */
-  .view-experience[data-view="ipad"] .content-sheet .hero-title h1 { font-size: 34px; transform: none; }
+  .view-experience[data-view="ipad"] .content-sheet .hero-title h1 { font-size: calc((34px) * var(--fs-hero, 1) * var(--fs-all, 1)); transform: none; }
   .view-experience[data-view="ipad"] .hero-title { padding-top: 8px; }
-  .view-experience[data-view="ipad"] .hero-title h2 { font-size: 17px; }
+  .view-experience[data-view="ipad"] .hero-title h2 { font-size: calc((17px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .hero-actions button { padding: 10px 12px; font-size: 9.5px; }
 }
 
@@ -4899,9 +4907,9 @@ body.dark {
 
   .view-experience[data-view="ipad"] .promise-node > span { font-size: 8px; }
   .view-experience[data-view="ipad"] .promise-node > i { display: none; }
-  .view-experience[data-view="ipad"] .promise-node strong { font-size: 17px; }
+  .view-experience[data-view="ipad"] .promise-node strong { font-size: calc((17px) * var(--fs-number, 1) * var(--fs-all, 1)); }
   .view-experience[data-view="ipad"] .promise-node h3 {
-    font-size: 10.5px;
+    font-size: calc((10.5px) * var(--fs-body, 1) * var(--fs-all, 1));
     line-height: 1.35;
     word-break: keep-all;
   }
@@ -4926,9 +4934,9 @@ body.dark {
     padding: 14px 16px;
   }
 
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: 21px; }
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: 15px; }
-  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > p { font-size: 11px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: calc((21px) * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: calc((15px) * var(--fs-sub, 1) * var(--fs-all, 1)); }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > p { font-size: calc((11px) * var(--fs-body, 1) * var(--fs-all, 1)); }
 
   .view-experience[data-view="ipad"] .content-sheet .goods-tier-image {
     min-height: 132px;
@@ -5125,4 +5133,44 @@ body.dark {
   .chan-cover img.chan-cover-logo { width: 128px; }
   .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy { padding: 13px 16px; }
   .view-experience[data-view="ipad"] .content-sheet .goods-tier-image { min-height: 132px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ① 굿즈 글자칸 폭 축소
+   글자칸 366px 에 가장 긴 글자가 103px — 219px 가 빈 공간이었다.
+   글자칸을 좁히고 남는 폭을 사진 쪽에 넘긴다.
+   ════════════════════════════════════════════════════════════════ */
+.view-experience[data-view="ipad"] .content-sheet .goods-tier {
+  grid-template-columns: minmax(0, 258px) minmax(0, 1fr);
+}
+
+/* ② 메인 미리보기: 어두운 판 위에 사진이 떠 보이던 걸 밝은 바탕으로 */
+.look-split { background: color-mix(in srgb, var(--ice) 26%, var(--paper)); }
+.look-half img { width: 42%; }
+
+@media (hover: hover) {
+  .look-split:has(.look-a:hover) .look-a img,
+  .look-split:has(.look-b:hover) .look-b img { width: 66%; }
+  .look-split:has(.look-a:hover) .look-b img,
+  .look-split:has(.look-b:hover) .look-a img { width: 18%; }
+}
+
+/* ③ 히어로 우측 로고 — y70~350 이 비어 있어 그 자리에 넣는다 */
+.hero-logo {
+  position: absolute;
+  top: 19%;
+  right: clamp(20px, 4.4vw, 52px);
+  z-index: 2;
+  width: clamp(150px, 25%, 268px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 700px) {
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-logo { top: auto; bottom: 14px; right: 12px; width: 116px; }
 }

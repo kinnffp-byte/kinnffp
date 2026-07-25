@@ -78,6 +78,7 @@
     });
     refreshThumbs();
     applyPreview();
+    fontPreview();
   }
 
   async function saveText(tabKey) {
@@ -146,6 +147,34 @@
       pv.style.setProperty('--pv-' + short, f.value);
     });
   }
+
+  /* ── 글자 크기: 슬라이더 ↔ 숫자칸 ↔ 미리보기 ─────────────── */
+  function fontPreview() {
+    var pv = el('fontPreview');
+    fontKeys.forEach(function (k) {
+      var f = el('f-' + k);
+      if (!f) return;
+      var short = k.replace('font-', '');
+      var v = parseFloat(f.value);
+      if (isNaN(v) || v <= 0) v = 1;
+      var r = el('r-' + k); if (r) r.value = v;
+      var p = el('p-' + k); if (p) p.textContent = Math.round(v * 100) + '%';
+      if (pv) pv.style.setProperty('--pf-' + short, String(v));
+    });
+  }
+
+  fontKeys.forEach(function (k) {
+    var f = el('f-' + k), r = el('r-' + k);
+    if (r) r.addEventListener('input', function () { if (f) f.value = r.value; fontPreview(); });
+    if (f) f.addEventListener('input', fontPreview);
+  });
+
+  var fReset = el('fontReset');
+  if (fReset) fReset.addEventListener('click', function () {
+    fontKeys.forEach(function (k) { var f = el('f-' + k); if (f) f.value = '1'; });
+    fontPreview();
+    toast('기본 크기로 되돌렸습니다. (저장을 눌러야 반영됩니다)');
+  });
 
   var reset = el('themeReset');
   if (reset) reset.addEventListener('click', function () {

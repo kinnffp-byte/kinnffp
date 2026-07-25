@@ -33,6 +33,17 @@ async function insertRow(table, row) { if (!db) return { error: 'no db' }; retur
 async function updateRow(table, id, row) { if (!db) return { error: 'no db' }; return db.from(table).update(row).eq('id', id); }
 async function deleteRow(table, id) { if (!db) return { error: 'no db' }; return db.from(table).delete().eq('id', id); }
 
+/* 글자 크기: profile.data 의 font-* 키(배율)를 CSS 변수로 적용 */
+const FONT_KEYS = ['all','hero','title','sub','kicker','body','number','nav'];
+function applyFonts(data) {
+  if (!data) return;
+  const root = document.documentElement.style;
+  FONT_KEYS.forEach(k => {
+    const v = parseFloat(data['font-' + k]);
+    if (!isNaN(v) && v > 0) root.setProperty('--fs-' + k, String(v));
+  });
+}
+
 /* 테마: profile.data 의 theme-* 키를 CSS 변수로 적용 */
 const THEME_KEYS = ['ink','muted','paper','night','night-soft','iris','ice',
                     'rose','sand','mint','night-deep','hero','sheet','page','screen'];
