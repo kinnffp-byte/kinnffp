@@ -193,8 +193,9 @@
     var src = txt(T['roulette-logo']).trim();
     if (!src || !lists || !layout || !panel) return;
 
-    var room = layout.clientWidth - panel.offsetWidth;
-    if (room < 190) return;               // 카드가 거의 꽉 차면 로고 자리 없음
+    /* 카드가 가운데 정렬이라 남는 폭은 좌우로 반씩 나뉜다 → 오른쪽 여유만 본다 */
+    var room = (layout.clientWidth - panel.offsetWidth) / 2;
+    if (room < 212) return;               // 로고(244) + 여백(22) 이 안 들어가면 생략
 
     var slot = document.createElement('div');
     slot.className = 'roulette-logo';

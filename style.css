@@ -5700,7 +5700,7 @@ body.dark .tier-pick {
 .reward-layout {
   --rcols: 2;
   --reward-w: min(100%, calc(var(--rcols) * 264px + (var(--rcols) - 1) * 18px + 44px));
-  justify-items: start;
+  justify-items: center;
 }
 
 .reward-layout > .reward-panel,
@@ -5751,4 +5751,17 @@ body.dark .roulette-logo img { opacity: 0.7; }
 /* 좁은 화면에서는 로고 자리가 없으므로 카드가 폭을 다 쓴다 */
 @media (max-width: 1000px) {
   .reward-layout { --reward-w: 100%; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   확정 방셀 단가 — 오른쪽 색 띠를 개수 숫자(1111)와 같은 색으로 통일
+   tone(pink/blue/yellow/mint/lavender)별로 제각각이던 걸 한 색으로.
+   ════════════════════════════════════════════════════════════════ */
+.fixed-reward::after,
+.fixed-reward.pink::after,
+.fixed-reward.blue::after,
+.fixed-reward.yellow::after,
+.fixed-reward.mint::after,
+.fixed-reward.lavender::after {
+  background: var(--iris);
 }
