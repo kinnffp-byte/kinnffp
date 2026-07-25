@@ -5765,3 +5765,121 @@ body.dark .roulette-logo img { opacity: 0.7; }
 .fixed-reward.lavender::after {
   background: var(--iris);
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   메인 굿즈 소개 블록
+   ① 누끼 이미지라 흰 사각형이 안 보인다 → 배경 대비만 살짝 정리
+   ② 한글이 '취향으 / 로 완성' 처럼 음절 중간에서 끊기던 것 방지
+   ════════════════════════════════════════════════════════════════ */
+.goods-feature-copy h3,
+.goods-feature-copy p,
+.goods-feature-copy span {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ── 누끼 이미지에 맞춘 배치 ─────────────────────────────────────
+   기존 칸은 세로로 긴 텀블러(비율 0.52)에 맞춰져 있어서, 정사각형에 가까운
+   티셔츠·키캡·쿠션(0.95~1.13)을 넣으면 contain 여백이 생겨 작게 보인다.
+   → 높이를 auto 로 두어 사진 비율 그대로 폭만 지정한다(여백 0).
+   ════════════════════════════════════════════════════════════════ */
+.goods-feature-images img,
+.view-experience[data-view="ipad"] .goods-feature-images img {
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.22));
+}
+
+.goods-feature-images img:nth-child(1) {  /* 티셔츠 — 제일 크게 */
+  top: 26%;
+  right: -3%;
+  bottom: auto;
+  left: auto;
+  width: 80%;
+}
+
+.goods-feature-images img:nth-child(2) {  /* 키캡 — 위 */
+  top: 3%;
+  left: 1%;
+  right: auto;
+  bottom: auto;
+  width: 64%;
+}
+
+.goods-feature-images img:nth-child(3) {  /* 쿠션 — 아래 */
+  bottom: 4%;
+  left: 3%;
+  top: auto;
+  right: auto;
+  width: 54%;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   누적공약 진행률 숫자 크기
+   버그: `.promise-progress-head span{font-size:11px}` 이 <strong> 안의
+        현재값 span(=31.3)까지 잡아서, '만'은 31px 인데 숫자만 11px 로
+        찌부돼 보였다. 오른쪽 '/300만' 도 너무 작았다.
+   ════════════════════════════════════════════════════════════════ */
+.promise-progress-head strong {
+  font-size: calc(36px * var(--fs-number, 1) * var(--fs-all, 1));
+}
+
+/* 현재값 숫자 = strong 과 같은 크기·색 (11px 로 줄던 규칙 무력화) */
+.promise-progress-head strong span,
+.promise-progress-head strong > span[data-hook] {
+  margin-left: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* '/ 300만' 목표값도 한 단계 키움 */
+.promise-progress-head > div > span {
+  margin-left: 7px;
+  font-size: calc(17px * var(--fs-number, 1) * var(--fs-all, 1));
+}
+
+.promise-progress-head > div > span b {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.promise-progress-head em {
+  font-size: calc(32px * var(--fs-number, 1) * var(--fs-all, 1));
+}
+
+@media (max-width: 760px) {
+  .promise-progress-head strong { font-size: calc(28px * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .promise-progress-head > div > span { font-size: calc(14px * var(--fs-number, 1) * var(--fs-all, 1)); }
+  .promise-progress-head em { font-size: calc(26px * var(--fs-number, 1) * var(--fs-all, 1)); }
+}
+
+/* 폰(≤700px): 칸이 짧고 넓어져(360×300) 그대로 두면 티셔츠가 칸 아래로 삐져나온다.
+   배치(키캡 좌상 · 티셔츠 우측 · 쿠션 좌하)와 겹침 느낌은 그대로 두고 크기만 줄인다.
+   ⚠️ 배경칸(.goods-feature-images) 크기는 건드리지 않는다. */
+@media (max-width: 700px) {
+  /* 폰에서는 칸 높이가 300px, 심하면 143px 까지 짧아진다. 폭 %로만 잡으면
+     티셔츠가 칸 아래로 흘러넘치므로 '폭·높이 둘 다 상한'을 준다.
+     (img 는 width/height:auto + max-* 조합이면 비율을 유지한 채 줄어든다) */
+  .goods-feature-images img {
+    width: auto;
+    height: auto;
+  }
+
+  .goods-feature-images img:nth-child(1) {
+    top: 20%; right: -2%; bottom: auto; left: auto;
+    width: auto; max-width: 50%; max-height: 62%;
+  }
+
+  .goods-feature-images img:nth-child(2) {
+    top: 5%; left: 2%; bottom: auto; right: auto;
+    width: auto; max-width: 46%; max-height: 48%;
+  }
+
+  .goods-feature-images img:nth-child(3) {
+    bottom: 5%; left: 5%; top: auto; right: auto;
+    width: auto; max-width: 38%; max-height: 44%;
+  }
+}
