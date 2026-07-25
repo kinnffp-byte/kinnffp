@@ -1,0 +1,390 @@
+/* KIMFP 여름 보상 아카이브 — 런타임
+   DEFAULT_TEXT / DEFAULT_THEME / DEFAULT_DATA 는 index.html 에서 주입됩니다.
+   DB(Supabase)가 없거나 실패해도 기본값으로 정상 동작합니다. */
+(function () {
+  'use strict';
+
+  var T = Object.assign({}, DEFAULT_TEXT);
+  var D = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  var ORDER = ['main', 'promise', 'reward', 'goods', 'outfit'];
+  var current = 'main';
+  var activeCollection = 'summer';
+
+  /* ── 안전 유틸 (DB 값이 배열/객체로 와도 깨지지 않게) ───────────── */
+  function txt(v) {
+    if (v === null || v === undefined) return '';
+    if (typeof v === 'string') return v;
+    if (typeof v === 'number' || typeof v === 'boolean') return String(v);
+    if (Array.isArray(v)) return v.map(txt).filter(Boolean).join(', ');
+    return '';
+  }
+  function esc(v) {
+    return txt(v).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                 .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  /* 줄바꿈만 허용하고 나머지 태그는 무력화 */
+  function safeHTML(v) {
+    return esc(v).replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+  }
+  function list(v) { return Array.isArray(v) ? v : []; }
+  function el(id) { return document.getElementById(id); }
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  /* ── 텍스트 훅 적용 ─────────────────────────────────────────── */
+  function applyText() {
+    document.querySelectorAll('[data-hook]').forEach(function (node) {
+      var key = node.getAttribute('data-hook');
+      if (!(key in T)) return;
+      node.innerHTML = safeHTML(T[key]);
+    });
+    document.title = txt(T['site-title']);
+    var d = document.querySelector('meta[name="description"]');
+    if (d) d.setAttribute('content', txt(T['site-desc']));
+    var icon = document.querySelector('link[rel="icon"]');
+    if (icon && T['loader-image']) icon.setAttribute('href', txt(T['loader-image']));
+    var ci = el('cover-img');
+    if (ci && T['loader-image']) ci.src = txt(T['loader-image']);
+  }
+
+  /* ── 렌더러 ─────────────────────────────────────────────────── */
+  function renderMainLooks() {
+    var box = el('mainLooks'); if (!box) return;
+    box.innerHTML = [1, 2].map(function (i) {
+      return '<figure><img src="' + esc(T['col' + i + '-cover']) + '" alt="' +
+        esc(T['col' + i + '-title']) + '" referrerpolicy="no-referrer">' +
+        '<figcaption><span>' + esc(T['col' + i + '-index']) + '</span><strong>' +
+        esc(T['col' + i + '-eyebrow']) + '</strong></figcaption></figure>';
+    }).join('');
+  }
+
+  function renderMiniRewards() {
+    var box = el('miniRewards'); if (!box) return;
+    box.innerHTML = list(D.fixed).map(function (r, i) {
+      return '<div><span>' + pad(i + 1) + '</span><strong>' + esc(r.count) +
+        '</strong><p>' + esc(r.title) + '</p></div>';
+    }).join('');
+  }
+
+  function renderPromises() {
+    var road = el('promiseRoad'); if (!road) return;
+    var cur = parseFloat(txt(T['promise-current'])) || 0;
+    var fin = parseFloat(txt(T['promise-final'])) || 300;
+    var pct = Math.min((cur / fin) * 100, 100);
+    road.style.setProperty('--promise-progress', pct + '%');
+    var pc = el('promisePct'); if (pc) pc.textContent = Math.round(pct) + '%';
+
+    var rows = list(D.promises);
+    var html = '<div class="promise-track" aria-hidden="true"><span></span></div>';
+    html += rows.map(function (p, i) {
+      var mile = parseFloat(txt(p.amount).replace(/[^0-9.]/g, '')) || 0;
+      var prev = i === 0 ? 0 : (parseFloat(txt(rows[i - 1].amount).replace(/[^0-9.]/g, '')) || 0);
+      var done = cur >= mile;
+      var next = cur < mile && (i === 0 || cur >= prev);
+      return '<article class="promise-node' + (done ? ' completed' : '') +
+        (next ? ' next' : '') + '"><span>' + pad(i + 1) + '</span><i aria-hidden="true"></i>' +
+        '<strong>' + esc(p.amount) + '</strong><h3>' + esc(p.title) + '</h3></article>';
+    }).join('');
+    road.innerHTML = html;
+  }
+
+  function renderFixed() {
+    var box = el('fixedList'); if (!box) return;
+    box.innerHTML = list(D.fixed).map(function (r) {
+      return '<article class="fixed-reward ' + esc(r.tone || 'pink') + '"><strong>' +
+        esc(r.count) + '</strong><span>' + esc(r.title) + '</span></article>';
+    }).join('');
+  }
+
+  function renderRoulette() {
+    var box = el('rouletteCols'); if (!box) return;
+    var rows = list(D.roulette);
+    var per = parseInt(txt(T['roulette-percol']), 10) || 9;
+    var cols = [];
+    for (var i = 0; i < rows.length; i += per) cols.push(rows.slice(i, i + per));
+    if (!cols.length) cols = [[]];
+    box.innerHTML = cols.map(function (col) {
+      return '<div class="roulette-list">' + col.map(function (r) {
+        return '<div><span>' + esc(r.title) + '</span><strong>' + esc(r.chance) + '</strong></div>';
+      }).join('') + '</div>';
+    }).join('');
+  }
+
+  function renderTiers() {
+    var box = el('tierGrid'); if (!box) return;
+    box.innerHTML = list(D.tiers).map(function (t) {
+      var imgs = list(t.images);
+      return '<article class="goods-tier ' + esc(t.tone || 'pink') + '">' +
+        '<div class="goods-tier-copy"><small>' + esc(t.label) + '</small><strong>' +
+        esc(t.count) + '</strong><h3>' + esc(t.title) + '</h3><p>' +
+        esc(t.description) + '</p></div>' +
+        '<div class="goods-tier-image goods-count-' + imgs.length + '" tabindex="0">' +
+        imgs.map(function (src) {
+          return '<div class="goods-product-thumb"><img src="' + esc(src) +
+            '" alt="' + esc(t.title) + '" referrerpolicy="no-referrer" loading="lazy"></div>';
+        }).join('') + '</div></article>';
+    }).join('');
+  }
+
+  function renderMerch() {
+    var box = el('merchGrid'); if (!box) return;
+    box.innerHTML = list(D.merch).map(function (m) {
+      return '<figure><div><img src="' + esc(m.image_url) + '" alt="' + esc(m.name) +
+        '" referrerpolicy="no-referrer" loading="lazy"></div><figcaption>' +
+        esc(m.name) + '</figcaption></figure>';
+    }).join('');
+  }
+
+  function collections() {
+    return [
+      { key: 'summer', tone: 'blue', n: 1 },
+      { key: 'ppugini', tone: 'pink', n: 2 }
+    ].map(function (c) {
+      return {
+        key: c.key, tone: c.tone,
+        index: txt(T['col' + c.n + '-index']),
+        eyebrow: txt(T['col' + c.n + '-eyebrow']),
+        title: txt(T['col' + c.n + '-title']),
+        note: txt(T['col' + c.n + '-note']),
+        cover: txt(T['col' + c.n + '-cover']),
+        posters: list(D.outfits).filter(function (o) { return o.collection === c.key; })
+      };
+    });
+  }
+
+  function renderOutfit() {
+    var cols = collections();
+    var active = cols.filter(function (c) { return c.key === activeCollection; })[0] || cols[0];
+    activeCollection = active.key;
+
+    var grid = el('lookGrid');
+    if (grid) {
+      grid.innerHTML = cols.map(function (c) {
+        var sel = c.key === active.key;
+        return '<article class="lookbook-card ' + c.tone + (sel ? ' selected' : '') + '">' +
+          '<div class="lookbook-label"><span>' + esc(c.index) + '</span>' +
+          '<div><small>' + esc(c.eyebrow) + '</small><h3>' + esc(c.title) + '</h3></div>' +
+          '<b class="lookbook-flag">' + (sel ? 'ON AIR' : pad(c.posters.length) + '종') + '</b></div>' +
+          '<button type="button" class="lookbook-image" data-coll="' + esc(c.key) +
+          '" aria-pressed="' + sel + '" aria-label="' + esc(c.title) + ' 포스터 보기">' +
+          '<img src="' + esc(c.cover) + '" alt="' + esc(c.title) + '" referrerpolicy="no-referrer">' +
+          '<span class="lookbook-cue">' + (sel ? '◈ 아래에서 송출 중' : '포스터 ' +
+          pad(c.posters.length) + '종 보기 ↓') + '</span></button>' +
+          '<p>' + esc(c.note) + '</p></article>';
+      }).join('');
+    }
+
+    var total = pad(active.posters.length);
+    if (el('posterKicker')) el('posterKicker').textContent = active.eyebrow + ' · FRAME';
+    if (el('posterTitle')) el('posterTitle').textContent = active.title + ' 원본 ' + active.posters.length + '종';
+    if (el('posterCount')) el('posterCount').textContent = total;
+    if (el('posterTotal')) el('posterTotal').textContent = '/ ' + total;
+
+    var sw = el('posterSwitch');
+    if (sw) {
+      sw.innerHTML = cols.map(function (c) {
+        return '<button type="button" role="tab" data-coll="' + esc(c.key) + '" aria-selected="' +
+          (c.key === active.key) + '" class="' + (c.key === active.key ? 'active' : '') + '">' +
+          esc(c.title) + '</button>';
+      }).join('');
+    }
+
+    var pg = el('posterGrid');
+    if (!pg) return;
+    if (!active.posters.length) {
+      pg.innerHTML = '<p class="poster-empty">' + esc(T['empty-outfit']) + '</p>';
+      return;
+    }
+    pg.innerHTML = active.posters.map(function (p, i) {
+      return '<button type="button" class="poster-tile" data-zoom="' + i + '" style="--poster-delay:' +
+        (i * 55) + 'ms" aria-label="' + esc(p.name) + ' 크게 보기">' +
+        '<span class="poster-grid-lines" aria-hidden="true"></span>' +
+        '<img src="' + esc(p.image_url) + '" alt="' + esc(p.name) +
+        '" referrerpolicy="no-referrer" loading="lazy">' +
+        '<span class="poster-frame-line" aria-hidden="true"></span>' +
+        '<span class="poster-top"><span class="poster-serial">' + esc(active.index) +
+        '<i>/</i>' + pad(i + 1) + '</span><span class="poster-badge">' +
+        esc(active.eyebrow.split(' ')[0]) + '</span></span>' +
+        '<span class="poster-bottom"><span class="poster-rule" aria-hidden="true"></span>' +
+        '<strong>' + esc(p.name) + '</strong><em>ZOOM ↗</em></span></button>';
+    }).join('');
+  }
+
+  function renderAll() {
+    applyText();
+    renderMainLooks(); renderMiniRewards(); renderPromises();
+    renderFixed(); renderRoulette(); renderTiers(); renderMerch(); renderOutfit();
+  }
+
+  /* ── 뷰 전환 + 커버 연출 ─────────────────────────────────────── */
+  function navLabel(key) {
+    var i = ORDER.indexOf(key) + 1;
+    return { label: txt(T['nav' + i + '-label']), eyebrow: txt(T['nav' + i + '-eyebrow']) };
+  }
+
+  function showPanel(key) {
+    current = key;
+    document.querySelectorAll('[data-view-panel]').forEach(function (p) {
+      p.hidden = p.getAttribute('data-view-panel') !== key;
+    });
+    document.querySelectorAll('[data-go]').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-go') === key);
+    });
+    var meta = navLabel(key);
+    if (el('mobLabel')) el('mobLabel').textContent = meta.label;
+    if (el('mobEyebrow')) el('mobEyebrow').textContent = meta.eyebrow;
+    var area = document.querySelector('.ipad-scroll-area');
+    if (area) area.scrollTo({ top: 0, behavior: 'auto' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function navigate(key) {
+    if (key === current) return;
+    if (reduced) { showPanel(key); return; }
+    var cover = el('cover');
+    var label = el('cover-label');
+    if (label) label.textContent = txt(T['trans-prefix']) + navLabel(key).label;
+    if (!cover) { showPanel(key); return; }
+    cover.classList.add('on');
+    window.setTimeout(function () {
+      showPanel(key);
+      window.setTimeout(function () { cover.classList.remove('on'); }, 210);
+    }, 300);
+  }
+
+  /* ── 포스터 확대 뷰어 ───────────────────────────────────────── */
+  var zoomIndex = null;
+  function posters() {
+    var cols = collections();
+    var a = cols.filter(function (c) { return c.key === activeCollection; })[0] || cols[0];
+    return a;
+  }
+  function renderViewer() {
+    var old = document.querySelector('.poster-viewer');
+    if (old) old.remove();
+    if (zoomIndex === null) return;
+    var a = posters(), p = a.posters[zoomIndex];
+    if (!p) { zoomIndex = null; return; }
+    var wrap = document.createElement('div');
+    wrap.className = 'poster-viewer';
+    wrap.setAttribute('role', 'dialog');
+    wrap.setAttribute('aria-modal', 'true');
+    wrap.innerHTML =
+      '<div class="poster-viewer-inner">' +
+      '<button type="button" class="poster-viewer-nav" data-step="-1" aria-label="이전">←</button>' +
+      '<figure><img src="' + esc(p.image_url) + '" alt="' + esc(p.name) +
+      '" referrerpolicy="no-referrer"><figcaption><span>' + esc(a.eyebrow) +
+      '</span><strong>' + esc(p.name) + '</strong><em>' + pad(zoomIndex + 1) + ' / ' +
+      pad(a.posters.length) + '</em>' +
+      (p.origin_url ? '<a href="' + esc(p.origin_url) + '" target="_blank" rel="noreferrer">원본 열기 ↗</a>' : '') +
+      '</figcaption></figure>' +
+      '<button type="button" class="poster-viewer-nav" data-step="1" aria-label="다음">→</button>' +
+      '<button type="button" class="poster-viewer-close" aria-label="닫기">✕</button></div>';
+    document.body.appendChild(wrap);
+  }
+  function stepZoom(d) {
+    var n = posters().posters.length;
+    if (!n || zoomIndex === null) return;
+    zoomIndex = (zoomIndex + d + n) % n;
+    renderViewer();
+  }
+
+  /* ── 이미지 확대(일반) ──────────────────────────────────────── */
+  function openImage(src, alt) {
+    var m = el('imgModal'); if (!m) return;
+    el('imgModalImg').src = src;
+    el('imgModalImg').alt = alt || '확대 이미지';
+    m.hidden = false;
+  }
+  function closeImage() { var m = el('imgModal'); if (m) m.hidden = true; }
+
+  /* ── 다크모드 ───────────────────────────────────────────────── */
+  function syncDark() {
+    var on = document.body.classList.contains('dark');
+    var t = el('darkToggle');
+    if (t) { t.classList.toggle('on', on); t.setAttribute('aria-pressed', on); }
+  }
+  function toggleDark() {
+    var on = document.body.classList.toggle('dark');
+    localStorage.setItem('theme', on ? 'dark' : 'light');
+    syncDark();
+  }
+
+  /* ── 이벤트 (위임) ─────────────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+    var go = e.target.closest('[data-go]');
+    if (go) { navigate(go.getAttribute('data-go')); return; }
+
+    var dk = e.target.closest('#darkToggle');
+    if (dk) { toggleDark(); return; }
+
+    var coll = e.target.closest('[data-coll]');
+    if (coll) { activeCollection = coll.getAttribute('data-coll'); zoomIndex = null; renderViewer(); renderOutfit(); return; }
+
+    var tile = e.target.closest('[data-zoom]');
+    if (tile) { zoomIndex = parseInt(tile.getAttribute('data-zoom'), 10); renderViewer(); return; }
+
+    var step = e.target.closest('[data-step]');
+    if (step) { stepZoom(parseInt(step.getAttribute('data-step'), 10)); return; }
+
+    if (e.target.closest('.poster-viewer-close') || e.target.classList.contains('poster-viewer')) {
+      zoomIndex = null; renderViewer(); return;
+    }
+    if (e.target.closest('.image-modal-close') || e.target.classList.contains('image-modal')) {
+      closeImage(); return;
+    }
+    // 버튼 안이 아닌 일반 이미지는 확대
+    var img = e.target;
+    if (img.tagName === 'IMG' && !img.closest('button') && !img.closest('.poster-viewer')
+        && !img.closest('.image-modal') && img.closest('.content-sheet')) {
+      openImage(img.currentSrc || img.src, img.alt);
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (zoomIndex !== null) {
+      if (e.key === 'Escape') { zoomIndex = null; renderViewer(); }
+      if (e.key === 'ArrowLeft') stepZoom(-1);
+      if (e.key === 'ArrowRight') stepZoom(1);
+      return;
+    }
+    if (e.key === 'Escape') closeImage();
+  });
+
+  /* ── 기동 ───────────────────────────────────────────────────── */
+  function ready() { document.body.classList.add('ready'); }
+
+  async function boot() {
+    renderAll();
+    syncDark();
+    showPanel('main');
+    try {
+      if (typeof fetchProfile === 'function') {
+        var prof = await fetchProfile();
+        if (prof && typeof prof === 'object') {
+          Object.keys(T).forEach(function (k) {
+            if (prof[k] !== undefined && prof[k] !== null && prof[k] !== '') T[k] = prof[k];
+          });
+          if (typeof applyTheme === 'function') applyTheme(prof);
+        }
+      }
+      if (typeof fetchAll === 'function') {
+        var map = { promises: 'promises', fixed: 'fixed_rewards', roulette: 'roulette',
+                    tiers: 'goods_tiers', merch: 'merch', outfits: 'outfits' };
+        for (var key in map) {
+          var rows = await fetchAll(map[key]);
+          if (Array.isArray(rows) && rows.length) D[key] = rows;
+        }
+      }
+      renderAll();
+    } catch (err) {
+      console.warn('[boot] DB 미연결 — 기본값으로 표시합니다.', err);
+    }
+    ready();
+  }
+
+  window.setTimeout(ready, 1600);   // FOUC 폴백
+  if (document.readyState !== 'loading') boot();
+  else document.addEventListener('DOMContentLoaded', boot);
+})();

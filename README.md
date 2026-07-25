@@ -1,98 +1,113 @@
-# vinext-starter
+# 김쁘피 여름 보상 아카이브 — 사용 설명서
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+`kimfp.pages.dev` 용 **정적 사이트**입니다. 빌드 과정이 없어서 파일을 그대로 올리면 바로 뜹니다.
 
-## Prerequisites
+---
 
-- Node.js `>=22.13.0`
+## 1. 배포 (Cloudflare Pages)
 
-## Quick Start
+이전에 안 켜졌던 이유는 **Next.js 소스를 그대로 올렸기 때문**입니다. 그 프로젝트는
+`index.html`이 없고 서버(Worker)가 매 요청마다 HTML을 만들어내는 구조라, Pages가
+정적 서빙하면 열 파일이 없어서 빈 화면이 떴습니다. 이 폴더는 그 문제가 없습니다.
 
-```bash
-npm install
-npm run dev
-npm run build
+1. GitHub 저장소에 **이 폴더 안의 내용을 그대로** 올립니다 (`index.html`이 최상단에 오도록).
+2. Cloudflare Pages → 해당 저장소 연결
+3. **Framework preset: `None`**, **Build command: 비움**, **Build output directory: 비움(또는 `/`)**
+4. Deploy
+
+재배포는 바뀐 파일만 덮어쓰고 Commit → 1~2분 → **Ctrl+Shift+R** (안 되면 시크릿 창).
+
+```
+index.html      메인 (5개 화면 전부 이 한 파일)
+app.js          화면 전환·렌더링·다크모드·확대뷰어
+style.css       스타일 (팔레트는 :root 한 곳)
+supabase.js     DB 연결 — 아래 2번 참고
+fx.js           로딩 게이트
+og.jpg          카톡·X 링크 미리보기 썸네일
+assets/         이미지 (poster/ 안은 의상 포스터용 3:4 크롭)
 ```
 
-This starter does not use `wrangler.jsonc`.
+> **DB를 연결하지 않아도 사이트는 정상 동작합니다.** 연결 전에는 `index.html`에 들어있는
+> 기본값으로 표시되고, 연결하면 DB 값이 그 위를 덮어씁니다.
 
-## Included Shape
+---
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+## 2. Supabase 연결 (관리자 페이지 쓰려면 필요)
 
-## Workspace Auth Headers
+`supabase.js` 맨 위 두 줄만 채웁니다.
 
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
+```js
+const SUPABASE_URL  = 'https://{{SUPABASE프로젝트ID}}.supabase.co';
+const SUPABASE_ANON = '{{SUPABASE_ANON_KEY}}';
+```
 
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+- Supabase → New project → Settings → API 에서 **Project ID**와 **anon public 키** 복사
+- ⚠️ **한 프로젝트 = 한 사람.** 다른 사람 프로젝트를 재사용하면 옛 데이터가 남습니다.
+- 테이블 생성 SQL(`supabase_전체.sql`)과 관리자 페이지(`admin/`)는 **다음 작업분**입니다.
 
-Treat the full name as optional and fall back to email when it is absent:
+---
 
-```tsx
-import { headers } from "next/headers";
+## 3. 화면 구성
 
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
+| 목차 | 내용 |
+|---|---|
+| 메인 | 히어로 + 목차 카드 3개 + 의상 2종 미리보기 + 확정 방셀 단가 + 굿즈 소개 |
+| 누적공약 | 진행률 게이지 + 공약 10개 로드맵 (가로 스크롤) |
+| 방셀보상 | 확정 방셀 단가 5종 + 100개 방셀룰렛 18항목 |
+| 굿즈 | 단계별 6종 + 제외 안내 + 전체 굿즈 갤러리 12종 |
+| 의상 | 컬렉션 2종(사진 클릭) + 포스터 5종 격자 + 확대 뷰어 |
 
-  const displayName = fullName ?? email;
-  // ...
+### 조작
+- **왼쪽/오른쪽 의상 사진을 누르면** 그 컬렉션의 포스터 5종이 아래에 펼쳐집니다.
+- 포스터를 누르면 확대 뷰어 — **← →** 이동, **ESC** 닫기, "원본 열기"로 4K 원본.
+- 사이드바 맨 아래 **NIGHT** 버튼 = 다크모드 (선택은 브라우저에 저장됩니다).
+- 일반 이미지(굿즈 등)를 누르면 확대됩니다.
+
+---
+
+## 4. 색 바꾸기
+
+`style.css` 맨 위 `:root` **한 곳만** 고치면 전체에 적용됩니다.
+
+```css
+:root {
+  --ink: #11131a;        /* 본문 글자 */
+  --paper: #f7f7f3;      /* 시트 배경 */
+  --night: #131620;      /* 사이드바·전환 커버 */
+  --iris: #737de8;       /* 포인트 색 (킥커·번호·배지) */
+  --ice: #b8e9ef;
+  ...
 }
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+> 원래 CSS에는 팔레트가 **여러 겹으로 중복 정의**돼 있어서 `:root`를 고쳐도 안 먹었습니다.
+> 지금은 뒤쪽 중복 선언 25개를 정리해서 `:root`가 유일한 출처입니다.
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+---
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+## 5. 링크 미리보기(카톡·X 썸네일)
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+크롤러는 JS를 안 돌리므로 **DB가 아니라 `index.html` 상단 메타 태그**를 읽습니다.
+관리자에서 제목을 바꿔도 미리보기는 안 바뀝니다.
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+```html
+<meta property="og:title" content="김쁘피 여름 보상 아카이브">
+<meta property="og:image" content="og.jpg">
+```
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+- 이미지를 바꿀 땐 **파일명도 같이 바꾸세요** (`og.jpg` → `og-v2.jpg`). 같은 이름이면 캐시됩니다.
+- 권장 1200×630, 1MB 이하.
+- 카카오 캐시 초기화: `https://developers.kakao.com/tool/debugger/sharing`
 
-## Useful Commands
+---
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+## 6. 문제 빠른 참조
 
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+| 증상 | 원인 / 해결 |
+|---|---|
+| 배포했는데 빈 화면 | `index.html`이 저장소 최상단에 있는지 / Build command를 비웠는지 확인 |
+| 바꿨는데 안 바뀜 | 캐시 → Ctrl+Shift+R, 시크릿 창 |
+| 색을 바꿨는데 일부만 | 그 요소가 팔레트 변수를 안 쓰는 경우 — 어느 요소인지 알려주면 변수로 바꿔줌 |
+| 이미지가 안 뜸 | `assets/` 폴더도 같이 올렸는지 확인 |
+| 다크모드가 이동마다 풀림 | `localStorage('theme')` 저장 — 시크릿 창에서는 유지되지 않음 |
+| 관리자에서 저장했는데 반영 X | `supabase.js` 두 줄 + 테이블 SQL 확인 (SQL은 다음 작업분) |
