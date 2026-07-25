@@ -1,0 +1,222 @@
+-- ═══════════════════════════════════════════════════════════════
+--  김쁘피 여름 보상 아카이브 — Supabase 전체 설치 SQL
+--  사용법: Supabase → SQL Editor → 새 쿼리 → 전체 붙여넣고 Run (한 번에)
+--  ⚠️ 한 프로젝트 = 한 사람. 다른 사람 프로젝트 재사용 금지.
+-- ═══════════════════════════════════════════════════════════════
+
+-- 다시 돌려도 안전하도록 기존 것을 지우고 새로 만듭니다.
+drop table if exists outfits      cascade;
+drop table if exists merch        cascade;
+drop table if exists goods_tiers  cascade;
+drop table if exists roulette     cascade;
+drop table if exists fixed_rewards cascade;
+drop table if exists promises     cascade;
+drop table if exists profile      cascade;
+
+-- ── 1. 모든 문구·색 (한 줄에 전부 담김) ─────────────────────────
+create table profile (
+  id   int primary key,
+  data jsonb not null default '{}'::jsonb
+);
+
+-- ── 📈 공약 목록 ─────────────────────────────────────
+create table promises (
+  id   bigserial primary key,
+  amount       text default '',   -- 금액
+  title        text default '',   -- 공약 내용
+  sort int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index promises_sort_idx on promises (sort);
+
+-- ── 🎯 확정 방셀 단가 ─────────────────────────────────────
+create table fixed_rewards (
+  id   bigserial primary key,
+  count        text default '',   -- 개수
+  title        text default '',   -- 보상 내용
+  tone         text default '',   -- 색
+  sort int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index fixed_rewards_sort_idx on fixed_rewards (sort);
+
+-- ── 🎲 룰렛 항목 ─────────────────────────────────────
+create table roulette (
+  id   bigserial primary key,
+  title        text default '',   -- 항목
+  chance       text default '',   -- 확률
+  sort int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index roulette_sort_idx on roulette (sort);
+
+-- ── 🎁 굿즈 단계 ─────────────────────────────────────
+create table goods_tiers (
+  id   bigserial primary key,
+  count        text default '',   -- 개수
+  label        text default '',   -- 영문 라벨
+  title        text default '',   -- 이름
+  description  text default '',   -- 설명
+  images       jsonb default '[]'::jsonb,   -- 사진 주소(줄바꿈)
+  tone         text default '',   -- 색
+  sort int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index goods_tiers_sort_idx on goods_tiers (sort);
+
+-- ── 🖼 굿즈 갤러리 ─────────────────────────────────────
+create table merch (
+  id   bigserial primary key,
+  image_url    text default '',   -- 사진 주소
+  name         text default '',   -- 상품 이름
+  sort int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index merch_sort_idx on merch (sort);
+
+-- ── 👗 의상 포스터 ─────────────────────────────────────
+create table outfits (
+  id   bigserial primary key,
+  collection   text default '',   -- 컬렉션
+  name         text default '',   -- 이름
+  image_url    text default '',   -- 포스터 사진(3:4)
+  origin_url   text default '',   -- 원본 사진(선택)
+  sort int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index outfits_sort_idx on outfits (sort);
+
+-- ── 2. 접근 권한 (RLS) ────────────────────────────────────────
+--  이 사이트는 로그인 없이 anon 키로 읽고, 관리자 페이지도 같은 anon 키로 씁니다.
+--  즉 anon 에게 읽기+쓰기를 모두 허용해야 관리자 저장이 동작합니다.
+--  관리자 페이지는 비밀번호로 가려져 있지만, 키가 노출되면 누구나 쓸 수 있습니다.
+--  → 관리자 비밀번호는 반드시 '버리는 비번'을 쓰세요.
+alter table profile enable row level security;
+create policy "profile_read"   on profile for select using (true);
+create policy "profile_insert" on profile for insert with check (true);
+create policy "profile_update" on profile for update using (true) with check (true);
+create policy "profile_delete" on profile for delete using (true);
+alter table promises enable row level security;
+create policy "promises_read"   on promises for select using (true);
+create policy "promises_insert" on promises for insert with check (true);
+create policy "promises_update" on promises for update using (true) with check (true);
+create policy "promises_delete" on promises for delete using (true);
+alter table fixed_rewards enable row level security;
+create policy "fixed_rewards_read"   on fixed_rewards for select using (true);
+create policy "fixed_rewards_insert" on fixed_rewards for insert with check (true);
+create policy "fixed_rewards_update" on fixed_rewards for update using (true) with check (true);
+create policy "fixed_rewards_delete" on fixed_rewards for delete using (true);
+alter table roulette enable row level security;
+create policy "roulette_read"   on roulette for select using (true);
+create policy "roulette_insert" on roulette for insert with check (true);
+create policy "roulette_update" on roulette for update using (true) with check (true);
+create policy "roulette_delete" on roulette for delete using (true);
+alter table goods_tiers enable row level security;
+create policy "goods_tiers_read"   on goods_tiers for select using (true);
+create policy "goods_tiers_insert" on goods_tiers for insert with check (true);
+create policy "goods_tiers_update" on goods_tiers for update using (true) with check (true);
+create policy "goods_tiers_delete" on goods_tiers for delete using (true);
+alter table merch enable row level security;
+create policy "merch_read"   on merch for select using (true);
+create policy "merch_insert" on merch for insert with check (true);
+create policy "merch_update" on merch for update using (true) with check (true);
+create policy "merch_delete" on merch for delete using (true);
+alter table outfits enable row level security;
+create policy "outfits_read"   on outfits for select using (true);
+create policy "outfits_insert" on outfits for insert with check (true);
+create policy "outfits_update" on outfits for update using (true) with check (true);
+create policy "outfits_delete" on outfits for delete using (true);
+
+-- ── 3. 기본값 넣기 ────────────────────────────────────────────
+insert into profile (id, data) values (1, '{"site-title": "김쁘피 여름 보상 아카이브", "site-desc": "김쁘피의 누적공약, 방셀룰렛, 한정 굿즈와 여름 의상을 한눈에 확인하세요.", "brand-name": "KIMFP", "brand-sub": "REWARD ARCHIVE", "status-time": "9:41", "status-title": "김쁘피 보상 아카이브", "side-kicker": "SUMMER CHANNEL 26", "side-title": "여름 한정 편성<br>보상 안내", "mobile-brand": "김쁘피", "footer-left": "KIMFP · REWARD ARCHIVE", "footer-right": "SUMMER 2026", "loader-image": "https://profile.img.sooplive.co.kr/LOGO/ki/kimfp/kimfp.jpg", "trans-prefix": "김쁘피 · ", "nav1-eyebrow": "ON AIR", "nav1-label": "메인", "nav1-mark": "✦", "nav2-eyebrow": "SIGNAL POWER", "nav2-label": "누적공약", "nav2-mark": "↗", "nav3-eyebrow": "FRAME INDEX", "nav3-label": "방셀보상", "nav3-mark": "◈", "nav4-eyebrow": "SUPPLY DROP", "nav4-label": "굿즈", "nav4-mark": "□", "nav5-eyebrow": "LOOKBOOK", "nav5-label": "의상", "nav5-mark": "♡", "hero-overline-l": "KIMFP ARCHIVE", "hero-overline-r": "2026 / SUMMER", "hero-title-a": "KIM", "hero-title-b": "FP", "hero-title-sub": "후원 보상 컬렉션", "hero-lead": "누적공약부터 한정 방셀, 룰렛, 굿즈와 의상까지. 이번 시즌의 모든 보상을 하나의 아카이브로 정리했습니다.", "hero-btn1": "REWARD INDEX", "hero-btn2": "VIEW LOOKBOOK", "metric1-num": "10", "metric1-label": "누적공약", "metric2-num": "18", "metric2-label": "룰렛 보상", "metric3-num": "06", "metric3-label": "굿즈 단계", "metric4-num": "10", "metric4-label": "의상 원본", "signal-text": "VIRTUAL SIGNAL ONLINE", "signal-channel": "SUMMER CHANNEL · 26", "hero-ghost": "SUMMER", "idx1-small": "CUMULATIVE PROMISE", "idx1-strong": "누적공약", "idx1-em": "10만 — 300만", "idx2-small": "REWARD & ROULETTE", "idx2-strong": "방셀보상", "idx2-em": "100개 · 11연차", "idx3-small": "LIMITED MERCHANDISE", "idx3-strong": "굿즈보상", "idx3-em": "6 TIERS", "lookbook-kicker": "CURATED LOOKS", "lookbook-title": "이번 여름의 두 가지 무드", "lookbook-btn": "FULL LOOKBOOK", "ledger-kicker": "FIXED REWARD", "ledger-title": "확정 방셀 단가", "ledger-btn": "DETAIL", "goodsfeat-kicker": "MERCHANDISE / 06", "goodsfeat-title": "취향으로 완성하는<br>리워드 셀렉션", "goodsfeat-desc": "블랙과 크림, 낮과 밤. 단계별 한정 굿즈를 확인해보세요.", "goodsfeat-btn": "EXPLORE GOODS", "promise-kicker": "CUMULATIVE PROMISE", "promise-title": "누적공약", "promise-desc": "누적으로 함께 채워가는 김쁘피의 장기 공약이에요.", "promise-live": "LIVE PROGRESS", "promise-current": "0", "promise-final": "300", "promise-note": "완료된 구간은 진하게, 다음 목표는 포인트 색으로 표시됩니다.", "promise-foot-strong": "40만 달성 시 이전 공약 모두 이행", "promise-foot-desc": "정확한 진행 일정과 세부 방식은 방송 공지를 기준으로 확인해주세요.", "reward-kicker": "PERSONAL REWARD", "reward-title": "방셀보상", "reward-desc": "확정 방셀 단가와 룰렛 확률을 함께 확인할 수 있습니다.", "rp1-num": "01", "rp1-small": "FIXED REWARD", "rp1-title": "확정 방셀 단가", "rp1-note": "삼국지 한정 방셀 및 히든 방셀은 룰렛에서만 구매 가능해요.", "rp2-num": "02", "rp2-small": "DOPAMINE ROULETTE", "rp2-title": "100개 방셀룰렛", "roulette-badge-num": "11", "roulette-badge-text": "1000개 시 연차", "roulette-percol": "9", "goods-kicker": "LIMITED MERCHANDISE", "goods-title": "굿즈보상", "goods-desc": "선택형 굿즈부터 모든 색상 풀세트까지 단계별로 정리했습니다.", "goods-caution-strong": "굿즈 풀세트 제외 안내", "goods-caution-text": "버인 바람막이와 버인 방셀은 굿즈 풀세트에서 제외돼요.", "merch-kicker": "MERCH GALLERY", "merch-title": "전체 굿즈 보기", "merch-note": "상품 사진은 비율에 맞춰 카드 안에 자동으로 정리돼요.", "outfit-kicker": "SUMMER LOOKBOOK", "outfit-title": "한정의상", "outfit-desc": "사진을 누르면 해당 컬렉션의 방셀 포스터 5종이 아래에 펼쳐집니다.", "col1-index": "01", "col1-eyebrow": "SUMMER LIMITED", "col1-title": "여름 한정 의상", "col1-note": "초선 한정의상은 룰렛에서만 구매 가능해요.", "col1-cover": "assets/summer-outfits.png", "col2-index": "02", "col2-eyebrow": "PPUGINI LIMITED", "col2-title": "뿌기니 한정 의상", "col2-note": "각 의상의 디테일과 포즈를 천천히 확인해보세요.", "col2-cover": "assets/ppugini-outfits.png", "empty-outfit": "이 컬렉션에는 아직 송출된 프레임이 없어요.", "theme-ink": "#11131a", "theme-muted": "#6f7480", "theme-paper": "#f7f7f3", "theme-sheet": "#f4f2ed", "theme-night": "#131620", "theme-night-soft": "#1d2230", "theme-iris": "#737de8", "theme-ice": "#b8e9ef", "theme-rose": "#e9bfd0", "theme-sand": "#d9c89e", "theme-mint": "#cce2d8", "theme-night-deep": "#111216", "theme-hero": "#1d2b3c"}')
+  on conflict (id) do update set data = excluded.data;
+
+-- 공약 목록 (10개)
+insert into promises (amount, title, sort) values
+  ('10만', '엔더 하드코어 노방종', 0),
+  ('20만', '종겜 똥겜 핀볼', 1),
+  ('30만', '항마력 딸리는 일식 노래 커버하기', 2),
+  ('40만', '위 공약 모두 이행', 3),
+  ('50만', '오리지널곡 제작', 4),
+  ('60만', '마크서버 만들기', 5),
+  ('70만', '오리지널곡 + 3D 뮤직비디오 제작', 6),
+  ('90만', '호룰 만지기 VLOG', 7),
+  ('100만', '미니콘서트 (feat. 버인초청?)', 8),
+  ('300만', '보스한테 언니 시집보내기', 9);
+
+-- 확정 방셀 단가 (5개)
+insert into fixed_rewards (count, title, tone, sort) values
+  ('1111', '여름 랜덤 단컷', 'pink', 0),
+  ('2222', '여름 선택 2컷', 'blue', 1),
+  ('3333', '뿌기니 랜덤 2컷', 'yellow', 2),
+  ('4999', '버인방셀 + 버인바람막이', 'mint', 3),
+  ('5555', '뿌기니 선택 2종 2컷', 'lavender', 4);
+
+-- 룰렛 항목 (18개)
+insert into roulette (title, chance, sort) values
+  ('여름 A', '0.8%', 0),
+  ('여름 B', '0.8%', 1),
+  ('여름 C', '0.8%', 2),
+  ('여름 D', '0.8%', 3),
+  ('삼국지 한정 초선', '0.4%', 4),
+  ('뿌기니 A', '0.3%', 5),
+  ('뿌기니 B', '0.3%', 6),
+  ('뿌기니 C', '0.3%', 7),
+  ('뿌기니 D', '0.3%', 8),
+  ('뿌기니 히든', '0.1%', 9),
+  ('여름랜덤방셀', '3%', 10),
+  ('김', '3%', 11),
+  ('뿌', '3%', 12),
+  ('피', '3%', 13),
+  ('다음 룰렛 2배 (글자 적용 X)', '20%', 14),
+  ('쿼뿌', '5%', 15),
+  ('뿌독', '4%', 16),
+  ('용캐지원금', '54.1%', 17);
+
+-- 굿즈 단계 (6개)
+insert into goods_tiers (count, label, title, description, images, tone, sort) values
+  ('582개', 'MINI', '미니굿즈', '미니 아크릴 키링', '["assets/keyring.png"]'::jsonb, 'pink', 0),
+  ('1182개', 'A GOODS', 'A 굿즈', '티셔츠(블랙/화이트) 또는 장패드(밤/낮) 중 택 1', '["assets/tshirt-black.png", "assets/tshirt-white.png", "assets/deskmat-night.png", "assets/deskmat-day.png"]'::jsonb, 'blue', 1),
+  ('1482개', 'B GOODS', 'B 굿즈', '텀블러(블랙/크림) 또는 키캡 또는 쿠션 중 택 1', '["assets/tumbler-black.png", "assets/tumbler-cream.png", "assets/keycaps.png", "assets/keycap-case.png", "assets/cushion.png"]'::jsonb, 'yellow', 2),
+  ('2882개', 'SET', '굿즈세트', '미니굿즈 + A 굿즈 중 택 1 + B 굿즈 중 택 1', '["assets/keyring.png", "assets/tshirt-black.png", "assets/tshirt-white.png", "assets/deskmat-night.png", "assets/deskmat-day.png", "assets/tumbler-black.png", "assets/tumbler-cream.png", "assets/keycaps.png", "assets/keycap-case.png", "assets/cushion.png"]'::jsonb, 'mint', 3),
+  ('4999개', 'SPECIAL', '버인굿즈', '버인 바람막이와 버인 방셀', '["assets/windbreaker-models.png", "assets/windbreaker-black.png", "assets/windbreaker-white.png"]'::jsonb, 'lavender', 4),
+  ('12482개', 'FULL SET', '굿즈 풀세트', '모든 굿즈·모든 색상 풀세트 + 손편지', '["assets/keyring.png", "assets/tshirt-black.png", "assets/tshirt-white.png", "assets/deskmat-night.png", "assets/deskmat-day.png", "assets/tumbler-black.png", "assets/tumbler-cream.png", "assets/keycaps.png", "assets/keycap-case.png", "assets/cushion.png"]'::jsonb, 'pink', 5);
+
+-- 굿즈 갤러리 (12개)
+insert into merch (image_url, name, sort) values
+  ('assets/tshirt-black.png', '블랙 티셔츠', 0),
+  ('assets/tshirt-white.png', '화이트 티셔츠', 1),
+  ('assets/deskmat-night.png', '밤 장패드', 2),
+  ('assets/deskmat-day.png', '낮 장패드', 3),
+  ('assets/tumbler-black.png', '블랙 텀블러', 4),
+  ('assets/tumbler-cream.png', '크림 텀블러', 5),
+  ('assets/keycaps.png', '캐릭터 키캡', 6),
+  ('assets/keycap-case.png', '키캡 패키지', 7),
+  ('assets/cushion.png', '뿌기니 쿠션', 8),
+  ('assets/keyring.png', '미니 아크릴 키링', 9),
+  ('assets/windbreaker-black.png', '블랙 바람막이', 10),
+  ('assets/windbreaker-white.png', '화이트 바람막이', 11);
+
+-- 의상 포스터 (10개)
+insert into outfits (collection, name, image_url, origin_url, sort) values
+  ('summer', '여름 A', 'assets/poster/summer-pose-01.webp', 'assets/summer-pose-01.png', 0),
+  ('summer', '여름 B', 'assets/poster/summer-pose-02.webp', 'assets/summer-pose-02.png', 1),
+  ('summer', '여름 C', 'assets/poster/summer-pose-03.webp', 'assets/summer-pose-03.png', 2),
+  ('summer', '여름 D', 'assets/poster/summer-pose-04.webp', 'assets/summer-pose-04.png', 3),
+  ('summer', '삼국지 한정 초선', 'assets/poster/summer-pose-05.webp', 'assets/summer-pose-05.png', 4),
+  ('ppugini', '뿌기니 A', 'assets/poster/summer-pose-06.webp', 'assets/summer-pose-06.png', 5),
+  ('ppugini', '뿌기니 B', 'assets/poster/summer-pose-07.webp', 'assets/summer-pose-07.png', 6),
+  ('ppugini', '뿌기니 C', 'assets/poster/summer-pose-08.webp', 'assets/summer-pose-08.png', 7),
+  ('ppugini', '뿌기니 D', 'assets/poster/summer-pose-09.webp', 'assets/summer-pose-09.png', 8),
+  ('ppugini', '뿌기니 히든', 'assets/poster/summer-pose-10.webp', 'assets/summer-pose-10.png', 9);
+
+-- ── 4. 확인 ───────────────────────────────────────────────────
+select 'profile' as t, count(*) from profile
+union all select 'promises', count(*) from promises
+union all select 'fixed_rewards', count(*) from fixed_rewards
+union all select 'roulette', count(*) from roulette
+union all select 'goods_tiers', count(*) from goods_tiers
+union all select 'merch', count(*) from merch
+union all select 'outfits', count(*) from outfits;
+--  기대값: profile 1 / promises 10 / fixed_rewards 5 / roulette 18
+--          goods_tiers 6 / merch 12 / outfits 10

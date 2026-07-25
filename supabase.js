@@ -1,6 +1,6 @@
 /* ── Supabase 연결 (이 두 줄만 채우면 됩니다) ───────────────────── */
-const SUPABASE_URL  = 'https://{{SUPABASE프로젝트ID}}.supabase.co';
-const SUPABASE_ANON  = '{{SUPABASE_ANON_KEY}}';
+const SUPABASE_URL  = 'https://bpzwdbnglicqmhqtdpiu.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwendkYm5nbGljcW1ocXRkcGl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5NDI1OTQsImV4cCI6MjEwMDUxODU5NH0.PEUxb3QIF042a3P7k40-dPSqHwqsa56vOYw1OlHVh2w';
 /* ─────────────────────────────────────────────────────────────── */
 
 /* CDN이 차단되거나 키가 비어 있어도 페이지가 죽지 않도록 방어 */
@@ -34,7 +34,8 @@ async function updateRow(table, id, row) { if (!db) return { error: 'no db' }; r
 async function deleteRow(table, id) { if (!db) return { error: 'no db' }; return db.from(table).delete().eq('id', id); }
 
 /* 테마: profile.data 의 theme-* 키를 CSS 변수로 적용 */
-const THEME_KEYS = ['ink','muted','paper','night','night-soft','iris','ice','rose','sand','mint'];
+const THEME_KEYS = ['ink','muted','paper','night','night-soft','iris','ice',
+                    'rose','sand','mint','night-deep','hero','sheet'];
 function applyTheme(data) {
   if (!data) return;
   const root = document.documentElement.style;

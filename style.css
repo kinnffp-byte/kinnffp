@@ -13,6 +13,9 @@
   --line: rgba(17, 19, 26, 0.14);
   --line-dark: rgba(255, 255, 255, 0.15);
   --shadow: 0 24px 80px rgba(19, 22, 32, 0.14);
+  --night-deep: #111216;   /* 사이드바 등 더 진한 검정 */
+  --hero: #1d2b3c;         /* 히어로 배경 */
+  --sheet: #f4f2ed;        /* 내용이 올라가는 시트 배경 */
 }
 
 * {
@@ -1759,7 +1762,7 @@ swipeable product strips with a visible bottom scrollbar. */
   scroll-snap-type: x mandatory;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: #737de8 rgba(17, 19, 26, 0.08);
+  scrollbar-color: var(--iris) rgba(17, 19, 26, 0.08);
 }
 
 .goods-tier-image::-webkit-scrollbar {
@@ -1773,7 +1776,7 @@ swipeable product strips with a visible bottom scrollbar. */
 
 .goods-tier-image::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: #737de8;
+  background: var(--iris);
 }
 
 .goods-product-thumb,
@@ -2085,16 +2088,16 @@ body::before,
 }
 
 .side-navigation {
-  background: #111216;
+  background: var(--night-deep);
 }
 
 .content-sheet {
-  background: #f4f2ed;
+  background: var(--sheet);
   background-image: none;
 }
 
 .editorial-hero {
-  background: #111216;
+  background: var(--night-deep);
 }
 
 .outfit-preview-grid figure:first-child,
@@ -2175,7 +2178,7 @@ body::before,
   border: 0;
   border-right: 1px solid var(--line);
   border-radius: 0;
-  background: #f4f2ed;
+  background: var(--sheet);
   box-shadow: none;
 }
 
@@ -2421,7 +2424,7 @@ body::before,
 }
 
 .summer-signal > span {
-  color: #b8e9ef;
+  color: var(--ice);
 }
 
 .summer-signal i {
@@ -2449,7 +2452,7 @@ body::before,
 .signal-bars b {
   display: block;
   height: 20%;
-  background: #b8e9ef;
+  background: var(--ice);
   opacity: 0.65;
 }
 
@@ -2970,7 +2973,7 @@ body[data-view-mode="original"]::before {
 }
 
 @media (max-width: 860px) {body[data-view-mode="original"] {
-    background: #f4f2ed;
+    background: var(--sheet);
   }
 }
 
@@ -3498,7 +3501,7 @@ body[data-view-mode="ipad"] {
 .view-experience[data-view="ipad"] .reward-ledger {
   background:
     linear-gradient(rgba(17, 19, 26, 0.025) 1px, transparent 1px),
-    #f7f7f3;
+    var(--paper);
   background-size: 100% 32px;
 }
 
@@ -3514,7 +3517,7 @@ body[data-view-mode="ipad"] {
   background:
     linear-gradient(100deg, rgba(115, 125, 232, 0.2), transparent 48%),
     radial-gradient(circle at 88% 12%, rgba(184, 233, 239, 0.18), transparent 26%),
-    #1d2b3c;
+    var(--hero);
 }
 
 .view-experience[data-view="ipad"] .site-shell[data-theme="editorial"] .editorial-hero::before {
@@ -3551,7 +3554,7 @@ body[data-view-mode="ipad"] {
 .view-experience[data-view="ipad"] .site-shell[data-theme="editorial"] .hero-title h1 em,
 .view-experience[data-view="ipad"] .site-shell[data-theme="editorial"] .hero-metrics strong,
 .view-experience[data-view="ipad"] .site-shell[data-theme="editorial"] .hero-metrics div:nth-child(2) strong {
-  color: #b8e9ef;
+  color: var(--ice);
 }
 
 .view-experience[data-view="ipad"] .site-shell[data-theme="editorial"] .hero-lower > p {
@@ -3559,8 +3562,8 @@ body[data-view-mode="ipad"] {
 }
 
 .view-experience[data-view="ipad"] .site-shell[data-theme="editorial"] .primary-button {
-  color: #131620;
-  background: #b8e9ef;
+  color: var(--night);
+  background: var(--ice);
 }
 
 .view-experience[data-view="ipad"] .site-shell[data-theme="editorial"] .soft-button {
@@ -3581,7 +3584,7 @@ body[data-view-mode="ipad"] {
   display: none;
 }.view-experience[data-view="ipad"] .editorial-heading span,
 .view-experience[data-view="ipad"] .section-kicker {
-  color: #737de8;
+  color: var(--iris);
 }
 
 .view-experience[data-view="ipad"] .outfit-preview-grid figure:first-child,
@@ -3594,7 +3597,7 @@ body[data-view-mode="ipad"] {
 
 .view-experience[data-view="ipad"] .goods-feature,
 .view-experience[data-view="ipad"] .goods-feature-images {
-  background: #131620;
+  background: var(--night);
 }
 
 /* Final iPad presentation: landscape hardware with the complete archived layout. */
@@ -3624,7 +3627,7 @@ body[data-view-mode="ipad"] {
   min-height: 100%;
   margin: 0;
   border: 0;
-  background: #f4f2ed;
+  background: var(--sheet);
   box-shadow: none;
 }
 
@@ -3638,7 +3641,7 @@ body[data-view-mode="ipad"] {
   min-height: 620px;
   padding: 28px 20px 24px;
   color: #fff;
-  background: #111216;
+  background: var(--night-deep);
   box-shadow: none;
   backdrop-filter: none;
 }
@@ -3717,8 +3720,8 @@ body[data-view-mode="ipad"] {
 
 .view-experience[data-view="ipad"] .content-sheet {
   min-height: 100%;
-  color: #11131a;
-  background: #f4f2ed;
+  color: var(--ink);
+  background: var(--sheet);
   background-image: none;
   box-shadow: none;
 }
@@ -3735,7 +3738,7 @@ body[data-view-mode="ipad"] {
   min-height: 560px;
   padding: 48px;
   color: #fff;
-  background: #1d2b3c;
+  background: var(--hero);
 }
 
 .view-experience[data-view="ipad"] .site-shell[data-theme="editorial"] .editorial-hero::before,
