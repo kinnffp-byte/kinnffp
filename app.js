@@ -161,30 +161,43 @@
         return '<div><span>' + esc(r.title) + '</span><strong>' + esc(r.chance) + '</strong></div>';
       }).join('') + '</div>';
     }).join('');
-    fitRouletteLogo();
+    layoutReward();
   }
 
-  /* 룰렛 표가 그리드 칸을 다 못 채우면(예: 3칸 그리드에 목록 2개) 남는 칸에 로고를 얹는다.
-     ⚠️ 남는 칸이 없을 때는 아예 넣지 않는다 — 넣으면 줄이 하나 더 생겨 표가 밀린다.
-     칸 수는 화면 폭에 따라 바뀌므로 실제 계산된 grid-template-columns 를 읽는다. */
-  function fitRouletteLogo() {
+  /* ── 방셀보상 카드 폭 = 룰렛 표 폭에 맞춰 줄인다 ──────────────────
+     예전: 카드가 항상 화면 폭 전체(875px)라 목록이 2열이면 오른쪽이 텅 비었다.
+     지금: 열 수(--rcols)를 실제 목록 개수로 정하고, 카드 폭도 그 열 수로 계산해
+           표 끝에서 카드가 끝난다. 로고는 그 바깥(오른쪽 여백)에 그대로 둔다.
+     ⚠️ 로고는 grid 칸이 아니라 '절대배치'다 — 칸으로 넣으면 열 수가 틀어진다. */
+  function rouletteColCap() {
+    /* 넓은 화면만 3열. 그 아래는 예전과 동일하게 2열 유지
+       (1열로 떨어뜨리면 18줄이 한 줄로 늘어져 카드 높이가 배로 뛴다) */
+    return (window.innerWidth || 1280) >= 1001 ? 3 : 2;
+  }
+
+  function layoutReward() {
     var box = el('rouletteCols'); if (!box) return;
+    var layout = document.querySelector('.reward-layout');
+    var panel = document.querySelector('.roulette-panel');
+    var lists = box.querySelectorAll('.roulette-list').length;
+
+    if (layout) {
+      var n = Math.max(1, Math.min(lists || 1, rouletteColCap()));
+      layout.style.setProperty('--rcols', n);
+    }
+
+    /* 로고: 카드 바깥 오른쪽. 자리가 좁으면 숨긴다. */
     var prev = box.querySelector('.roulette-logo');
     if (prev) prev.parentNode.removeChild(prev);
 
-    var src = txt(T['roulette-logo']).trim(); if (!src) return;
-    var lists = box.querySelectorAll('.roulette-list').length; if (!lists) return;
+    var src = txt(T['roulette-logo']).trim();
+    if (!src || !lists || !layout || !panel) return;
 
-    var tmpl = getComputedStyle(box).gridTemplateColumns || '';
-    var gcols = tmpl.split(' ').filter(Boolean).length;
-    if (gcols < 2) return;
-
-    var free = gcols - (lists % gcols);
-    if (free === gcols) return;           // 딱 맞게 찼으면 넣지 않는다
+    var room = layout.clientWidth - panel.offsetWidth;
+    if (room < 190) return;               // 카드가 거의 꽉 차면 로고 자리 없음
 
     var slot = document.createElement('div');
     slot.className = 'roulette-logo';
-    slot.style.gridColumn = 'span ' + free;
     slot.setAttribute('aria-hidden', 'true');
     slot.innerHTML = '<img src="' + esc(src) + '" alt="" referrerpolicy="no-referrer">';
     box.appendChild(slot);
@@ -503,7 +516,7 @@
   var rlTimer = null;
   window.addEventListener('resize', function () {
     clearTimeout(rlTimer);
-    rlTimer = setTimeout(fitRouletteLogo, 160);
+    rlTimer = setTimeout(layoutReward, 160);
   });
 
   window.addEventListener('hashchange', function () {

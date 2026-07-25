@@ -5689,32 +5689,66 @@ body.dark .tier-pick {
   object-fit: contain;
   object-position: center center;
 }
-
 /* ══════════════════════════════════════════════════════════════════
-   룰렛 표 옆 남는 칸에 들어가는 로고
-   (app.js fitRouletteLogo 가 빈 칸이 있을 때만 넣는다)
+   방셀보상 카드 폭 = 내용(룰렛 표) 폭에 맞추기
+   기존: 카드가 항상 영역 전체(875px)라 목록이 2열일 때 오른쪽이 텅 비었고,
+         아래 '확정 방셀 단가' 카드도 같이 길게 늘어져 있었다.
+   변경: 열 수(--rcols, app.js layoutReward 가 목록 개수로 설정)로 카드 폭을
+         계산해 표 끝에서 카드가 끝나게 한다. 두 카드 모두 같은 폭·왼쪽 정렬.
+   폭 = 열수*264 + 열간격*(열수-1) + 좌우 패딩 44
    ════════════════════════════════════════════════════════════════ */
+.reward-layout {
+  --rcols: 2;
+  --reward-w: min(100%, calc(var(--rcols) * 264px + (var(--rcols) - 1) * 18px + 44px));
+  justify-items: start;
+}
+
+.reward-layout > .reward-panel,
+.view-experience[data-view="ipad"] .reward-layout > .reward-panel {
+  width: var(--reward-w);
+  max-width: 100%;
+}
+
+/* 표 열 수도 같은 값으로 — 안 맞추면 빈 트랙이 다시 생긴다 */
+.roulette-columns,
+.view-experience[data-view="ipad"] .roulette-columns {
+  position: relative;              /* 로고 절대배치 기준 */
+  grid-template-columns: repeat(var(--rcols, 2), minmax(0, 1fr));
+}
+
+/* ── 카드 바깥 오른쪽 여백에 놓이는 로고 ─────────────────────────
+   ⚠️ 받은 로고가 '흰색 + 투명배경'이라 카드 밖(흰 시트) 위에서는 안 보인다.
+      그래서 같은 로고를 테마색으로 칠한 assets/logo-mark-blue.png 를 기본으로 쓴다.
+      (mask-image 로 칠하는 방법은 file:// 에서 막혀 검증이 안 돼 채택하지 않음)
+   ⚠️ 그리드 칸이 아니라 절대배치 — 칸으로 넣으면 표 열 수가 틀어진다. */
 .roulette-logo {
-  display: grid;
-  min-width: 0;
-  padding: 4px 10px;
-  place-items: center;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 244px;
+  margin-left: 22px;
+  transform: translateY(-50%);
   pointer-events: none;
 }
 
 .roulette-logo img {
+  display: block;
   width: 100%;
-  max-width: min(100%, 300px);
-  max-height: 100%;
   height: auto;
   opacity: 0.92;
-  object-fit: contain;
 }
 
+body.dark .roulette-logo img { opacity: 0.7; }
+
 @media (max-width: 1000px) {
-  .roulette-logo img { max-width: min(100%, 240px); }
+  .roulette-logo { width: 200px; margin-left: 18px; }
 }
 
 @media (max-width: 700px) {
-  .roulette-logo { display: none; }   /* 폰에서는 자리가 없어 숨긴다 */
+  .roulette-logo { display: none; }
+}
+
+/* 좁은 화면에서는 로고 자리가 없으므로 카드가 폭을 다 쓴다 */
+@media (max-width: 1000px) {
+  .reward-layout { --reward-w: 100%; }
 }
