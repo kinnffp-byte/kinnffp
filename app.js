@@ -31,6 +31,15 @@
   function pad(n) { return String(n).padStart(2, '0'); }
 
   /* ── 텍스트 훅 적용 ─────────────────────────────────────────── */
+  /* 프사 주소: 직접 지정(loader-image)이 있으면 그것, 없으면 SOOP 아이디에서 파생 */
+  function avatarUrl() {
+    var direct = txt(T['loader-image']).trim();
+    if (direct) return direct;
+    var id = txt(T['soop-id']).trim().toLowerCase();
+    if (!id) return '';
+    return 'https://profile.img.sooplive.co.kr/LOGO/' + id.slice(0, 2) + '/' + id + '/' + id + '.jpg';
+  }
+
   function applyText() {
     document.querySelectorAll('[data-hook]').forEach(function (node) {
       var key = node.getAttribute('data-hook');
@@ -40,10 +49,23 @@
     document.title = txt(T['site-title']);
     var d = document.querySelector('meta[name="description"]');
     if (d) d.setAttribute('content', txt(T['site-desc']));
+    var av = avatarUrl();
     var icon = document.querySelector('link[rel="icon"]');
-    if (icon && T['loader-image']) icon.setAttribute('href', txt(T['loader-image']));
+    if (icon && av) icon.setAttribute('href', av);
     var ci = el('cover-img');
-    if (ci && T['loader-image']) ci.src = txt(T['loader-image']);
+    if (ci) {
+      if (av) { ci.src = av; ci.style.display = ''; }
+      else { ci.removeAttribute('src'); ci.style.display = 'none'; }
+    }
+    var pi = txt(T['page-image']).trim();
+    document.documentElement.style.setProperty('--page-image',
+      pi ? 'url("' + pi.replace(/"/g, '%22') + '")' : 'none');
+
+    var sl = el('soopLink');
+    if (sl) {
+      var su = txt(T['soop-url']).trim();
+      if (su) { sl.href = su; sl.hidden = false; } else { sl.hidden = true; }
+    }
   }
 
   /* ── 렌더러 ─────────────────────────────────────────────────── */
@@ -221,6 +243,25 @@
     return { label: txt(T['nav' + i + '-label']), eyebrow: txt(T['nav' + i + '-eyebrow']) };
   }
 
+  /* ── URL 해시 라우팅 ─────────────────────────────────────────
+     단일 파일이라 새로고침하면 첫 화면으로 돌아가던 문제를 해결.
+     #outfit 처럼 URL에 뷰를 남겨 새로고침·뒤로가기·링크공유가 된다. */
+  function keyFromHash() {
+    var h = (location.hash || '').replace(/^#\/?/, '').trim();
+    return ORDER.indexOf(h) >= 0 ? h : null;
+  }
+
+  function writeHash(key, replace) {
+    var target = '#' + key;
+    if (location.hash === target) return;
+    try {
+      if (replace) history.replaceState(null, '', target);
+      else history.pushState(null, '', target);
+    } catch (e) {
+      location.hash = target;      // pushState 불가 환경(file:// 등) 폴백
+    }
+  }
+
   function showPanel(key) {
     current = key;
     document.querySelectorAll('[data-view-panel]').forEach(function (p) {
@@ -239,8 +280,10 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function navigate(key) {
+  function navigate(key, opts) {
+    opts = opts || {};
     if (key === current) return;
+    if (!opts.fromHistory) writeHash(key, false);
     if (reduced) { showPanel(key); return; }
     var cover = el('cover');
     var label = el('cover-label');
@@ -352,13 +395,20 @@
     if (e.key === 'Escape') closeImage();
   });
 
+  window.addEventListener('hashchange', function () {
+    var k = keyFromHash() || 'main';
+    if (k !== current) navigate(k, { fromHistory: true });
+  });
+
   /* ── 기동 ───────────────────────────────────────────────────── */
   function ready() { document.body.classList.add('ready'); }
 
   async function boot() {
     renderAll();
     syncDark();
-    showPanel('main');
+    var start = keyFromHash() || 'main';
+    showPanel(start);
+    writeHash(start, true);   // 주소창 정리 (뒤로가기 히스토리는 더럽히지 않음)
     try {
       if (typeof fetchProfile === 'function') {
         var prof = await fetchProfile();

@@ -10,6 +10,8 @@
   --rose: #e9bfd0;
   --sand: #d9c89e;
   --mint: #cce2d8;
+  --page: #dff4f3;
+  --screen: #fffaf0;
   --line: rgba(17, 19, 26, 0.14);
   --line-dark: rgba(255, 255, 255, 0.15);
   --shadow: 0 24px 80px rgba(19, 22, 32, 0.14);
@@ -2813,10 +2815,10 @@ body {
   }
 }
 
-/* Illustrated page frame and supplied mascot hero. */
+/* 창 전체 뒷배경. 색은 --page, 이미지는 관리자 '뒷배경 이미지'로 제어. */
 body {
-  background-color: #dff4f3;
-  background-image: url("/assets/kimppugi-summer-outer.png");
+  background-color: var(--page);
+  background-image: var(--page-image, none);
   background-position: center top;
   background-size: cover;
   background-attachment: fixed;
@@ -3023,7 +3025,7 @@ body[data-view-mode="ipad"] {
   min-height: 100svh;
   padding: 22px;
   place-items: center;
-  background: rgba(224, 244, 243, 0.34);
+  background: color-mix(in srgb, var(--page) 34%, transparent);
   backdrop-filter: blur(2px);
 }
 
@@ -3082,7 +3084,7 @@ body[data-view-mode="ipad"] {
   flex-direction: column;
   border: 7px solid #07090b;
   border-radius: 34px;
-  background: #fffaf0;
+  background: var(--screen);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.18),
     inset 0 0 30px rgba(255, 255, 255, 0.32);
@@ -3096,7 +3098,7 @@ body[data-view-mode="ipad"] {
   padding: 0 22px;
   border-bottom: 1px solid rgba(16, 38, 50, 0.08);
   color: #102632;
-  background: rgba(250, 250, 247, 0.94);
+  background: color-mix(in srgb, var(--screen) 94%, transparent);
   font-size: 10px;
   backdrop-filter: blur(20px);
 }
@@ -3501,7 +3503,7 @@ body[data-view-mode="ipad"] {
 .view-experience[data-view="ipad"] .lookbook-image,
 .view-experience[data-view="ipad"] .goods-tier-image,
 .view-experience[data-view="ipad"] .poster-tile {
-  background: #eef0f4;
+  background: color-mix(in srgb, var(--ice) 34%, var(--paper));
 }
 
 .view-experience[data-view="ipad"] .goods-feature,
@@ -3510,9 +3512,10 @@ body[data-view-mode="ipad"] {
 }
 
 /* Final iPad presentation: landscape hardware with the complete archived layout. */
+/* ⚠️ 여기에 불투명 색을 주면 body(뒷배경)가 완전히 가려져 테마가 안 먹는다. */
 .view-experience[data-view="ipad"] {
   padding: 24px;
-  background: #d7d9dc;
+  background: transparent;
   backdrop-filter: none;
 }
 
@@ -4535,3 +4538,31 @@ body.dark .editorial-index button:hover { background: #232733; }
 /* 사이드바 자체 스크롤바는 얇게 (아이패드 목업 안이라 눈에 띄면 안 됨) */
 .view-experience[data-view="ipad"] .side-navigation::-webkit-scrollbar { width: 0; }
 .view-experience[data-view="ipad"] .side-navigation { scrollbar-width: none; }
+
+/* 다크모드: 뒷배경·화면 바닥도 같이 어둡게 */
+body.dark {
+  --page: #0d0f14;
+  --screen: #14161d;
+}
+
+/* ── 확정 방셀 단가: tone 데이터를 팔레트 색으로 표시 ──────────────
+   tone 값(pink/blue/yellow/mint/lavender)이 페이지에서 안 쓰이는
+   죽은 필드였고, --rose/--mint 도 아무데서도 안 쓰였다. 둘을 연결한다.
+   절대 위치라서 레이아웃에는 영향이 없다. */
+.fixed-reward { position: relative; }
+
+.fixed-reward::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--iris);
+  content: "";
+}
+
+.fixed-reward.pink::after     { background: var(--rose); }
+.fixed-reward.blue::after     { background: var(--ice); }
+.fixed-reward.yellow::after   { background: var(--sand); }
+.fixed-reward.mint::after     { background: var(--mint); }
+.fixed-reward.lavender::after { background: var(--iris); }

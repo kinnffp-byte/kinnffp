@@ -3,64 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/gu/gurm01/gurm01.jpg">
 <title>관리자 — 김쁘피 보상 아카이브</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
 :root {
-  --ink:#11131a; --muted:#6f7480; --paper:#f4f4f1; --card:#fff;
-  --night:#131620; --iris:#737de8; --line:rgba(17,19,26,.14); --danger:#d6455c;
+  --adm-ink:#11131a; --adm-muted:#6f7480; --adm-paper:#f4f4f1; --adm-card:#fff;
+  --adm-night:#131620; --adm-iris:#737de8; --adm-line:rgba(17,19,26,.14); --adm-danger:#d6455c;
 }
 * { box-sizing:border-box; }
 [hidden] { display:none !important; }   /* #gate 가 display:flex 라 hidden 을 무시하던 버그 */
-body { margin:0; background:var(--paper); color:var(--ink);
+body { margin:0; background:var(--adm-paper); color:var(--adm-ink);
   font-family:"Pretendard Variable",Pretendard,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
   font-size:14px; line-height:1.55; }
-a { color:var(--iris); }
-code { padding:1px 5px; border:1px solid var(--line); background:#fff; font-size:12px; }
+a { color:var(--adm-iris); }
+code { padding:1px 5px; border:1px solid var(--adm-line); background:#fff; font-size:12px; }
 
 /* 로그인 */
 #gate { position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center;
-  background:var(--night); }
+  background:var(--adm-night); }
 #gate .box { width:min(340px,88vw); padding:28px; background:#fff; }
 #gate h1 { margin:0 0 6px; font-size:19px; }
-#gate p { margin:0 0 18px; color:var(--muted); font-size:12px; }
+#gate p { margin:0 0 18px; color:var(--adm-muted); font-size:12px; }
 
 /* 헤더 */
 header.top { position:sticky; top:0; z-index:20; display:flex; gap:14px; align-items:center;
-  padding:14px 20px; border-bottom:1px solid var(--line); background:var(--night); color:#fff; }
+  padding:14px 20px; border-bottom:1px solid var(--adm-line); background:var(--adm-night); color:#fff; }
 header.top strong { font-size:15px; letter-spacing:-.02em; }
 header.top span { color:rgba(255,255,255,.6); font-size:10px; font-weight:900; letter-spacing:.16em; }
 header.top .sp { margin-left:auto; }
 
 /* 탭 */
 .tabs { position:sticky; top:53px; z-index:19; display:flex; overflow-x:auto;
-  border-bottom:1px solid var(--line); background:#fff; }
-.tab { flex:0 0 auto; padding:13px 16px; border:0; border-right:1px solid var(--line);
-  color:var(--muted); background:transparent; font-size:13px; font-weight:700; cursor:pointer;
+  border-bottom:1px solid var(--adm-line); background:#fff; }
+.tab { flex:0 0 auto; padding:13px 16px; border:0; border-right:1px solid var(--adm-line);
+  color:var(--adm-muted); background:transparent; font-size:13px; font-weight:700; cursor:pointer;
   white-space:nowrap; }
-.tab.active { color:#fff; background:var(--iris); }
+.tab.active { color:#fff; background:var(--adm-iris); }
 
 main { max-width:1080px; margin:0 auto; padding:20px 16px 90px; }
 
 /* 카드 */
-.card { margin-bottom:16px; padding:18px; border:1px solid var(--line); background:var(--card); }
+.card { margin-bottom:16px; padding:18px; border:1px solid var(--adm-line); background:var(--adm-card); }
 .card-title { margin-bottom:4px; font-size:15px; font-weight:800; letter-spacing:-.02em; }
-.card-note { margin-bottom:14px; color:var(--muted); font-size:12px; }
+.card-note { margin-bottom:14px; color:var(--adm-muted); font-size:12px; }
 .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
 .field label { display:block; margin-bottom:5px; font-size:11px; font-weight:800;
-  letter-spacing:.04em; color:var(--muted); }
-.input { width:100%; box-sizing:border-box; padding:9px 11px; border:1px solid var(--line);
-  background:#fff; color:var(--ink); font:inherit; font-size:13px; }
-.input:focus { outline:2px solid var(--iris); outline-offset:-1px; }
+  letter-spacing:.04em; color:var(--adm-muted); }
+.input { width:100%; box-sizing:border-box; padding:9px 11px; border:1px solid var(--adm-line);
+  background:#fff; color:var(--adm-ink); font:inherit; font-size:13px; }
+.input:focus { outline:2px solid var(--adm-iris); outline-offset:-1px; }
 textarea.input { resize:vertical; min-height:64px; }
-.hint { margin-top:5px; color:var(--muted); font-size:11px; line-height:1.5; }
+.hint { margin-top:5px; color:var(--adm-muted); font-size:11px; line-height:1.5; }
 .thumb { margin-top:7px; }
-.thumb img { max-width:100%; max-height:110px; border:1px solid var(--line); background:#fafafa; }
+.thumb img { max-width:100%; max-height:110px; border:1px solid var(--adm-line); background:#fafafa; }
 
 /* 버튼 */
-.btn { padding:10px 16px; border:1px solid var(--line); background:#fff; color:var(--ink);
+.btn { padding:10px 16px; border:1px solid var(--adm-line); background:#fff; color:var(--adm-ink);
   font:inherit; font-size:13px; font-weight:700; cursor:pointer; }
-.btn.primary { border-color:var(--iris); background:var(--iris); color:#fff; }
+.btn.primary { border-color:var(--adm-iris); background:var(--adm-iris); color:#fff; }
 .btn.ghost { background:#fff; }
 .btn.tiny { padding:5px 9px; font-size:12px; }
 .btn:hover { filter:brightness(.96); }
@@ -68,36 +69,36 @@ textarea.input { resize:vertical; min-height:64px; }
 .sticky-save { position:sticky; bottom:12px; }
 
 /* 테이블 */
-.table-wrap { overflow-x:auto; border:1px solid var(--line); }
+.table-wrap { overflow-x:auto; border:1px solid var(--adm-line); }
 .table-wrap table { width:100%; border-collapse:collapse; }
-.table-wrap th { padding:9px 8px; border-bottom:1px solid var(--line); background:#f0f0ee;
-  color:var(--muted); font-size:11px; font-weight:800; letter-spacing:.04em; text-align:left;
+.table-wrap th { padding:9px 8px; border-bottom:1px solid var(--adm-line); background:#f0f0ee;
+  color:var(--adm-muted); font-size:11px; font-weight:800; letter-spacing:.04em; text-align:left;
   white-space:nowrap; }
-.table-wrap td { padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+.table-wrap td { padding:6px 8px; border-bottom:1px solid var(--adm-line); vertical-align:top; }
 .table-wrap th.ord, .table-wrap td.ord { width:52px; text-align:center; }
 .table-wrap th.del, .table-wrap td.del { width:56px; text-align:center; }
 .table-wrap tr:last-child td { border-bottom:0; }
 .table-wrap .input { font-size:12px; padding:7px 8px; }
 .ord-btns { display:flex; flex-direction:column; gap:2px; align-items:center; }
-.ord-btns button { width:26px; padding:1px 0; border:1px solid var(--line); background:#fff;
+.ord-btns button { width:26px; padding:1px 0; border:1px solid var(--adm-line); background:#fff;
   cursor:pointer; font-size:11px; line-height:1.3; }
-.del-btn { width:28px; height:28px; border:1px solid var(--line); background:#fff;
-  color:var(--danger); font-size:15px; line-height:1; cursor:pointer; }
-.del-btn:hover { border-color:var(--danger); background:var(--danger); color:#fff; }
-.empty-row td { padding:20px; color:var(--muted); font-size:12px; text-align:center; }
+.del-btn { width:28px; height:28px; border:1px solid var(--adm-line); background:#fff;
+  color:var(--adm-danger); font-size:15px; line-height:1; cursor:pointer; }
+.del-btn:hover { border-color:var(--adm-danger); background:var(--adm-danger); color:#fff; }
+.empty-row td { padding:20px; color:var(--adm-muted); font-size:12px; text-align:center; }
 
 /* 테마 */
 .color-list { display:grid; gap:10px; }
 .color-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; align-items:center;
-  padding:10px 12px; border:1px solid var(--line); }
+  padding:10px 12px; border:1px solid var(--adm-line); }
 .color-meta strong { display:block; font-size:13px; }
-.color-meta span { display:block; color:var(--muted); font-size:11px; }
+.color-meta span { display:block; color:var(--adm-muted); font-size:11px; }
 .color-ctl { display:flex; gap:8px; align-items:center; }
-.color-ctl input[type=color] { width:42px; height:34px; padding:0; border:1px solid var(--line);
+.color-ctl input[type=color] { width:42px; height:34px; padding:0; border:1px solid var(--adm-line);
   background:#fff; cursor:pointer; }
 .input.hex { width:104px; font-family:ui-monospace,monospace; font-size:12px; }
 
-.preview { display:grid; grid-template-columns:150px minmax(0,1fr); border:1px solid var(--line);
+.preview { display:grid; grid-template-columns:150px minmax(0,1fr); border:1px solid var(--adm-line);
   overflow:hidden; }
 .pv-side { padding:16px 14px; background:var(--pv-night,#131620); color:#fff; }
 .pv-side strong { display:block; font-size:17px; }
@@ -112,7 +113,7 @@ textarea.input { resize:vertical; min-height:64px; }
 .pv-h { margin:6px 0 14px; color:var(--pv-ink,#11131a); font-size:22px; font-weight:800;
   letter-spacing:-.03em; }
 .pv-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
-.pv-c { padding:12px; border:1px solid var(--line); }
+.pv-c { padding:12px; border:1px solid var(--adm-line); }
 .pv-c b { display:block; color:var(--pv-ink,#11131a); font-size:17px; }
 .pv-c span { display:block; color:var(--pv-muted,#6f7480); font-size:10px; }
 .pv-c.pink { background:var(--pv-rose,#e9bfd0); }
@@ -123,11 +124,11 @@ textarea.input { resize:vertical; min-height:64px; }
 
 /* 토스트 */
 #toast { position:fixed; bottom:22px; left:50%; z-index:60; padding:12px 20px;
-  background:var(--night); color:#fff; font-size:13px; font-weight:700;
+  background:var(--adm-night); color:#fff; font-size:13px; font-weight:700;
   transform:translate(-50%,20px); opacity:0; pointer-events:none;
   transition:opacity .2s ease, transform .2s ease; }
 #toast.on { opacity:1; transform:translate(-50%,0); }
-#toast.bad { background:var(--danger); }
+#toast.bad { background:var(--adm-danger); }
 
 @media (max-width:640px) {
   .color-row { grid-template-columns:minmax(0,1fr); }
@@ -165,7 +166,7 @@ textarea.input { resize:vertical; min-height:64px; }
       연결 전에는 기본값만 보이고 <b>저장이 되지 않습니다.</b>
     </div>
   </div>
-  <div class="tab-panel" id="tab-site" hidden><div class="card"><div class="card-title">기본 정보</div><div class="card-note">브라우저 탭·링크 미리보기에 쓰이는 값입니다.</div><div class="grid2"><div class="field"><label for="f-site-title">사이트 제목</label><input class="input" id="f-site-title" type="text"><div class="hint">브라우저 탭과 카톡·X 미리보기 제목.</div></div><div class="field"><label for="f-site-desc">사이트 설명</label><textarea class="input" id="f-site-desc" rows="3"></textarea><div class="hint">미리보기에 뜨는 한두 줄 소개.</div></div><div class="field"><label for="f-brand-name">사이드바 로고</label><input class="input" id="f-brand-name" type="text"><div class="hint">사이드바 맨 위 큰 글자. 예: KIMFP</div></div><div class="field"><label for="f-brand-sub">로고 아래 문구</label><input class="input" id="f-brand-sub" type="text"><div class="hint">영문 대문자가 잘 어울려요. 예: REWARD ARCHIVE</div></div><div class="field"><label for="f-mobile-brand">모바일 상단 이름</label><input class="input" id="f-mobile-brand" type="text"><div class="hint">좁은 화면에서 상단에 뜨는 이름.</div></div></div></div><div class="card"><div class="card-title">아이패드 상태바</div><div class="card-note">화면 맨 위 얇은 띠입니다.</div><div class="grid2"><div class="field"><label for="f-status-time">시계</label><input class="input" id="f-status-time" type="text"><div class="hint">예: 9:41</div></div><div class="field"><label for="f-status-title">가운데 문구</label><input class="input" id="f-status-title" type="text"><div class="hint">예: 김쁘피 보상 아카이브</div></div></div></div><div class="card"><div class="card-title">사이드바 하단 메모</div><div class="card-note">목차 아래 작은 안내 블록.</div><div class="grid2"><div class="field"><label for="f-side-kicker">작은 라벨</label><input class="input" id="f-side-kicker" type="text"><div class="hint">영문 대문자 권장. 예: SUMMER CHANNEL 26</div></div><div class="field"><label for="f-side-title">굵은 문구</label><textarea class="input" id="f-side-title" rows="3"></textarea><div class="hint">줄바꿈은 &lt;br&gt; 로 넣습니다.</div></div></div></div><div class="card"><div class="card-title">푸터</div><div class="card-note">모든 화면 맨 아래.</div><div class="grid2"><div class="field"><label for="f-footer-left">왼쪽</label><input class="input" id="f-footer-left" type="text"></div><div class="field"><label for="f-footer-right">오른쪽</label><input class="input" id="f-footer-right" type="text"></div></div></div><div class="card"><div class="card-title">🎬 화면 전환 연출</div><div class="card-note">목차를 누를 때 덮이는 커버입니다. 첫 로딩에도 같은 걸 씁니다.</div><div class="grid2"><div class="field"><label for="f-loader-image">커버 이미지 (프사)</label><input class="input" id="f-loader-image" type="text" placeholder="assets/… 또는 https://…"><div class="thumb" id="t-loader-image"></div><div class="hint">정사각형(1:1)이 제일 깔끔해요. SOOP 프사 주소: profile.img.sooplive.co.kr/LOGO/앞2글자/아이디/아이디.jpg — 비우면 글자만 뜹니다.</div></div><div class="field"><label for="f-trans-prefix">이름 앞말</label><input class="input" id="f-trans-prefix" type="text"><div class="hint">뒤에 목차 이름이 자동으로 붙습니다. '김쁘피 · ' → 김쁘피 · 방셀보상</div></div></div></div><div class="row-end sticky-save"><button class="btn primary" data-savetext="site">이 탭 문구 저장</button></div></div><div class="tab-panel" id="tab-nav" hidden><div class="card"><div class="card-title">목차 5칸</div><div class="card-note">사이드바·하단 독·모바일 메뉴에 동시 적용됩니다.</div><div class="grid2"><div class="field"><label for="f-nav1-mark">1번 (메인) 기호</label><input class="input" id="f-nav1-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav1-eyebrow">1번 (메인) 영문 라벨</label><input class="input" id="f-nav1-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav1-label">1번 (메인) 이름</label><input class="input" id="f-nav1-label" type="text"><div class="hint">실제 목차 이름.</div></div><div class="field"><label for="f-nav2-mark">2번 (누적공약) 기호</label><input class="input" id="f-nav2-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav2-eyebrow">2번 (누적공약) 영문 라벨</label><input class="input" id="f-nav2-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav2-label">2번 (누적공약) 이름</label><input class="input" id="f-nav2-label" type="text"><div class="hint">실제 목차 이름.</div></div><div class="field"><label for="f-nav3-mark">3번 (방셀보상) 기호</label><input class="input" id="f-nav3-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav3-eyebrow">3번 (방셀보상) 영문 라벨</label><input class="input" id="f-nav3-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav3-label">3번 (방셀보상) 이름</label><input class="input" id="f-nav3-label" type="text"><div class="hint">실제 목차 이름.</div></div><div class="field"><label for="f-nav4-mark">4번 (굿즈) 기호</label><input class="input" id="f-nav4-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav4-eyebrow">4번 (굿즈) 영문 라벨</label><input class="input" id="f-nav4-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav4-label">4번 (굿즈) 이름</label><input class="input" id="f-nav4-label" type="text"><div class="hint">실제 목차 이름.</div></div><div class="field"><label for="f-nav5-mark">5번 (의상) 기호</label><input class="input" id="f-nav5-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav5-eyebrow">5번 (의상) 영문 라벨</label><input class="input" id="f-nav5-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav5-label">5번 (의상) 이름</label><input class="input" id="f-nav5-label" type="text"><div class="hint">실제 목차 이름.</div></div></div></div><div class="row-end sticky-save"><button class="btn primary" data-savetext="nav">이 탭 문구 저장</button></div></div><div class="tab-panel" id="tab-main" hidden><div class="card"><div class="card-title">히어로</div><div class="card-note">첫 화면 큰 영역입니다.</div><div class="grid2"><div class="field"><label for="f-hero-overline-l">상단 왼쪽</label><input class="input" id="f-hero-overline-l" type="text"></div><div class="field"><label for="f-hero-overline-r">상단 오른쪽</label><input class="input" id="f-hero-overline-r" type="text"></div><div class="field"><label for="f-hero-title-a">큰 제목 앞</label><input class="input" id="f-hero-title-a" type="text"><div class="hint">예: KIM</div></div><div class="field"><label for="f-hero-title-b">큰 제목 뒤(강조색)</label><input class="input" id="f-hero-title-b" type="text"><div class="hint">예: FP</div></div><div class="field"><label for="f-hero-title-sub">부제목</label><input class="input" id="f-hero-title-sub" type="text"></div><div class="field"><label for="f-hero-lead">소개 문단</label><textarea class="input" id="f-hero-lead" rows="3"></textarea></div><div class="field"><label for="f-hero-btn1">버튼 1</label><input class="input" id="f-hero-btn1" type="text"><div class="hint">누르면 방셀보상으로 이동.</div></div><div class="field"><label for="f-hero-btn2">버튼 2</label><input class="input" id="f-hero-btn2" type="text"><div class="hint">누르면 의상으로 이동.</div></div><div class="field"><label for="f-hero-ghost">배경 큰 글자</label><input class="input" id="f-hero-ghost" type="text"><div class="hint">히어로 뒤에 윤곽선으로 깔리는 장식 글자. 짧게.</div></div></div></div><div class="card"><div class="card-title">요약 지표 4칸</div><div class="card-note">히어로 아래 숫자 4개.</div><div class="grid2"><div class="field"><label for="f-metric1-num">1번 숫자</label><input class="input" id="f-metric1-num" type="text"><div class="hint">짧게. 예: 10</div></div><div class="field"><label for="f-metric1-label">1번 설명</label><input class="input" id="f-metric1-label" type="text"><div class="hint">예: 누적공약</div></div><div class="field"><label for="f-metric2-num">2번 숫자</label><input class="input" id="f-metric2-num" type="text"><div class="hint">짧게. 예: 10</div></div><div class="field"><label for="f-metric2-label">2번 설명</label><input class="input" id="f-metric2-label" type="text"><div class="hint">예: 누적공약</div></div><div class="field"><label for="f-metric3-num">3번 숫자</label><input class="input" id="f-metric3-num" type="text"><div class="hint">짧게. 예: 10</div></div><div class="field"><label for="f-metric3-label">3번 설명</label><input class="input" id="f-metric3-label" type="text"><div class="hint">예: 누적공약</div></div><div class="field"><label for="f-metric4-num">4번 숫자</label><input class="input" id="f-metric4-num" type="text"><div class="hint">짧게. 예: 10</div></div><div class="field"><label for="f-metric4-label">4번 설명</label><input class="input" id="f-metric4-label" type="text"><div class="hint">예: 누적공약</div></div></div></div><div class="card"><div class="card-title">송출 표시</div><div class="card-note">히어로 하단 신호 표시.</div><div class="grid2"><div class="field"><label for="f-signal-text">왼쪽 문구</label><input class="input" id="f-signal-text" type="text"></div><div class="field"><label for="f-signal-channel">오른쪽 문구</label><input class="input" id="f-signal-channel" type="text"></div></div></div><div class="card"><div class="card-title">목차 카드 3개</div><div class="card-note">메인에서 각 화면으로 넘어가는 카드.</div><div class="grid2"><div class="field"><label for="f-idx1-small">1번 영문 라벨</label><input class="input" id="f-idx1-small" type="text"></div><div class="field"><label for="f-idx1-strong">1번 이름</label><input class="input" id="f-idx1-strong" type="text"></div><div class="field"><label for="f-idx1-em">1번 부가 문구</label><input class="input" id="f-idx1-em" type="text"><div class="hint">좁은 화면에서는 숨겨집니다.</div></div><div class="field"><label for="f-idx2-small">2번 영문 라벨</label><input class="input" id="f-idx2-small" type="text"></div><div class="field"><label for="f-idx2-strong">2번 이름</label><input class="input" id="f-idx2-strong" type="text"></div><div class="field"><label for="f-idx2-em">2번 부가 문구</label><input class="input" id="f-idx2-em" type="text"><div class="hint">좁은 화면에서는 숨겨집니다.</div></div><div class="field"><label for="f-idx3-small">3번 영문 라벨</label><input class="input" id="f-idx3-small" type="text"></div><div class="field"><label for="f-idx3-strong">3번 이름</label><input class="input" id="f-idx3-strong" type="text"></div><div class="field"><label for="f-idx3-em">3번 부가 문구</label><input class="input" id="f-idx3-em" type="text"><div class="hint">좁은 화면에서는 숨겨집니다.</div></div></div></div><div class="card"><div class="card-title">하단 블록 제목들</div><div class="grid2"><div class="field"><label for="f-lookbook-kicker">의상 미리보기 라벨</label><input class="input" id="f-lookbook-kicker" type="text"></div><div class="field"><label for="f-lookbook-title">의상 미리보기 제목</label><input class="input" id="f-lookbook-title" type="text"></div><div class="field"><label for="f-lookbook-btn">의상 미리보기 버튼</label><input class="input" id="f-lookbook-btn" type="text"></div><div class="field"><label for="f-ledger-kicker">방셀 단가 라벨</label><input class="input" id="f-ledger-kicker" type="text"></div><div class="field"><label for="f-ledger-title">방셀 단가 제목</label><input class="input" id="f-ledger-title" type="text"></div><div class="field"><label for="f-ledger-btn">방셀 단가 버튼</label><input class="input" id="f-ledger-btn" type="text"></div><div class="field"><label for="f-goodsfeat-kicker">굿즈 소개 라벨</label><input class="input" id="f-goodsfeat-kicker" type="text"></div><div class="field"><label for="f-goodsfeat-title">굿즈 소개 제목</label><textarea class="input" id="f-goodsfeat-title" rows="3"></textarea><div class="hint">줄바꿈은 &lt;br&gt;</div></div><div class="field"><label for="f-goodsfeat-desc">굿즈 소개 설명</label><textarea class="input" id="f-goodsfeat-desc" rows="3"></textarea></div><div class="field"><label for="f-goodsfeat-btn">굿즈 소개 버튼</label><input class="input" id="f-goodsfeat-btn" type="text"></div></div></div><div class="row-end sticky-save"><button class="btn primary" data-savetext="main">이 탭 문구 저장</button></div></div><div class="tab-panel" id="tab-promise" hidden><div class="card"><div class="card-title">머리글</div><div class="grid2"><div class="field"><label for="f-promise-kicker">영문 라벨</label><input class="input" id="f-promise-kicker" type="text"></div><div class="field"><label for="f-promise-title">제목</label><input class="input" id="f-promise-title" type="text"></div><div class="field"><label for="f-promise-desc">설명</label><textarea class="input" id="f-promise-desc" rows="3"></textarea></div></div></div><div class="card"><div class="card-title">진행률</div><div class="card-note">게이지와 퍼센트는 아래 두 숫자로 자동 계산됩니다.</div><div class="grid2"><div class="field"><label for="f-promise-live">게이지 라벨</label><input class="input" id="f-promise-live" type="text"></div><div class="field"><label for="f-promise-current">현재 누적(만)</label><input class="input" id="f-promise-current" type="text" inputmode="decimal"><div class="hint">숫자만. 예: 35 → 35만</div></div><div class="field"><label for="f-promise-final">최종 목표(만)</label><input class="input" id="f-promise-final" type="text" inputmode="decimal"><div class="hint">숫자만. 예: 300</div></div><div class="field"><label for="f-promise-note">게이지 옆 설명</label><textarea class="input" id="f-promise-note" rows="3"></textarea></div></div></div><div class="card"><div class="card-title">하단 안내</div><div class="grid2"><div class="field"><label for="f-promise-foot-strong">굵은 문구</label><input class="input" id="f-promise-foot-strong" type="text"></div><div class="field"><label for="f-promise-foot-desc">설명</label><textarea class="input" id="f-promise-foot-desc" rows="3"></textarea></div></div></div><div class="card">
+  <div class="tab-panel" id="tab-site" hidden><div class="card"><div class="card-title">📺 SOOP 연동</div><div class="card-note">아이디만 넣으면 브라우저 탭 아이콘(파비콘)과 화면 전환 커버 이미지가 자동으로 그 프사가 됩니다.</div><div class="grid2"><div class="field"><label for="f-soop-id">SOOP 아이디</label><input class="input" id="f-soop-id" type="text" placeholder="gurm01"><div class="thumb" id="t-soop-id"></div><div class="hint">방송국 주소 <code>sooplive.com/station/<b>여기</b></code> 부분. 프사 주소는 <code>profile.img.sooplive.co.kr/LOGO/앞2글자/아이디/아이디.jpg</code> 규칙으로 자동 조립됩니다.</div></div><div class="field"><label for="f-soop-url">방송국 주소</label><input class="input" id="f-soop-url" type="text" placeholder="https://www.sooplive.com/station/gurm01"><div class="hint">푸터의 “SOOP 방송국 ↗” 링크가 여기로 갑니다. 비우면 링크가 숨겨집니다.</div></div><div class="field"><label for="f-page-image">창 뒷배경 이미지</label><input class="input" id="f-page-image" type="text" placeholder="assets/kimppugi-summer-outer.png"><div class="thumb" id="t-page-image"></div><div class="hint">아이패드 목업 <b>바깥</b> 넓은 영역에 깔리는 그림. 비우면 🎨테마의 “창 뒷배경” 색만 나옵니다. 가로로 넓은 이미지가 잘 맞고, 스크롤해도 고정됩니다.</div></div></div></div><div class="card"><div class="card-title">기본 정보</div><div class="card-note">브라우저 탭·링크 미리보기에 쓰이는 값입니다.</div><div class="grid2"><div class="field"><label for="f-site-title">사이트 제목</label><input class="input" id="f-site-title" type="text"><div class="hint">브라우저 탭과 카톡·X 미리보기 제목.</div></div><div class="field"><label for="f-site-desc">사이트 설명</label><textarea class="input" id="f-site-desc" rows="3"></textarea><div class="hint">미리보기에 뜨는 한두 줄 소개.</div></div><div class="field"><label for="f-brand-name">사이드바 로고</label><input class="input" id="f-brand-name" type="text"><div class="hint">사이드바 맨 위 큰 글자. 예: KIMFP</div></div><div class="field"><label for="f-brand-sub">로고 아래 문구</label><input class="input" id="f-brand-sub" type="text"><div class="hint">영문 대문자가 잘 어울려요. 예: REWARD ARCHIVE</div></div><div class="field"><label for="f-mobile-brand">모바일 상단 이름</label><input class="input" id="f-mobile-brand" type="text"><div class="hint">좁은 화면에서 상단에 뜨는 이름.</div></div></div></div><div class="card"><div class="card-title">아이패드 상태바</div><div class="card-note">화면 맨 위 얇은 띠입니다.</div><div class="grid2"><div class="field"><label for="f-status-time">시계</label><input class="input" id="f-status-time" type="text"><div class="hint">예: 9:41</div></div><div class="field"><label for="f-status-title">가운데 문구</label><input class="input" id="f-status-title" type="text"><div class="hint">예: 김쁘피 보상 아카이브</div></div></div></div><div class="card"><div class="card-title">사이드바 하단 메모</div><div class="card-note">목차 아래 작은 안내 블록.</div><div class="grid2"><div class="field"><label for="f-side-kicker">작은 라벨</label><input class="input" id="f-side-kicker" type="text"><div class="hint">영문 대문자 권장. 예: SUMMER CHANNEL 26</div></div><div class="field"><label for="f-side-title">굵은 문구</label><textarea class="input" id="f-side-title" rows="3"></textarea><div class="hint">줄바꿈은 &lt;br&gt; 로 넣습니다.</div></div></div></div><div class="card"><div class="card-title">푸터</div><div class="card-note">모든 화면 맨 아래.</div><div class="grid2"><div class="field"><label for="f-footer-left">왼쪽</label><input class="input" id="f-footer-left" type="text"></div><div class="field"><label for="f-footer-right">오른쪽</label><input class="input" id="f-footer-right" type="text"></div></div></div><div class="card"><div class="card-title">🎬 화면 전환 연출</div><div class="card-note">목차를 누를 때 덮이는 커버입니다. 첫 로딩에도 같은 걸 씁니다.</div><div class="grid2"><div class="field"><label for="f-loader-image">커버 이미지 (프사)</label><input class="input" id="f-loader-image" type="text" placeholder="assets/… 또는 https://…"><div class="thumb" id="t-loader-image"></div><div class="hint"><b>비워두면 위 SOOP 아이디의 프사가 자동으로 쓰입니다.</b> 다른 이미지를 쓰고 싶을 때만 채우세요(정사각형 1:1 권장). 움짤(.gif)도 됩니다.</div></div><div class="field"><label for="f-trans-prefix">이름 앞말</label><input class="input" id="f-trans-prefix" type="text"><div class="hint">뒤에 목차 이름이 자동으로 붙습니다. '김쁘피 · ' → 김쁘피 · 방셀보상</div></div></div></div><div class="row-end sticky-save"><button class="btn primary" data-savetext="site">이 탭 문구 저장</button></div></div><div class="tab-panel" id="tab-nav" hidden><div class="card"><div class="card-title">목차 5칸</div><div class="card-note">사이드바·하단 독·모바일 메뉴에 동시 적용됩니다.</div><div class="grid2"><div class="field"><label for="f-nav1-mark">1번 (메인) 기호</label><input class="input" id="f-nav1-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav1-eyebrow">1번 (메인) 영문 라벨</label><input class="input" id="f-nav1-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav1-label">1번 (메인) 이름</label><input class="input" id="f-nav1-label" type="text"><div class="hint">실제 목차 이름.</div></div><div class="field"><label for="f-nav2-mark">2번 (누적공약) 기호</label><input class="input" id="f-nav2-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav2-eyebrow">2번 (누적공약) 영문 라벨</label><input class="input" id="f-nav2-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav2-label">2번 (누적공약) 이름</label><input class="input" id="f-nav2-label" type="text"><div class="hint">실제 목차 이름.</div></div><div class="field"><label for="f-nav3-mark">3번 (방셀보상) 기호</label><input class="input" id="f-nav3-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav3-eyebrow">3번 (방셀보상) 영문 라벨</label><input class="input" id="f-nav3-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav3-label">3번 (방셀보상) 이름</label><input class="input" id="f-nav3-label" type="text"><div class="hint">실제 목차 이름.</div></div><div class="field"><label for="f-nav4-mark">4번 (굿즈) 기호</label><input class="input" id="f-nav4-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav4-eyebrow">4번 (굿즈) 영문 라벨</label><input class="input" id="f-nav4-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav4-label">4번 (굿즈) 이름</label><input class="input" id="f-nav4-label" type="text"><div class="hint">실제 목차 이름.</div></div><div class="field"><label for="f-nav5-mark">5번 (의상) 기호</label><input class="input" id="f-nav5-mark" type="text"><div class="hint">✦ ↗ ◈ □ ♡ 같은 한 글자.</div></div><div class="field"><label for="f-nav5-eyebrow">5번 (의상) 영문 라벨</label><input class="input" id="f-nav5-eyebrow" type="text"><div class="hint">작게 뜨는 영문. 예: ON AIR</div></div><div class="field"><label for="f-nav5-label">5번 (의상) 이름</label><input class="input" id="f-nav5-label" type="text"><div class="hint">실제 목차 이름.</div></div></div></div><div class="row-end sticky-save"><button class="btn primary" data-savetext="nav">이 탭 문구 저장</button></div></div><div class="tab-panel" id="tab-main" hidden><div class="card"><div class="card-title">히어로</div><div class="card-note">첫 화면 큰 영역입니다.</div><div class="grid2"><div class="field"><label for="f-hero-overline-l">상단 왼쪽</label><input class="input" id="f-hero-overline-l" type="text"></div><div class="field"><label for="f-hero-overline-r">상단 오른쪽</label><input class="input" id="f-hero-overline-r" type="text"></div><div class="field"><label for="f-hero-title-a">큰 제목 앞</label><input class="input" id="f-hero-title-a" type="text"><div class="hint">예: KIM</div></div><div class="field"><label for="f-hero-title-b">큰 제목 뒤(강조색)</label><input class="input" id="f-hero-title-b" type="text"><div class="hint">예: FP</div></div><div class="field"><label for="f-hero-title-sub">부제목</label><input class="input" id="f-hero-title-sub" type="text"></div><div class="field"><label for="f-hero-lead">소개 문단</label><textarea class="input" id="f-hero-lead" rows="3"></textarea></div><div class="field"><label for="f-hero-btn1">버튼 1</label><input class="input" id="f-hero-btn1" type="text"><div class="hint">누르면 방셀보상으로 이동.</div></div><div class="field"><label for="f-hero-btn2">버튼 2</label><input class="input" id="f-hero-btn2" type="text"><div class="hint">누르면 의상으로 이동.</div></div><div class="field"><label for="f-hero-ghost">배경 큰 글자</label><input class="input" id="f-hero-ghost" type="text"><div class="hint">히어로 뒤에 윤곽선으로 깔리는 장식 글자. 짧게.</div></div></div></div><div class="card"><div class="card-title">요약 지표 4칸</div><div class="card-note">히어로 아래 숫자 4개.</div><div class="grid2"><div class="field"><label for="f-metric1-num">1번 숫자</label><input class="input" id="f-metric1-num" type="text"><div class="hint">짧게. 예: 10</div></div><div class="field"><label for="f-metric1-label">1번 설명</label><input class="input" id="f-metric1-label" type="text"><div class="hint">예: 누적공약</div></div><div class="field"><label for="f-metric2-num">2번 숫자</label><input class="input" id="f-metric2-num" type="text"><div class="hint">짧게. 예: 10</div></div><div class="field"><label for="f-metric2-label">2번 설명</label><input class="input" id="f-metric2-label" type="text"><div class="hint">예: 누적공약</div></div><div class="field"><label for="f-metric3-num">3번 숫자</label><input class="input" id="f-metric3-num" type="text"><div class="hint">짧게. 예: 10</div></div><div class="field"><label for="f-metric3-label">3번 설명</label><input class="input" id="f-metric3-label" type="text"><div class="hint">예: 누적공약</div></div><div class="field"><label for="f-metric4-num">4번 숫자</label><input class="input" id="f-metric4-num" type="text"><div class="hint">짧게. 예: 10</div></div><div class="field"><label for="f-metric4-label">4번 설명</label><input class="input" id="f-metric4-label" type="text"><div class="hint">예: 누적공약</div></div></div></div><div class="card"><div class="card-title">송출 표시</div><div class="card-note">히어로 하단 신호 표시.</div><div class="grid2"><div class="field"><label for="f-signal-text">왼쪽 문구</label><input class="input" id="f-signal-text" type="text"></div><div class="field"><label for="f-signal-channel">오른쪽 문구</label><input class="input" id="f-signal-channel" type="text"></div></div></div><div class="card"><div class="card-title">목차 카드 3개</div><div class="card-note">메인에서 각 화면으로 넘어가는 카드.</div><div class="grid2"><div class="field"><label for="f-idx1-small">1번 영문 라벨</label><input class="input" id="f-idx1-small" type="text"></div><div class="field"><label for="f-idx1-strong">1번 이름</label><input class="input" id="f-idx1-strong" type="text"></div><div class="field"><label for="f-idx1-em">1번 부가 문구</label><input class="input" id="f-idx1-em" type="text"><div class="hint">좁은 화면에서는 숨겨집니다.</div></div><div class="field"><label for="f-idx2-small">2번 영문 라벨</label><input class="input" id="f-idx2-small" type="text"></div><div class="field"><label for="f-idx2-strong">2번 이름</label><input class="input" id="f-idx2-strong" type="text"></div><div class="field"><label for="f-idx2-em">2번 부가 문구</label><input class="input" id="f-idx2-em" type="text"><div class="hint">좁은 화면에서는 숨겨집니다.</div></div><div class="field"><label for="f-idx3-small">3번 영문 라벨</label><input class="input" id="f-idx3-small" type="text"></div><div class="field"><label for="f-idx3-strong">3번 이름</label><input class="input" id="f-idx3-strong" type="text"></div><div class="field"><label for="f-idx3-em">3번 부가 문구</label><input class="input" id="f-idx3-em" type="text"><div class="hint">좁은 화면에서는 숨겨집니다.</div></div></div></div><div class="card"><div class="card-title">하단 블록 제목들</div><div class="grid2"><div class="field"><label for="f-lookbook-kicker">의상 미리보기 라벨</label><input class="input" id="f-lookbook-kicker" type="text"></div><div class="field"><label for="f-lookbook-title">의상 미리보기 제목</label><input class="input" id="f-lookbook-title" type="text"></div><div class="field"><label for="f-lookbook-btn">의상 미리보기 버튼</label><input class="input" id="f-lookbook-btn" type="text"></div><div class="field"><label for="f-ledger-kicker">방셀 단가 라벨</label><input class="input" id="f-ledger-kicker" type="text"></div><div class="field"><label for="f-ledger-title">방셀 단가 제목</label><input class="input" id="f-ledger-title" type="text"></div><div class="field"><label for="f-ledger-btn">방셀 단가 버튼</label><input class="input" id="f-ledger-btn" type="text"></div><div class="field"><label for="f-goodsfeat-kicker">굿즈 소개 라벨</label><input class="input" id="f-goodsfeat-kicker" type="text"></div><div class="field"><label for="f-goodsfeat-title">굿즈 소개 제목</label><textarea class="input" id="f-goodsfeat-title" rows="3"></textarea><div class="hint">줄바꿈은 &lt;br&gt;</div></div><div class="field"><label for="f-goodsfeat-desc">굿즈 소개 설명</label><textarea class="input" id="f-goodsfeat-desc" rows="3"></textarea></div><div class="field"><label for="f-goodsfeat-btn">굿즈 소개 버튼</label><input class="input" id="f-goodsfeat-btn" type="text"></div></div></div><div class="row-end sticky-save"><button class="btn primary" data-savetext="main">이 탭 문구 저장</button></div></div><div class="tab-panel" id="tab-promise" hidden><div class="card"><div class="card-title">머리글</div><div class="grid2"><div class="field"><label for="f-promise-kicker">영문 라벨</label><input class="input" id="f-promise-kicker" type="text"></div><div class="field"><label for="f-promise-title">제목</label><input class="input" id="f-promise-title" type="text"></div><div class="field"><label for="f-promise-desc">설명</label><textarea class="input" id="f-promise-desc" rows="3"></textarea></div></div></div><div class="card"><div class="card-title">진행률</div><div class="card-note">게이지와 퍼센트는 아래 두 숫자로 자동 계산됩니다.</div><div class="grid2"><div class="field"><label for="f-promise-live">게이지 라벨</label><input class="input" id="f-promise-live" type="text"></div><div class="field"><label for="f-promise-current">현재 누적(만)</label><input class="input" id="f-promise-current" type="text" inputmode="decimal"><div class="hint">숫자만. 예: 35 → 35만</div></div><div class="field"><label for="f-promise-final">최종 목표(만)</label><input class="input" id="f-promise-final" type="text" inputmode="decimal"><div class="hint">숫자만. 예: 300</div></div><div class="field"><label for="f-promise-note">게이지 옆 설명</label><textarea class="input" id="f-promise-note" rows="3"></textarea></div></div></div><div class="card"><div class="card-title">하단 안내</div><div class="grid2"><div class="field"><label for="f-promise-foot-strong">굵은 문구</label><input class="input" id="f-promise-foot-strong" type="text"></div><div class="field"><label for="f-promise-foot-desc">설명</label><textarea class="input" id="f-promise-foot-desc" rows="3"></textarea></div></div></div><div class="card">
   <div class="card-title">📈 공약 목록</div>
   <div class="card-note">위에서부터 순서대로 표시됩니다. 금액은 '10만'처럼 적으면 숫자만 뽑아 진행률에 씁니다.</div>
   <div class="table-wrap">
@@ -326,6 +327,18 @@ textarea.input { resize:vertical; min-height:64px; }
     <input type="color" id="c-theme-hero" value="#1d2b3c">
     <input class="input hex" id="f-theme-hero" type="text" value="#1d2b3c" spellcheck="false">
   </div>
+</div><div class="color-row">
+  <div class="color-meta"><strong>창 뒷배경</strong><span>아이패드 목업 바깥쪽 넓은 배경. 여기가 안 바뀌던 문제를 고쳤습니다.</span></div>
+  <div class="color-ctl">
+    <input type="color" id="c-theme-page" value="#dff4f3">
+    <input class="input hex" id="f-theme-page" type="text" value="#dff4f3" spellcheck="false">
+  </div>
+</div><div class="color-row">
+  <div class="color-meta"><strong>화면 바닥</strong><span>아이패드 화면 자체의 바닥색. 상태바도 이 색을 따릅니다.</span></div>
+  <div class="color-ctl">
+    <input type="color" id="c-theme-screen" value="#fffaf0">
+    <input class="input hex" id="f-theme-screen" type="text" value="#fffaf0" spellcheck="false">
+  </div>
 </div></div>
     <div class="row-end">
       <button class="btn ghost" id="themeReset">기본값으로</button>
@@ -374,6 +387,9 @@ var profileKeys = [
  "side-title",
  "footer-left",
  "footer-right",
+ "page-image",
+ "soop-id",
+ "soop-url",
  "loader-image",
  "trans-prefix",
  "nav1-mark",
@@ -474,8 +490,8 @@ var profileKeys = [
  "col2-note",
  "col2-cover"
 ];
-var themeKeys   = ["theme-ink", "theme-muted", "theme-paper", "theme-sheet", "theme-night", "theme-night-soft", "theme-iris", "theme-ice", "theme-rose", "theme-sand", "theme-mint", "theme-night-deep", "theme-hero"];
-var tabFields   = {"site": ["site-title", "site-desc", "brand-name", "brand-sub", "mobile-brand", "status-time", "status-title", "side-kicker", "side-title", "footer-left", "footer-right", "loader-image", "trans-prefix"], "nav": ["nav1-mark", "nav1-eyebrow", "nav1-label", "nav2-mark", "nav2-eyebrow", "nav2-label", "nav3-mark", "nav3-eyebrow", "nav3-label", "nav4-mark", "nav4-eyebrow", "nav4-label", "nav5-mark", "nav5-eyebrow", "nav5-label"], "main": ["hero-overline-l", "hero-overline-r", "hero-title-a", "hero-title-b", "hero-title-sub", "hero-lead", "hero-btn1", "hero-btn2", "hero-ghost", "metric1-num", "metric1-label", "metric2-num", "metric2-label", "metric3-num", "metric3-label", "metric4-num", "metric4-label", "signal-text", "signal-channel", "idx1-small", "idx1-strong", "idx1-em", "idx2-small", "idx2-strong", "idx2-em", "idx3-small", "idx3-strong", "idx3-em", "lookbook-kicker", "lookbook-title", "lookbook-btn", "ledger-kicker", "ledger-title", "ledger-btn", "goodsfeat-kicker", "goodsfeat-title", "goodsfeat-desc", "goodsfeat-btn"], "promise": ["promise-kicker", "promise-title", "promise-desc", "promise-live", "promise-current", "promise-final", "promise-note", "promise-foot-strong", "promise-foot-desc"], "reward": ["reward-kicker", "reward-title", "reward-desc", "rp1-num", "rp1-small", "rp1-title", "rp1-note", "rp2-num", "rp2-small", "rp2-title", "roulette-badge-num", "roulette-badge-text", "roulette-percol"], "goods": ["goods-kicker", "goods-title", "goods-desc", "goods-caution-strong", "goods-caution-text", "merch-kicker", "merch-title", "merch-note"], "outfit": ["outfit-kicker", "outfit-title", "outfit-desc", "empty-outfit", "col1-index", "col1-eyebrow", "col1-title", "col1-note", "col1-cover", "col2-index", "col2-eyebrow", "col2-title", "col2-note", "col2-cover"]};
+var themeKeys   = ["theme-ink", "theme-muted", "theme-paper", "theme-sheet", "theme-night", "theme-night-soft", "theme-iris", "theme-ice", "theme-rose", "theme-sand", "theme-mint", "theme-night-deep", "theme-hero", "theme-page", "theme-screen"];
+var tabFields   = {"site": ["page-image", "soop-id", "soop-url", "site-title", "site-desc", "brand-name", "brand-sub", "mobile-brand", "status-time", "status-title", "side-kicker", "side-title", "footer-left", "footer-right", "loader-image", "trans-prefix"], "nav": ["nav1-mark", "nav1-eyebrow", "nav1-label", "nav2-mark", "nav2-eyebrow", "nav2-label", "nav3-mark", "nav3-eyebrow", "nav3-label", "nav4-mark", "nav4-eyebrow", "nav4-label", "nav5-mark", "nav5-eyebrow", "nav5-label"], "main": ["hero-overline-l", "hero-overline-r", "hero-title-a", "hero-title-b", "hero-title-sub", "hero-lead", "hero-btn1", "hero-btn2", "hero-ghost", "metric1-num", "metric1-label", "metric2-num", "metric2-label", "metric3-num", "metric3-label", "metric4-num", "metric4-label", "signal-text", "signal-channel", "idx1-small", "idx1-strong", "idx1-em", "idx2-small", "idx2-strong", "idx2-em", "idx3-small", "idx3-strong", "idx3-em", "lookbook-kicker", "lookbook-title", "lookbook-btn", "ledger-kicker", "ledger-title", "ledger-btn", "goodsfeat-kicker", "goodsfeat-title", "goodsfeat-desc", "goodsfeat-btn"], "promise": ["promise-kicker", "promise-title", "promise-desc", "promise-live", "promise-current", "promise-final", "promise-note", "promise-foot-strong", "promise-foot-desc"], "reward": ["reward-kicker", "reward-title", "reward-desc", "rp1-num", "rp1-small", "rp1-title", "rp1-note", "rp2-num", "rp2-small", "rp2-title", "roulette-badge-num", "roulette-badge-text", "roulette-percol"], "goods": ["goods-kicker", "goods-title", "goods-desc", "goods-caution-strong", "goods-caution-text", "merch-kicker", "merch-title", "merch-note"], "outfit": ["outfit-kicker", "outfit-title", "outfit-desc", "empty-outfit", "col1-index", "col1-eyebrow", "col1-title", "col1-note", "col1-cover", "col2-index", "col2-eyebrow", "col2-title", "col2-note", "col2-cover"]};
 var tableCols   = {"promises": [["amount", "text"], ["title", "text"]], "fixed_rewards": [["count", "text"], ["title", "text"], ["tone", "tone"]], "roulette": [["title", "text"], ["chance", "text"]], "goods_tiers": [["count", "text"], ["label", "text"], ["title", "text"], ["description", "area"], ["images", "imgs"], ["tone", "tone"]], "merch": [["image_url", "img"], ["name", "text"]], "outfits": [["collection", "coll"], ["name", "text"], ["image_url", "img"], ["origin_url", "img"]]};
 var DEFAULTS    = {
  "site-title": "김쁘피 여름 보상 아카이브",
@@ -489,7 +505,10 @@ var DEFAULTS    = {
  "mobile-brand": "김쁘피",
  "footer-left": "KIMFP · REWARD ARCHIVE",
  "footer-right": "SUMMER 2026",
- "loader-image": "https://profile.img.sooplive.co.kr/LOGO/ki/kimfp/kimfp.jpg",
+ "page-image": "",
+ "soop-id": "gurm01",
+ "soop-url": "https://www.sooplive.com/station/gurm01",
+ "loader-image": "",
  "trans-prefix": "김쁘피 · ",
  "nav1-eyebrow": "ON AIR",
  "nav1-label": "메인",
@@ -600,7 +619,9 @@ var DEFAULTS    = {
  "theme-sand": "#d9c89e",
  "theme-mint": "#cce2d8",
  "theme-night-deep": "#111216",
- "theme-hero": "#1d2b3c"
+ "theme-hero": "#1d2b3c",
+ "theme-page": "#dff4f3",
+ "theme-screen": "#fffaf0"
 };
 var TONES       = ["pink", "blue", "yellow", "mint", "lavender"];
 </script>

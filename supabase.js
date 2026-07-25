@@ -35,7 +35,7 @@ async function deleteRow(table, id) { if (!db) return { error: 'no db' }; return
 
 /* 테마: profile.data 의 theme-* 키를 CSS 변수로 적용 */
 const THEME_KEYS = ['ink','muted','paper','night','night-soft','iris','ice',
-                    'rose','sand','mint','night-deep','hero','sheet'];
+                    'rose','sand','mint','night-deep','hero','sheet','page','screen'];
 function applyTheme(data) {
   if (!data) return;
   const root = document.documentElement.style;

@@ -94,7 +94,9 @@
     var r = await saveProfile(current);
     if (r && r.error) { toast('저장 실패: ' + (r.error.message || r.error), true); return; }
     toast(tabKey === 'theme' ? '테마를 저장했습니다.' : '문구를 저장했습니다.');
-    if (tabKey === 'theme' && typeof applyTheme === 'function') applyTheme(current);
+    // 주의: 여기서 applyTheme() 를 부르면 사이트 팔레트가 admin 문서의 CSS 변수를
+    //       덮어써 관리자 화면 배경·글자색이 저장할 때마다 튄다.
+    //       미리보기는 오른쪽 '미리보기' 패널(--pv-*)이 담당하므로 호출하지 않는다.
   }
 
   document.querySelectorAll('[data-savetext]').forEach(function (b) {
