@@ -71,6 +71,21 @@
       if (lgSrc) { lg.src = lgSrc; lg.alt = txt(T['brand-name']); lg.hidden = false; if (bn) bn.hidden = true; }
       else { lg.hidden = true; if (bn) bn.hidden = false; }
     }
+    /* 히어로 우측 상단 로고 (제목 글자는 그대로 둔다) */
+    var hl = el('heroLogo');
+    var hlSrc = txt(T['hero-logo']).trim();
+    if (hl) {
+      if (hlSrc) { hl.src = hlSrc; hl.alt = txt(T['brand-name']); hl.hidden = false; }
+      else { hl.hidden = true; }
+    }
+
+    /* 전환 커버 로고 */
+    var cl = el('cover-logo');
+    var clSrc = txt(T['cover-logo']).trim();
+    if (cl) {
+      if (clSrc) { cl.src = clSrc; cl.hidden = false; } else { cl.hidden = true; }
+    }
+
     /* 엠블럼: 섹션 제목 옆 장식 링 안에 배경으로 얹는다 */
     var emSrc = txt(T['logo-emblem']).trim();
     document.documentElement.style.setProperty('--logo-emblem',
@@ -169,6 +184,21 @@
     }).join('');
   }
 
+  /* 굿즈 썸네일 흰 여백 제거: 사진이 로드되면 실제 비율로 칸을 맞춘다.
+     CSS 만으로는 제품별 비율(0.58~2.21)을 알 수 없어 정사각 근사밖에 안 된다. */
+  function fitThumbs() {
+    document.querySelectorAll('.goods-product-thumb').forEach(function (th) {
+      var img = th.querySelector('img');
+      if (!img) return;
+      var apply = function () {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+        th.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+      };
+      if (img.complete) apply();
+      else img.addEventListener('load', apply, { once: true });
+    });
+  }
+
   function renderMerch() {
     var box = el('merchGrid'); if (!box) return;
     box.innerHTML = list(D.merch).map(function (m) {
@@ -260,6 +290,7 @@
     applyText();
     renderMainLooks(); renderMiniRewards(); renderPromises();
     renderFixed(); renderRoulette(); renderTiers(); renderMerch(); renderOutfit();
+    fitThumbs();
   }
 
   /* ── 뷰 전환 + 커버 연출 ─────────────────────────────────────── */
