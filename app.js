@@ -161,6 +161,33 @@
         return '<div><span>' + esc(r.title) + '</span><strong>' + esc(r.chance) + '</strong></div>';
       }).join('') + '</div>';
     }).join('');
+    fitRouletteLogo();
+  }
+
+  /* 룰렛 표가 그리드 칸을 다 못 채우면(예: 3칸 그리드에 목록 2개) 남는 칸에 로고를 얹는다.
+     ⚠️ 남는 칸이 없을 때는 아예 넣지 않는다 — 넣으면 줄이 하나 더 생겨 표가 밀린다.
+     칸 수는 화면 폭에 따라 바뀌므로 실제 계산된 grid-template-columns 를 읽는다. */
+  function fitRouletteLogo() {
+    var box = el('rouletteCols'); if (!box) return;
+    var prev = box.querySelector('.roulette-logo');
+    if (prev) prev.parentNode.removeChild(prev);
+
+    var src = txt(T['roulette-logo']).trim(); if (!src) return;
+    var lists = box.querySelectorAll('.roulette-list').length; if (!lists) return;
+
+    var tmpl = getComputedStyle(box).gridTemplateColumns || '';
+    var gcols = tmpl.split(' ').filter(Boolean).length;
+    if (gcols < 2) return;
+
+    var free = gcols - (lists % gcols);
+    if (free === gcols) return;           // 딱 맞게 찼으면 넣지 않는다
+
+    var slot = document.createElement('div');
+    slot.className = 'roulette-logo';
+    slot.style.gridColumn = 'span ' + free;
+    slot.setAttribute('aria-hidden', 'true');
+    slot.innerHTML = '<img src="' + esc(src) + '" alt="" referrerpolicy="no-referrer">';
+    box.appendChild(slot);
   }
 
   /* '택 1' 강조: 전부 다 주는 걸로 오해하는 사람이 많아 배지로 띄운다.
@@ -471,6 +498,12 @@
       return;
     }
     if (e.key === 'Escape') closeImage();
+  });
+
+  var rlTimer = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(rlTimer);
+    rlTimer = setTimeout(fitRouletteLogo, 160);
   });
 
   window.addEventListener('hashchange', function () {

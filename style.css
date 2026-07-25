@@ -5689,3 +5689,32 @@ body.dark .tier-pick {
   object-fit: contain;
   object-position: center center;
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   룰렛 표 옆 남는 칸에 들어가는 로고
+   (app.js fitRouletteLogo 가 빈 칸이 있을 때만 넣는다)
+   ════════════════════════════════════════════════════════════════ */
+.roulette-logo {
+  display: grid;
+  min-width: 0;
+  padding: 4px 10px;
+  place-items: center;
+  pointer-events: none;
+}
+
+.roulette-logo img {
+  width: 100%;
+  max-width: min(100%, 300px);
+  max-height: 100%;
+  height: auto;
+  opacity: 0.92;
+  object-fit: contain;
+}
+
+@media (max-width: 1000px) {
+  .roulette-logo img { max-width: min(100%, 240px); }
+}
+
+@media (max-width: 700px) {
+  .roulette-logo { display: none; }   /* 폰에서는 자리가 없어 숨긴다 */
+}
