@@ -187,18 +187,13 @@
     }).join('');
   }
 
-  /* 굿즈 썸네일 흰 여백 제거: 사진이 로드되면 실제 비율로 칸을 맞춘다.
-     CSS 만으로는 제품별 비율(0.58~2.21)을 알 수 없어 정사각 근사밖에 안 된다. */
+  /* 굿즈 썸네일: 칸 크기는 CSS 가 정한다 — 한 줄을 꽉 채우는 같은 크기 칸,
+     사진은 그 칸 안에서 가운데 정렬 + 안 잘림(contain).
+     예전에는 사진 비율(0.58~2.21)로 칸 폭을 잡아서 키링은 34px 실오라기,
+     쿠션은 237px 로 제각각이 됐다. 남아 있는 인라인 비율만 지운다. */
   function fitThumbs() {
     document.querySelectorAll('.goods-product-thumb').forEach(function (th) {
-      var img = th.querySelector('img');
-      if (!img) return;
-      var apply = function () {
-        if (!img.naturalWidth || !img.naturalHeight) return;
-        th.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
-      };
-      if (img.complete) apply();
-      else img.addEventListener('load', apply, { once: true });
+      th.style.removeProperty('aspect-ratio');
     });
   }
 

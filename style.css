@@ -5326,3 +5326,206 @@ body.dark {
 
   .brand-mark { width: 24px; margin-right: 0; }
 }
+/* ══════════════════════════════════════════════════════════════════
+   굿즈 등급 썸네일 — 같은 크기 칸으로 줄을 꽉 채우기
+   기존: JS 가 사진 실제 비율을 인라인 aspect-ratio 로 박아서 칸 폭이
+         제각각(키링 34px 실오라기 / 쿠션 237px)이었고, 1개짜리 줄은
+         636px 중 34px 만 차서 텅 비어 보였다.
+   변경: 칸을 그리드로 균등 분배해 줄을 꽉 채우고, 사진은 자기 칸 안에서
+         가운데 정렬 + object-fit:contain(절대 안 잘림).
+   ⚠️ 변수(--gcols/--gh)는 낮은 특이도 선택자에만 둔다.
+      .view-experience[...] .content-sheet .goods-tier-image (0,4,0) 에 넣으면
+      개수별 클래스(0,2,0)가 밀려서 전부 5칸으로 나온다.
+   ⚠️ 앞쪽에 .goods-product-thumb{max-height:calc(100% - 24px)} 가 있어
+      max-height:none 으로 풀어주지 않으면 높이가 124px 로 잘린다.
+   ════════════════════════════════════════════════════════════════ */
+.goods-tier-image {
+  --gcols: 5;
+  --gh: 148px;
+}
+
+/* 개수별 칸 수 — 한 줄 최대 5칸, 넘치면 균형 있게 접는다 */
+.goods-tier-image.goods-count-1  { --gcols: 1; --gh: 178px; }
+.goods-tier-image.goods-count-2  { --gcols: 2; --gh: 172px; }
+.goods-tier-image.goods-count-3  { --gcols: 3; --gh: 164px; }
+.goods-tier-image.goods-count-4  { --gcols: 4; --gh: 156px; }
+.goods-tier-image.goods-count-5  { --gcols: 5; }
+.goods-tier-image.goods-count-6  { --gcols: 3; }
+.goods-tier-image.goods-count-7  { --gcols: 4; }
+.goods-tier-image.goods-count-8  { --gcols: 4; }
+.goods-tier-image.goods-count-9  { --gcols: 5; }
+.goods-tier-image.goods-count-10 { --gcols: 5; }
+.goods-tier-image.goods-count-11 { --gcols: 4; }
+.goods-tier-image.goods-count-12 { --gcols: 4; }
+
+.goods-tier-image,
+.view-experience[data-view="ipad"] .content-sheet .goods-tier-image {
+  display: grid;
+  grid-template-columns: repeat(var(--gcols, 5), minmax(0, 1fr));
+  align-content: center;
+  justify-content: stretch;
+  gap: 10px;
+  min-height: 0;
+  padding: 14px;
+  overflow: visible;
+}
+
+/* 칸: 줄 폭을 균등하게 나눠 가진다(= 꽉 참) */
+.goods-product-thumb,
+.view-experience[data-view="ipad"] .content-sheet .goods-product-thumb,
+.goods-tier-image.goods-count-1 .goods-product-thumb {
+  display: grid;
+  width: 100%;
+  height: var(--gh, 148px);
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  max-height: none;
+  padding: 10px;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 2px 10px rgba(38, 49, 77, 0.05);
+  aspect-ratio: auto;
+}
+
+/* 사진: 칸 안에서 가운데 + 절대 안 잘림 */
+.goods-product-thumb img,
+.view-experience[data-view="ipad"] .content-sheet .goods-product-thumb img,
+.goods-tier-image .goods-product-thumb img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+body.dark .goods-product-thumb {
+  background: #2b3040;
+  box-shadow: none;
+}
+
+@media (max-width: 1180px) {
+  .goods-tier-image { --gh: 124px; }
+  .goods-tier-image.goods-count-1 { --gh: 146px; }
+  .goods-tier-image.goods-count-2 { --gh: 140px; }
+  .goods-tier-image.goods-count-3 { --gh: 134px; }
+  .goods-tier-image.goods-count-4 { --gh: 128px; }
+
+  .goods-tier-image,
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-image {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .goods-product-thumb,
+  .view-experience[data-view="ipad"] .content-sheet .goods-product-thumb {
+    padding: 8px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 760px) {
+  .goods-tier-image { --gh: 94px; }
+  .goods-tier-image.goods-count-1 { --gh: 118px; }
+
+  .goods-tier-image,
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-image {
+    grid-template-columns: repeat(auto-fit, minmax(62px, 1fr));
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .goods-tier-image.goods-count-1,
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-image.goods-count-1 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .goods-product-thumb,
+  .view-experience[data-view="ipad"] .content-sheet .goods-product-thumb {
+    padding: 6px;
+    border-radius: 10px;
+  }
+}
+
+/* 전체 굿즈 보기(갤러리)도 같은 규칙: 칸 안 가운데 + 안 잘림 */
+.merch-gallery figure > div,
+.view-experience[data-view="ipad"] .merch-gallery figure > div {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.merch-gallery figure > div img,
+.view-experience[data-view="ipad"] .merch-gallery figure > div img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   이미지 확대 모달 — 화면을 꽉 채우지 않고 "적당한 크기" 카드로
+   기존: 1120×820 프레임이라 작은 제품 사진 하나에도 화면 전체가 덮였다.
+   ════════════════════════════════════════════════════════════════ */
+.image-modal {
+  padding: 24px;
+  background: rgba(12, 20, 40, 0.72);
+  backdrop-filter: blur(3px);
+}
+
+.image-modal .image-modal-frame {
+  display: grid;
+  /* 행/열을 명시해야 칸 높이가 확정되고 사진의 height:100% 가 먹는다.
+     auto 행이면 높이가 내용 기준이라 퍼센트가 무시돼 카드 밖으로 넘친다. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  width: min(520px, 86vw);
+  height: min(520px, 72vh);
+  padding: 24px;
+  place-items: center;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.34);
+}
+
+/* ⚠️ width/height:auto + max-height:100% 조합은 그리드 안에서 제한이 안 먹어
+   사진이 카드 밖으로 삐져나온다(278x542 실사례). 칸을 꽉 채우고 contain 으로. */
+.image-modal .image-modal-frame img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
+  object-fit: contain;
+}
+
+body.dark .image-modal .image-modal-frame { background: #1c2030; }
+
+.image-modal .image-modal-close {
+  top: 20px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 24px;
+}
+
+@media (max-width: 760px) {
+  .image-modal { padding: 18px; }
+
+  .image-modal .image-modal-frame {
+    width: min(420px, 90vw);
+    height: min(420px, 62vh);
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .image-modal .image-modal-close { top: 12px; right: 14px; width: 36px; height: 36px; }
+}
