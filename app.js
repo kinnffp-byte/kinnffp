@@ -163,6 +163,13 @@
     }).join('');
   }
 
+  /* '택 1' 강조: 전부 다 주는 걸로 오해하는 사람이 많아 배지로 띄운다.
+     esc() 로 이스케이프한 뒤에 태그를 넣으므로 DB 값에 태그가 있어도 안전하다.
+     '중 택 1' / '택1' / '택 2' 전부 잡는다. */
+  function markPick(v) {
+    return esc(v).replace(/((?:중\s*)?택\s*\d+)/g, '<b class="tier-pick">$1</b>');
+  }
+
   function renderTiers() {
     var box = el('tierGrid'); if (!box) return;
     box.innerHTML = list(D.tiers).map(function (t) {
@@ -170,7 +177,7 @@
       return '<article class="goods-tier ' + esc(t.tone || 'pink') + '">' +
         '<div class="goods-tier-copy"><small>' + esc(t.label) + '</small><strong>' +
         esc(t.count) + '</strong><h3>' + esc(t.title) + '</h3><p>' +
-        esc(t.description) + '</p></div>' +
+        markPick(t.description) + '</p></div>' +
         '<div class="goods-tier-image goods-count-' + imgs.length + '" tabindex="0">' +
         imgs.map(function (src) {
           return '<div class="goods-product-thumb"><img src="' + esc(src) +

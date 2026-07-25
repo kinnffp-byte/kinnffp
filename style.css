@@ -5605,3 +5605,87 @@ body.dark .image-modal .image-modal-frame { background: #1c2030; }
    예전 index.html 이 캐시로 남아 있는 브라우저 대비 안전장치.
    ════════════════════════════════════════════════════════════════ */
 .hero-logo { display: none !important; }
+
+/* ══════════════════════════════════════════════════════════════════
+   의상 포스터 그라데이션 완화 (10종 공통)
+   기존: 위 0.42 / 48% 지점부터 아래로 0.78 까지 — 포스터 절반이 눌려
+         의상 원본 색이 탁해 보였다.
+   변경: 위 0.16 으로 낮추고, 아래 그라데 시작점을 48% → 64% 로 내려
+         '의상 본체' 구간은 거의 원본 그대로. 대신 캡션이 얹히는
+         마지막 20% 만 짧고 진하게 깔아 글자 가독성은 오히려 올렸다.
+   ⚠️ 아래쪽까지 같이 연하게 하면 '여름 A~D' 같은 작은 캡션이 묻힌다
+      (측정: 대비 2.40 → 1.6). 위는 연하게 / 바닥은 짧고 진하게가 정답.
+   ════════════════════════════════════════════════════════════════ */
+.poster-tile::after {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 60, 82, 0.16) 0%,
+      rgba(7, 60, 82, 0) 20%,
+      rgba(7, 60, 82, 0) 64%,
+      rgba(7, 60, 82, 0.46) 80%,
+      rgba(7, 60, 82, 0.80) 100%
+    );
+}
+
+/* 캡션은 자체 그림자로 버티게 해서 그라데를 더 낮출 수 있게 한다 */
+.poster-bottom strong {
+  text-shadow:
+    0 1px 2px rgba(4, 30, 40, 0.95),
+    0 2px 9px rgba(4, 30, 40, 0.85),
+    0 0 18px rgba(4, 30, 40, 0.6);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ① '택 1' 강조 배지
+      "티셔츠 또는 장패드 중 택 1" 을 전부 다 주는 걸로 오해하는 사람이
+      있어서, 택 N 부분만 배지로 띄운다. (app.js markPick 이 감싼다)
+   ════════════════════════════════════════════════════════════════ */
+.tier-pick {
+  display: inline-block;
+  margin: 0 1px;
+  padding: 1px 7px;
+  border: 1px solid color-mix(in srgb, var(--iris) 38%, transparent);
+  border-radius: 999px;
+  color: var(--iris);
+  background: color-mix(in srgb, var(--iris) 11%, transparent);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+body.dark .tier-pick {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #cfe0ff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ② 전체 굿즈 보기 — 텀블러가 확대(잘림)되던 문제
+      figure>div 가 1:1 정사각인데 세로로 긴 텀블러(279x541)가
+      width:auto+max-height:100% 로는 제한이 안 걸려 173x335 로 그려지고
+      overflow:hidden 에 잘려 "확대된 것처럼" 보였다.
+      → 칸의 행/열을 확정하고 사진은 칸을 채우되 contain 으로.
+   ════════════════════════════════════════════════════════════════ */
+.merch-gallery figure > div,
+.view-experience[data-view="ipad"] .merch-gallery figure > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  place-items: center;
+  overflow: hidden;
+}
+
+.merch-gallery figure > div img,
+.view-experience[data-view="ipad"] .merch-gallery figure > div img {
+  position: static;
+  inset: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  object-fit: contain;
+  object-position: center center;
+}
