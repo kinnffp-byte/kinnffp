@@ -86,10 +86,13 @@
       if (clSrc) { cl.src = clSrc; cl.hidden = false; } else { cl.hidden = true; }
     }
 
-    /* 엠블럼: 섹션 제목 옆 장식 링 안에 배경으로 얹는다 */
+    /* 엠블럼: 사이드바 이름 앞의 마크 */
+    var bm = el('brandMark');
     var emSrc = txt(T['logo-emblem']).trim();
-    document.documentElement.style.setProperty('--logo-emblem',
-      emSrc ? 'url("' + emSrc.replace(/"/g, '%22') + '")' : 'none');
+    if (bm) {
+      if (emSrc) { bm.src = emSrc; bm.alt = ''; bm.hidden = false; }
+      else { bm.hidden = true; }
+    }
 
     var sl = el('soopLink');
     if (sl) {
@@ -294,8 +297,12 @@
   }
 
   /* ── 뷰 전환 + 커버 연출 ─────────────────────────────────────── */
+  /* 목차 표시 순서와 nav 키 번호는 별개다.
+     (화면에 보이는 순서를 바꿔도 DB 의 nav3=방셀보상 같은 짝은 그대로 유지) */
+  var NAVKEY = { main: 1, promise: 2, reward: 3, goods: 4, outfit: 5 };
+
   function navLabel(key) {
-    var i = ORDER.indexOf(key) + 1;
+    var i = NAVKEY[key] || 1;
     return { label: txt(T['nav' + i + '-label']), eyebrow: txt(T['nav' + i + '-eyebrow']) };
   }
 

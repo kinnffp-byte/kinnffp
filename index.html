@@ -51,10 +51,10 @@
           <aside class="side-navigation">
             <div class="brand-block ipad-archive-brand">
               <div><img id="brandLogo" class="brand-logo" src="" alt="" hidden referrerpolicy="no-referrer">
-                   <strong id="brandName" data-hook="brand-name">KIMFP</strong>
+                   <img id="brandMark" class="brand-mark" src="" alt="" hidden referrerpolicy="no-referrer"><strong id="brandName" data-hook="brand-name">KIMFP</strong>
                    <span data-hook="brand-sub">REWARD ARCHIVE</span></div>
             </div>
-            <nav aria-label="페이지 메뉴"><button data-go="main" class="active"><span class="nav-mark" data-hook="nav1-mark">✦</span><span><small data-hook="nav1-eyebrow">ON AIR</small><strong data-hook="nav1-label">메인</strong></span><span class="nav-dot"></span></button><button data-go="promise" class=""><span class="nav-mark" data-hook="nav2-mark">↗</span><span><small data-hook="nav2-eyebrow">SIGNAL POWER</small><strong data-hook="nav2-label">누적공약</strong></span><span class="nav-dot"></span></button><button data-go="reward" class=""><span class="nav-mark" data-hook="nav3-mark">◈</span><span><small data-hook="nav3-eyebrow">FRAME INDEX</small><strong data-hook="nav3-label">방셀보상</strong></span><span class="nav-dot"></span></button><button data-go="goods" class=""><span class="nav-mark" data-hook="nav4-mark">□</span><span><small data-hook="nav4-eyebrow">SUPPLY DROP</small><strong data-hook="nav4-label">굿즈</strong></span><span class="nav-dot"></span></button><button data-go="outfit" class=""><span class="nav-mark" data-hook="nav5-mark">♡</span><span><small data-hook="nav5-eyebrow">LOOKBOOK</small><strong data-hook="nav5-label">의상</strong></span><span class="nav-dot"></span></button></nav>
+            <nav aria-label="페이지 메뉴"><button data-go="main" class="active"><span class="nav-mark" data-hook="nav1-mark">✦</span><span><small data-hook="nav1-eyebrow">ON AIR</small><strong data-hook="nav1-label">메인</strong></span><span class="nav-dot"></span></button><button data-go="promise" class=""><span class="nav-mark" data-hook="nav2-mark">↗</span><span><small data-hook="nav2-eyebrow">SIGNAL POWER</small><strong data-hook="nav2-label">누적공약</strong></span><span class="nav-dot"></span></button><button data-go="outfit" class=""><span class="nav-mark" data-hook="nav5-mark">♡</span><span><small data-hook="nav5-eyebrow">LOOKBOOK</small><strong data-hook="nav5-label">의상</strong></span><span class="nav-dot"></span></button><button data-go="reward" class=""><span class="nav-mark" data-hook="nav3-mark">◈</span><span><small data-hook="nav3-eyebrow">FRAME INDEX</small><strong data-hook="nav3-label">방셀보상</strong></span><span class="nav-dot"></span></button><button data-go="goods" class=""><span class="nav-mark" data-hook="nav4-mark">□</span><span><small data-hook="nav4-eyebrow">SUPPLY DROP</small><strong data-hook="nav4-label">굿즈</strong></span><span class="nav-dot"></span></button></nav>
             <div class="side-note">
               <span data-hook="side-kicker">SUMMER CHANNEL 26</span>
               <strong data-hook="side-title">여름 한정 편성<br>보상 안내</strong>
@@ -71,7 +71,7 @@
                 <span id="mobEyebrow">ON AIR</span></div></div>
               <div class="mobile-page-label" id="mobLabel">메인</div>
             </header>
-            <nav class="mobile-nav" aria-label="모바일 페이지 메뉴"><button data-go="main" class="active"><span data-hook="nav1-mark">✦</span><i data-hook="nav1-label">메인</i></button><button data-go="promise" class=""><span data-hook="nav2-mark">↗</span><i data-hook="nav2-label">누적공약</i></button><button data-go="reward" class=""><span data-hook="nav3-mark">◈</span><i data-hook="nav3-label">방셀보상</i></button><button data-go="goods" class=""><span data-hook="nav4-mark">□</span><i data-hook="nav4-label">굿즈</i></button><button data-go="outfit" class=""><span data-hook="nav5-mark">♡</span><i data-hook="nav5-label">의상</i></button></nav>
+            <nav class="mobile-nav" aria-label="모바일 페이지 메뉴"><button data-go="main" class="active"><span data-hook="nav1-mark">✦</span><i data-hook="nav1-label">메인</i></button><button data-go="promise" class=""><span data-hook="nav2-mark">↗</span><i data-hook="nav2-label">누적공약</i></button><button data-go="outfit" class=""><span data-hook="nav5-mark">♡</span><i data-hook="nav5-label">의상</i></button><button data-go="reward" class=""><span data-hook="nav3-mark">◈</span><i data-hook="nav3-label">방셀보상</i></button><button data-go="goods" class=""><span data-hook="nav4-mark">□</span><i data-hook="nav4-label">굿즈</i></button></nav>
 
             <!-- ══════════════ 메인 ══════════════ -->
             <div class="page-content main-page" data-view-panel="main">
@@ -276,7 +276,7 @@ var DEFAULT_TEXT = {
  "footer-left": "KIMFP · REWARD ARCHIVE",
  "footer-right": "SUMMER 2026",
  "logo-image": "",
- "hero-logo": "assets/logo-wordmark.png",
+ "hero-logo": "",
  "cover-logo": "assets/logo-wordmark-white.png",
  "logo-emblem": "assets/logo-emblem.png",
  "page-image": "",
@@ -358,7 +358,7 @@ var DEFAULT_TEXT = {
  "rp2-title": "100개 방셀룰렛",
  "roulette-badge-num": "11",
  "roulette-badge-text": "1000개 시 연차",
- "roulette-percol": "9",
+ "roulette-percol": "6",
  "goods-kicker": "LIMITED MERCHANDISE",
  "goods-title": "굿즈보상",
  "goods-desc": "선택형 굿즈부터 모든 색상 풀세트까지 단계별로 정리했습니다.",
@@ -383,21 +383,21 @@ var DEFAULT_TEXT = {
  "empty-outfit": "이 컬렉션에는 아직 송출된 프레임이 없어요."
 };
 var DEFAULT_THEME = {
- "theme-ink": "#243447",
- "theme-muted": "#526B85",
- "theme-paper": "#F7FAFC",
- "theme-night": "#2C4A63",
- "theme-night-soft": "#3A5C77",
- "theme-iris": "#1F6A97",
- "theme-ice": "#CDEAF7",
- "theme-rose": "#F6DCE2",
- "theme-sand": "#F0C43C",
- "theme-mint": "#D8EDE4",
- "theme-night-deep": "#1E3448",
- "theme-hero": "#2C4A63",
- "theme-page": "#E8F4FB",
- "theme-screen": "#FBFDFE",
- "theme-sheet": "#EFF5FA"
+ "theme-ink": "#26314D",
+ "theme-muted": "#5A6B92",
+ "theme-paper": "#FBFCFE",
+ "theme-night": "#5372BE",
+ "theme-night-soft": "#6A85C9",
+ "theme-iris": "#3B5BB5",
+ "theme-ice": "#DBE1FF",
+ "theme-rose": "#F0DCEC",
+ "theme-sand": "#F2C95A",
+ "theme-mint": "#D5E6E2",
+ "theme-night-deep": "#4A68B8",
+ "theme-hero": "#6688CC",
+ "theme-page": "#DDE4F5",
+ "theme-screen": "#FFFFFF",
+ "theme-sheet": "#FFFFFF"
 };
 var DEFAULT_FONT = {
  "font-all": "1",
@@ -448,7 +448,7 @@ var DEFAULT_DATA = {
   },
   {
    "amount": "90만",
-   "title": "호룰 만지기 VLOG",
+   "title": "호랄로 만지기 VLOG",
    "sort": 7
   },
   {
