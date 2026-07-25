@@ -72,14 +72,21 @@
   }
 
   /* ── 렌더러 ─────────────────────────────────────────────────── */
+  /* 메인 미리보기: 두 컬렉션을 대각선으로 갈라 얹고, 마우스를 올린 쪽이 넓어진다. */
   function renderMainLooks() {
     var box = el('mainLooks'); if (!box) return;
+    var keys = ['summer', 'ppeukini'];
     box.innerHTML = [1, 2].map(function (i) {
-      return '<figure><img src="' + esc(fixName(T['col' + i + '-cover'])) + '" alt="' +
+      var side = i === 1 ? 'a' : 'b';
+      return '<button type="button" class="look-half look-' + side +
+        '" data-look="' + keys[i - 1] + '" aria-label="' + esc(T['col' + i + '-title']) + ' 보기">' +
+        '<img src="' + esc(fixName(T['col' + i + '-cover'])) + '" alt="' +
         esc(T['col' + i + '-title']) + '" referrerpolicy="no-referrer">' +
-        '<figcaption><span>' + esc(T['col' + i + '-index']) + '</span><strong>' +
-        esc(T['col' + i + '-eyebrow']) + '</strong></figcaption></figure>';
-    }).join('');
+        '<span class="look-meta"><b>' + esc(T['col' + i + '-index']) + '</b>' +
+        '<em>' + esc(T['col' + i + '-eyebrow']) + '</em>' +
+        '<strong>' + esc(T['col' + i + '-title']) + '</strong></span></button>';
+    }).join('') + '<span class="look-seam" aria-hidden="true"></span>' +
+      '<span class="look-hint">눌러서 크게 보기</span>';
   }
 
   function renderMiniRewards() {
@@ -367,6 +374,27 @@
 
     var dk = e.target.closest('#darkToggle');
     if (dk) { toggleDark(); return; }
+
+    var look = e.target.closest('[data-look]');
+    if (look) {
+      var key = look.getAttribute('data-look');
+      var split = look.closest('.look-split');
+      var side = look.classList.contains('look-a') ? 'a' : 'b';
+
+      /* 마우스가 없는 기기: 첫 탭은 확대만, 같은 쪽을 다시 누르면 이동 */
+      var noHover = window.matchMedia('(hover: none)').matches;
+      if (noHover && split && split.getAttribute('data-open') !== side) {
+        split.setAttribute('data-open', side);
+        return;
+      }
+
+      activeCollection = key;
+      renderOutfit();          /* 변수만 바꾸면 화면은 그대로 → 다시 렌더 */
+      zoomIndex = null;
+      renderViewer();
+      navigate('outfit');
+      return;
+    }
 
     var coll = e.target.closest('[data-coll]');
     if (coll) { activeCollection = coll.getAttribute('data-coll'); zoomIndex = null; renderViewer(); renderOutfit(); return; }

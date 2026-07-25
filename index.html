@@ -10,6 +10,8 @@
 <meta property="og:description" content="김쁘피의 누적공약, 방셀룰렛, 한정 굿즈와 여름 의상을 한눈에 확인하세요.">
 <meta property="og:image" content="og.jpg">
 <link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/gu/gurm01/gurm01.jpg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -89,7 +91,6 @@
                     <button class="soft-button" data-go="outfit" data-hook="hero-btn2">VIEW LOOKBOOK</button>
                   </div>
                 </div>
-                <div class="hero-metrics" aria-label="보상 항목 요약"><div><strong data-hook="metric1-num">10</strong><span data-hook="metric1-label">누적공약</span></div><div><strong data-hook="metric2-num">18</strong><span data-hook="metric2-label">룰렛 보상</span></div><div><strong data-hook="metric3-num">06</strong><span data-hook="metric3-label">굿즈 단계</span></div><div><strong data-hook="metric4-num">10</strong><span data-hook="metric4-label">의상 원본</span></div></div>
                 <div class="summer-signal">
                   <span><i></i> <b data-hook="signal-text">VIRTUAL SIGNAL ONLINE</b></span>
                   <div class="signal-bars" aria-hidden="true">
@@ -107,7 +108,7 @@
                        <h3 data-hook="lookbook-title">이번 여름의 두 가지 무드</h3></div>
                   <button data-go="outfit"><span data-hook="lookbook-btn">FULL LOOKBOOK</span> ↗</button>
                 </div>
-                <div class="outfit-preview-grid" id="mainLooks"></div>
+                <div class="look-split" id="mainLooks"></div>
               </section>
 
               <section class="main-ledger">
@@ -171,16 +172,6 @@
                 <p data-hook="reward-desc">확정 방셀 단가와 룰렛 확률을 함께 확인할 수 있습니다.</p>
               </header>
               <div class="reward-layout">
-                <section class="reward-panel fixed-panel">
-                  <div class="panel-heading">
-                    <div><span class="panel-number" data-hook="rp1-num">01</span>
-                         <small data-hook="rp1-small">FIXED REWARD</small>
-                         <h3 data-hook="rp1-title">확정 방셀 단가</h3></div>
-                    <span class="floating-star">✦</span>
-                  </div>
-                  <p class="panel-note" data-hook="rp1-note">삼국지 한정 방셀 및 히든 방셀은 룰렛에서만 구매 가능해요.</p>
-                  <div class="fixed-reward-list" id="fixedList"></div>
-                </section>
                 <section class="reward-panel roulette-panel">
                   <div class="panel-heading">
                     <div><span class="panel-number" data-hook="rp2-num">02</span>
@@ -191,6 +182,16 @@
                       <span data-hook="roulette-badge-text">1000개 시 연차</span></div>
                   </div>
                   <div class="roulette-columns" id="rouletteCols"></div>
+                </section>
+                <section class="reward-panel fixed-panel">
+                  <div class="panel-heading">
+                    <div><span class="panel-number" data-hook="rp1-num">01</span>
+                         <small data-hook="rp1-small">FIXED REWARD</small>
+                         <h3 data-hook="rp1-title">확정 방셀 단가</h3></div>
+                    <span class="floating-star">✦</span>
+                  </div>
+                  <p class="panel-note" data-hook="rp1-note">삼국지 한정 방셀 및 히든 방셀은 룰렛에서만 구매 가능해요.</p>
+                  <div class="fixed-reward-list" id="fixedList"></div>
                 </section>
               </div>
             </div>
@@ -299,14 +300,6 @@ var DEFAULT_TEXT = {
  "hero-lead": "누적공약부터 한정 방셀, 룰렛, 굿즈와 의상까지. 이번 시즌의 모든 보상을 하나의 아카이브로 정리했습니다.",
  "hero-btn1": "REWARD INDEX",
  "hero-btn2": "VIEW LOOKBOOK",
- "metric1-num": "10",
- "metric1-label": "누적공약",
- "metric2-num": "18",
- "metric2-label": "룰렛 보상",
- "metric3-num": "06",
- "metric3-label": "굿즈 단계",
- "metric4-num": "10",
- "metric4-label": "의상 원본",
  "signal-text": "VIRTUAL SIGNAL ONLINE",
  "signal-channel": "SUMMER CHANNEL · 26",
  "hero-ghost": "SUMMER",
@@ -341,11 +334,11 @@ var DEFAULT_TEXT = {
  "reward-kicker": "PERSONAL REWARD",
  "reward-title": "방셀보상",
  "reward-desc": "확정 방셀 단가와 룰렛 확률을 함께 확인할 수 있습니다.",
- "rp1-num": "01",
+ "rp1-num": "02",
  "rp1-small": "FIXED REWARD",
  "rp1-title": "확정 방셀 단가",
  "rp1-note": "삼국지 한정 방셀 및 히든 방셀은 룰렛에서만 구매 가능해요.",
- "rp2-num": "02",
+ "rp2-num": "01",
  "rp2-small": "DOPAMINE ROULETTE",
  "rp2-title": "100개 방셀룰렛",
  "roulette-badge-num": "11",
@@ -410,7 +403,7 @@ var DEFAULT_DATA = {
   },
   {
    "amount": "40만",
-   "title": "위 공약 모두 이행",
+   "title": "이전 단계 공약 모두 이행",
    "sort": 3
   },
   {
