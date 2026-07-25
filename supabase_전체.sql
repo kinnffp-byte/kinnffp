@@ -160,7 +160,7 @@ drop policy if exists "outfits_delete" on outfits;
 create policy "outfits_delete" on outfits for delete using (true);
 
 -- ── 3. 기본값 넣기 ────────────────────────────────────────────
-insert into profile (id, data) values (1, '{"site-title": "김쁘피 여름 보상 아카이브", "site-desc": "김쁘피의 누적공약, 방셀룰렛, 한정 굿즈와 여름 의상을 한눈에 확인하세요.", "brand-name": "KIMFP", "brand-sub": "REWARD ARCHIVE", "status-time": "9:41", "status-title": "김쁘피 보상 아카이브", "side-kicker": "SUMMER CHANNEL 26", "side-title": "여름 한정 편성<br>보상 안내", "mobile-brand": "김쁘피", "footer-left": "KIMFP · REWARD ARCHIVE", "footer-right": "SUMMER 2026", "soop-id": "gurm01", "soop-url": "https://www.sooplive.com/station/gurm01", "loader-image": "", "trans-prefix": "김쁘피 · ", "nav1-eyebrow": "ON AIR", "nav1-label": "메인", "nav1-mark": "✦", "nav2-eyebrow": "SIGNAL POWER", "nav2-label": "누적공약", "nav2-mark": "↗", "nav3-eyebrow": "FRAME INDEX", "nav3-label": "방셀보상", "nav3-mark": "◈", "nav4-eyebrow": "SUPPLY DROP", "nav4-label": "굿즈", "nav4-mark": "□", "nav5-eyebrow": "LOOKBOOK", "nav5-label": "의상", "nav5-mark": "♡", "hero-overline-l": "KIMFP ARCHIVE", "hero-overline-r": "2026 / SUMMER", "hero-title-a": "KIM", "hero-title-b": "FP", "hero-title-sub": "후원 보상 컬렉션", "hero-lead": "누적공약부터 한정 방셀, 룰렛, 굿즈와 의상까지. 이번 시즌의 모든 보상을 하나의 아카이브로 정리했습니다.", "hero-btn1": "REWARD INDEX", "hero-btn2": "VIEW LOOKBOOK", "metric1-num": "10", "metric1-label": "누적공약", "metric2-num": "18", "metric2-label": "룰렛 보상", "metric3-num": "06", "metric3-label": "굿즈 단계", "metric4-num": "10", "metric4-label": "의상 원본", "signal-text": "VIRTUAL SIGNAL ONLINE", "signal-channel": "SUMMER CHANNEL · 26", "hero-ghost": "SUMMER", "idx1-small": "CUMULATIVE PROMISE", "idx1-strong": "누적공약", "idx1-em": "10만 — 300만", "idx2-small": "REWARD & ROULETTE", "idx2-strong": "방셀보상", "idx2-em": "100개 · 11연차", "idx3-small": "LIMITED MERCHANDISE", "idx3-strong": "굿즈보상", "idx3-em": "6 TIERS", "lookbook-kicker": "CURATED LOOKS", "lookbook-title": "이번 여름의 두 가지 무드", "lookbook-btn": "FULL LOOKBOOK", "ledger-kicker": "FIXED REWARD", "ledger-title": "확정 방셀 단가", "ledger-btn": "DETAIL", "goodsfeat-kicker": "MERCHANDISE / 06", "goodsfeat-title": "취향으로 완성하는<br>리워드 셀렉션", "goodsfeat-desc": "블랙과 크림, 낮과 밤. 단계별 한정 굿즈를 확인해보세요.", "goodsfeat-btn": "EXPLORE GOODS", "promise-kicker": "CUMULATIVE PROMISE", "promise-title": "누적공약", "promise-desc": "누적으로 함께 채워가는 김쁘피의 장기 공약이에요.", "promise-live": "LIVE PROGRESS", "promise-current": "0", "promise-final": "300", "promise-note": "완료된 구간은 진하게, 다음 목표는 포인트 색으로 표시됩니다.", "promise-foot-strong": "40만 달성 시 이전 공약 모두 이행", "promise-foot-desc": "정확한 진행 일정과 세부 방식은 방송 공지를 기준으로 확인해주세요.", "reward-kicker": "PERSONAL REWARD", "reward-title": "방셀보상", "reward-desc": "확정 방셀 단가와 룰렛 확률을 함께 확인할 수 있습니다.", "rp1-num": "01", "rp1-small": "FIXED REWARD", "rp1-title": "확정 방셀 단가", "rp1-note": "삼국지 한정 방셀 및 히든 방셀은 룰렛에서만 구매 가능해요.", "rp2-num": "02", "rp2-small": "DOPAMINE ROULETTE", "rp2-title": "100개 방셀룰렛", "roulette-badge-num": "11", "roulette-badge-text": "1000개 시 연차", "roulette-percol": "9", "goods-kicker": "LIMITED MERCHANDISE", "goods-title": "굿즈보상", "goods-desc": "선택형 굿즈부터 모든 색상 풀세트까지 단계별로 정리했습니다.", "goods-caution-strong": "굿즈 풀세트 제외 안내", "goods-caution-text": "버인 바람막이와 버인 방셀은 굿즈 풀세트에서 제외돼요.", "merch-kicker": "MERCH GALLERY", "merch-title": "전체 굿즈 보기", "merch-note": "상품 사진은 비율에 맞춰 카드 안에 자동으로 정리돼요.", "outfit-kicker": "SUMMER LOOKBOOK", "outfit-title": "한정의상", "outfit-desc": "사진을 누르면 해당 컬렉션의 방셀 포스터 5종이 아래에 펼쳐집니다.", "col1-index": "01", "col1-eyebrow": "SUMMER LIMITED", "col1-title": "여름 한정 의상", "col1-note": "초선 한정의상은 룰렛에서만 구매 가능해요.", "col1-cover": "assets/summer-outfits.png", "col2-index": "02", "col2-eyebrow": "PPEUKINI LIMITED", "col2-title": "쁘키니 한정 의상", "col2-note": "각 의상의 디테일과 포즈를 천천히 확인해보세요.", "col2-cover": "assets/ppugini-outfits.png", "empty-outfit": "이 컬렉션에는 아직 송출된 프레임이 없어요.", "theme-ink": "#11131a", "theme-muted": "#6f7480", "theme-paper": "#f7f7f3", "theme-sheet": "#f4f2ed", "theme-night": "#131620", "theme-night-soft": "#1d2230", "theme-iris": "#737de8", "theme-ice": "#b8e9ef", "theme-rose": "#e9bfd0", "theme-sand": "#d9c89e", "theme-mint": "#cce2d8", "theme-night-deep": "#111216", "theme-hero": "#1d2b3c", "theme-page": "#dff4f3", "theme-screen": "#fffaf0", "page-image": ""}')
+insert into profile (id, data) values (1, '{"site-title": "김쁘피 여름 보상 아카이브", "site-desc": "김쁘피의 누적공약, 방셀룰렛, 한정 굿즈와 여름 의상을 한눈에 확인하세요.", "brand-name": "KIMFP", "brand-sub": "REWARD ARCHIVE", "status-time": "9:41", "status-title": "김쁘피 보상 아카이브", "side-kicker": "SUMMER CHANNEL 26", "side-title": "여름 한정 편성<br>보상 안내", "mobile-brand": "김쁘피", "footer-left": "KIMFP · REWARD ARCHIVE", "footer-right": "SUMMER 2026", "soop-id": "gurm01", "soop-url": "https://www.sooplive.com/station/gurm01", "loader-image": "", "trans-prefix": "김쁘피 · ", "nav1-eyebrow": "ON AIR", "nav1-label": "메인", "nav1-mark": "✦", "nav2-eyebrow": "SIGNAL POWER", "nav2-label": "누적공약", "nav2-mark": "↗", "nav3-eyebrow": "FRAME INDEX", "nav3-label": "방셀보상", "nav3-mark": "◈", "nav4-eyebrow": "SUPPLY DROP", "nav4-label": "굿즈", "nav4-mark": "□", "nav5-eyebrow": "LOOKBOOK", "nav5-label": "의상", "nav5-mark": "♡", "hero-overline-l": "KIMFP ARCHIVE", "hero-overline-r": "2026 / SUMMER", "hero-title-a": "KIM", "hero-title-b": "FP", "hero-title-sub": "후원 보상 컬렉션", "hero-lead": "누적공약부터 한정 방셀, 룰렛, 굿즈와 의상까지. 이번 시즌의 모든 보상을 하나의 아카이브로 정리했습니다.", "hero-btn1": "REWARD INDEX", "hero-btn2": "VIEW LOOKBOOK", "metric1-num": "10", "metric1-label": "누적공약", "metric2-num": "18", "metric2-label": "룰렛 보상", "metric3-num": "06", "metric3-label": "굿즈 단계", "metric4-num": "10", "metric4-label": "의상 원본", "signal-text": "VIRTUAL SIGNAL ONLINE", "signal-channel": "SUMMER CHANNEL · 26", "hero-ghost": "SUMMER", "idx1-small": "CUMULATIVE PROMISE", "idx1-strong": "누적공약", "idx1-em": "10만 — 300만", "idx2-small": "REWARD & ROULETTE", "idx2-strong": "방셀보상", "idx2-em": "100개 · 11연차", "idx3-small": "LIMITED MERCHANDISE", "idx3-strong": "굿즈보상", "idx3-em": "6 TIERS", "lookbook-kicker": "CURATED LOOKS", "lookbook-title": "이번 여름의 두 가지 무드", "lookbook-btn": "FULL LOOKBOOK", "ledger-kicker": "FIXED REWARD", "ledger-title": "확정 방셀 단가", "ledger-btn": "DETAIL", "goodsfeat-kicker": "MERCHANDISE / 06", "goodsfeat-title": "취향으로 완성하는<br>리워드 셀렉션", "goodsfeat-desc": "블랙과 크림, 낮과 밤. 단계별 한정 굿즈를 확인해보세요.", "goodsfeat-btn": "EXPLORE GOODS", "promise-kicker": "CUMULATIVE PROMISE", "promise-title": "누적공약", "promise-desc": "누적으로 함께 채워가는 김쁘피의 장기 공약이에요.", "promise-live": "LIVE PROGRESS", "promise-current": "0", "promise-final": "300", "promise-note": "완료된 구간은 진하게, 다음 목표는 포인트 색으로 표시됩니다.", "promise-foot-strong": "40만 달성 시 이전 공약 모두 이행", "promise-foot-desc": "정확한 진행 일정과 세부 방식은 방송 공지를 기준으로 확인해주세요.", "reward-kicker": "PERSONAL REWARD", "reward-title": "방셀보상", "reward-desc": "확정 방셀 단가와 룰렛 확률을 함께 확인할 수 있습니다.", "rp1-num": "01", "rp1-small": "FIXED REWARD", "rp1-title": "확정 방셀 단가", "rp1-note": "삼국지 한정 방셀 및 히든 방셀은 룰렛에서만 구매 가능해요.", "rp2-num": "02", "rp2-small": "DOPAMINE ROULETTE", "rp2-title": "100개 방셀룰렛", "roulette-badge-num": "11", "roulette-badge-text": "1000개 시 연차", "roulette-percol": "9", "goods-kicker": "LIMITED MERCHANDISE", "goods-title": "굿즈보상", "goods-desc": "선택형 굿즈부터 모든 색상 풀세트까지 단계별로 정리했습니다.", "goods-caution-strong": "굿즈 풀세트 제외 안내", "goods-caution-text": "버인 바람막이와 버인 방셀은 굿즈 풀세트에서 제외돼요.", "merch-kicker": "MERCH GALLERY", "merch-title": "전체 굿즈 보기", "merch-note": "상품 사진은 비율에 맞춰 카드 안에 자동으로 정리돼요.", "outfit-kicker": "SUMMER LOOKBOOK", "outfit-title": "한정의상", "outfit-desc": "사진을 누르면 해당 컬렉션의 방셀 포스터 5종이 아래에 펼쳐집니다.", "col1-index": "01", "col1-eyebrow": "SUMMER LIMITED", "col1-title": "여름 한정 의상", "col1-note": "초선 한정의상은 룰렛에서만 구매 가능해요.", "col1-cover": "assets/summer-outfits.png", "col2-index": "02", "col2-eyebrow": "PPEUKINI LIMITED", "col2-title": "쁘키니 한정 의상", "col2-note": "각 의상의 디테일과 포즈를 천천히 확인해보세요.", "col2-cover": "assets/ppeukini-outfits.png", "empty-outfit": "이 컬렉션에는 아직 송출된 프레임이 없어요.", "theme-ink": "#11131a", "theme-muted": "#6f7480", "theme-paper": "#f7f7f3", "theme-sheet": "#f4f2ed", "theme-night": "#131620", "theme-night-soft": "#1d2230", "theme-iris": "#737de8", "theme-ice": "#b8e9ef", "theme-rose": "#e9bfd0", "theme-sand": "#d9c89e", "theme-mint": "#cce2d8", "theme-night-deep": "#111216", "theme-hero": "#1d2b3c", "theme-page": "#dff4f3", "theme-screen": "#fffaf0", "page-image": ""}')
   on conflict (id) do nothing;   -- 이미 있으면 그대로 둔다(수정분 보존)
 
 -- 공약 목록 (10개)
@@ -205,11 +205,11 @@ select * from (values
   ('쁘키니 히든', '0.1%', 9),
   ('여름랜덤방셀', '3%', 10),
   ('김', '3%', 11),
-  ('뿌', '3%', 12),
+  ('쁘', '3%', 12),
   ('피', '3%', 13),
   ('다음 룰렛 2배 (글자 적용 X)', '20%', 14),
-  ('쿼뿌', '5%', 15),
-  ('뿌독', '4%', 16),
+  ('쿼쁘', '5%', 15),
+  ('쁘독', '4%', 16),
   ('용캐지원금', '54.1%', 17)
 ) as v(title, chance, sort)
 where not exists (select 1 from roulette);
@@ -252,11 +252,11 @@ select * from (values
   ('summer', '여름 B', 'assets/poster/summer-pose-08.webp', 'assets/summer-pose-08.png', 2),
   ('summer', '여름 C', 'assets/poster/summer-pose-01.webp', 'assets/summer-pose-01.png', 3),
   ('summer', '여름 D', 'assets/poster/summer-pose-07.webp', 'assets/summer-pose-07.png', 4),
-  ('ppugini', '쁘키니 히든', 'assets/poster/summer-pose-03.webp', 'assets/summer-pose-03.png', 5),
-  ('ppugini', '쁘키니 A', 'assets/poster/summer-pose-04.webp', 'assets/summer-pose-04.png', 6),
-  ('ppugini', '쁘키니 B', 'assets/poster/summer-pose-06.webp', 'assets/summer-pose-06.png', 7),
-  ('ppugini', '쁘키니 C', 'assets/poster/summer-pose-05.webp', 'assets/summer-pose-05.png', 8),
-  ('ppugini', '쁘키니 D', 'assets/poster/summer-pose-09.webp', 'assets/summer-pose-09.png', 9)
+  ('ppeukini', '쁘키니 히든', 'assets/poster/summer-pose-03.webp', 'assets/summer-pose-03.png', 5),
+  ('ppeukini', '쁘키니 A', 'assets/poster/summer-pose-04.webp', 'assets/summer-pose-04.png', 6),
+  ('ppeukini', '쁘키니 B', 'assets/poster/summer-pose-06.webp', 'assets/summer-pose-06.png', 7),
+  ('ppeukini', '쁘키니 C', 'assets/poster/summer-pose-05.webp', 'assets/summer-pose-05.png', 8),
+  ('ppeukini', '쁘키니 D', 'assets/poster/summer-pose-09.webp', 'assets/summer-pose-09.png', 9)
 ) as v(collection, name, image_url, origin_url, sort)
 where not exists (select 1 from outfits);
 
@@ -306,3 +306,67 @@ update profile
 
 select data->>'theme-page' as page, data->>'theme-screen' as screen,
        data->>'page-image' as page_image from profile where id = 1;
+
+
+-- ═══════════════════════════════════════════════════════════════
+--  [추가 패치 3] 이름 오타 일괄 수정  뿌기니 → 쁘키니
+--  이미 DB에 들어간 값은 위 시드가 건드리지 않으므로(보존 설계),
+--  이 블록만 따로 한 번 Run 하면 전부 바뀝니다. 여러 번 돌려도 안전.
+-- ═══════════════════════════════════════════════════════════════
+
+-- 1) 모든 문구(profile.data) — col2-title, col2-eyebrow 포함 통째로 치환
+update profile
+   set data = replace(replace(data::text, '뿌기니', '쁘키니'),
+                      'PPUGINI', 'PPEUKINI')::jsonb
+ where id = 1
+   and (data::text like '%뿌기니%' or data::text like '%PPUGINI%');
+
+-- 2) 의상 목록
+update outfits       set name  = replace(name,  '뿌기니', '쁘키니') where name  like '%뿌기니%';
+
+-- 3) 룰렛
+update roulette      set title = replace(title, '뿌기니', '쁘키니') where title like '%뿌기니%';
+
+-- 4) 확정 방셀 단가
+update fixed_rewards set title = replace(title, '뿌기니', '쁘키니') where title like '%뿌기니%';
+
+-- 5) 굿즈 갤러리
+update merch         set name  = replace(name,  '뿌기니', '쁘키니') where name  like '%뿌기니%';
+
+-- 6) 굿즈 단계
+update goods_tiers
+   set title       = replace(title,       '뿌기니', '쁘키니'),
+       description = replace(description, '뿌기니', '쁘키니')
+ where title like '%뿌기니%' or description like '%뿌기니%';
+
+-- ── 확인: 아래가 전부 0 이면 성공 ──
+select '문구'   as t, count(*) from profile       where data::text like '%뿌기니%'
+union all select '의상',   count(*) from outfits       where name  like '%뿌기니%'
+union all select '룰렛',   count(*) from roulette      where title like '%뿌기니%'
+union all select '단가',   count(*) from fixed_rewards where title like '%뿌기니%'
+union all select '굿즈',   count(*) from merch         where name  like '%뿌기니%'
+union all select '단계',   count(*) from goods_tiers   where title like '%뿌기니%';
+
+-- ── [추가 패치 3-2] 내부 키·파일명까지 정리 ──────────────────────
+--  안 돌려도 사이트는 정상 동작합니다(구 값도 인식하도록 만들어둠).
+--  깔끔하게 맞추고 싶으면 이 블록도 같이 Run 하세요. 여러 번 안전.
+
+update outfits set collection = 'ppeukini' where collection = 'ppugini';
+
+update profile
+   set data = jsonb_set(data, '{col2-cover}', '"assets/ppeukini-outfits.png"'::jsonb)
+ where id = 1 and data->>'col2-cover' like '%ppugini-outfits%';
+
+-- 확인: 둘 다 0 이면 완료
+select 'outfits' as t, count(*) from outfits where collection = 'ppugini'
+union all
+select 'cover',  count(*) from profile where data->>'col2-cover' like '%ppugini%';
+
+-- ── [추가 패치 4] 룰렛 이름 뿌 → 쁘 ─────────────────────────────
+--  '뿌기니'는 패치 3에서 이미 처리됩니다. 여기는 나머지 3항목입니다.
+update roulette set title = '쁘'   where title = '뿌';
+update roulette set title = '쿼쁘' where title = '쿼뿌';
+update roulette set title = '쁘독' where title = '뿌독';
+
+-- 확인: 0 이면 완료
+select count(*) as remaining from roulette where title like '%뿌%';

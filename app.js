@@ -40,6 +40,9 @@
     return 'https://profile.img.sooplive.co.kr/LOGO/' + id.slice(0, 2) + '/' + id + '/' + id + '.jpg';
   }
 
+  /* 예전에 저장된 ppugini-* 파일명을 새 이름으로 넘겨준다 */
+  function fixName(u) { return txt(u).replace('ppugini-outfits', 'ppeukini-outfits'); }
+
   function applyText() {
     document.querySelectorAll('[data-hook]').forEach(function (node) {
       var key = node.getAttribute('data-hook');
@@ -72,7 +75,7 @@
   function renderMainLooks() {
     var box = el('mainLooks'); if (!box) return;
     box.innerHTML = [1, 2].map(function (i) {
-      return '<figure><img src="' + esc(T['col' + i + '-cover']) + '" alt="' +
+      return '<figure><img src="' + esc(fixName(T['col' + i + '-cover'])) + '" alt="' +
         esc(T['col' + i + '-title']) + '" referrerpolicy="no-referrer">' +
         '<figcaption><span>' + esc(T['col' + i + '-index']) + '</span><strong>' +
         esc(T['col' + i + '-eyebrow']) + '</strong></figcaption></figure>';
@@ -159,7 +162,7 @@
   function collections() {
     return [
       { key: 'summer', tone: 'blue', n: 1 },
-      { key: 'ppugini', tone: 'pink', n: 2 }
+      { key: 'ppeukini', tone: 'pink', n: 2, alias: 'ppugini' }
     ].map(function (c) {
       return {
         key: c.key, tone: c.tone,
@@ -167,8 +170,11 @@
         eyebrow: txt(T['col' + c.n + '-eyebrow']),
         title: txt(T['col' + c.n + '-title']),
         note: txt(T['col' + c.n + '-note']),
-        cover: txt(T['col' + c.n + '-cover']),
-        posters: list(D.outfits).filter(function (o) { return o.collection === c.key; })
+        cover: fixName(T['col' + c.n + '-cover']),
+        /* alias: 예전에 저장된 'ppugini' 값도 계속 인식한다(마이그레이션 없이도 동작) */
+        posters: list(D.outfits).filter(function (o) {
+          return o.collection === c.key || (c.alias && o.collection === c.alias);
+        })
       };
     });
   }

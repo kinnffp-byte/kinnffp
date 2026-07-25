@@ -161,9 +161,12 @@
   function cellInput(tname, idx, cname, ctype, val) {
     var id = 'x-' + tname + '-' + idx + '-' + cname;
     if (ctype === 'tone' || ctype === 'coll') {
-      var opts = ctype === 'tone' ? TONES : ['summer', 'ppugini'];
+      var opts = ctype === 'tone' ? TONES : ['summer', 'ppeukini'];
+      var LABEL = { summer: '여름', ppeukini: '쁘키니', ppugini: '쁘키니(구)' };
+      if (ctype === 'coll' && String(val) === 'ppugini') opts = opts.concat('ppugini');
       return '<select class="input" id="' + id + '">' + opts.map(function (o) {
-        return '<option value="' + o + '"' + (String(val) === o ? ' selected' : '') + '>' + o + '</option>';
+        var text = (ctype === 'coll' && LABEL[o]) ? LABEL[o] : o;
+        return '<option value="' + o + '"' + (String(val) === o ? ' selected' : '') + '>' + text + '</option>';
       }).join('') + '</select>';
     }
     if (ctype === 'area' || ctype === 'imgs') {

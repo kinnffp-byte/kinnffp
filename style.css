@@ -4566,3 +4566,269 @@ body.dark {
 .fixed-reward.yellow::after   { background: var(--sand); }
 .fixed-reward.mint::after     { background: var(--mint); }
 .fixed-reward.lavender::after { background: var(--iris); }
+
+/* ══════════════════════════════════════════════════════════════════
+   📱 모바일: 세로형 아이패드 + 목차를 상단 가로줄로
+   가로형(4/3)을 폰에 넣으면 374×280 처럼 아주 작게 눌려서,
+   폰에서는 세로형(3/4)으로 세우고 사이드바를 위로 눕힌다.
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  .view-experience[data-view="ipad"] { padding: 8px; }
+
+  .view-experience[data-view="ipad"] .ipad-device {
+    width: min(calc(100vw - 12px), calc((100svh - 12px) * 0.75));
+    height: auto;
+    aspect-ratio: 3 / 4;
+    padding: 7px;
+    border-radius: 26px;
+  }
+
+  .view-experience[data-view="ipad"] .ipad-screen {
+    border-width: 5px;
+    border-radius: 21px;
+  }
+
+  /* 목차를 위로 (본문이 가로폭을 다 쓰게) */
+  .view-experience[data-view="ipad"] .site-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .view-experience[data-view="ipad"] .side-navigation {
+    position: sticky;
+    top: 0;
+    z-index: 45;
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 7px 8px 0;
+    overflow: visible;
+  }
+
+  .view-experience[data-view="ipad"] .side-navigation nav {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-top: 6px;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .view-experience[data-view="ipad"] .side-navigation nav button {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 38px;
+    padding: 0 2px;
+    gap: 0;
+    border-right: 1px solid var(--line-dark);
+    border-bottom: 0;
+    text-align: center;
+  }
+
+  .view-experience[data-view="ipad"] .side-navigation nav button:last-child { border-right: 0; }
+  .view-experience[data-view="ipad"] .side-navigation nav button:hover,
+  .view-experience[data-view="ipad"] .side-navigation nav button.active { padding-left: 2px; }
+
+  .view-experience[data-view="ipad"] .side-navigation nav button strong { font-size: 10.5px; }
+
+  /* 좁으니 부가 요소는 접는다 */
+  .view-experience[data-view="ipad"] .side-navigation nav small,
+  .view-experience[data-view="ipad"] .side-navigation .nav-mark,
+  .view-experience[data-view="ipad"] .side-navigation .nav-dot,
+  .view-experience[data-view="ipad"] .side-note { display: none; }
+
+  .view-experience[data-view="ipad"] .brand-block strong { font-size: 15px; }
+  .view-experience[data-view="ipad"] .brand-block span { font-size: 6.5px; }
+
+  .view-experience[data-view="ipad"] .dark-toggle {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    margin: 0;
+    padding: 6px 8px;
+  }
+
+  .view-experience[data-view="ipad"] .dark-toggle em { display: none; }
+
+  /* 본문이 가로폭을 다 쓰므로 여백을 조금 되돌린다 */
+  .view-experience[data-view="ipad"] .page-content { padding: 20px 16px; }
+  .view-experience[data-view="ipad"] .main-page { padding-top: 16px; }
+  .view-experience[data-view="ipad"] .editorial-index { padding: 0 16px; }
+  .view-experience[data-view="ipad"] .site-footer { margin: 0 16px; }
+}
+
+/* 📱 모바일: 목업을 화면 높이에 맞춰 위아래로 늘린다
+   3:4 를 지키면 폭이 이미 화면 최대라 높이가 60%에서 멈춘다.
+   폰에서는 비율 고정을 풀고 세로로 꽉 채운다(손에 든 기기처럼). */
+@media (max-width: 700px) {
+  .view-experience[data-view="ipad"] {
+    padding: 6px;
+    min-height: 100svh;
+    align-content: stretch;
+    justify-content: center;
+  }
+
+  .view-experience[data-view="ipad"] .ipad-device {
+    width: min(calc(100vw - 12px), 760px);
+    height: calc(100svh - 12px);
+    max-height: none;
+    aspect-ratio: auto;          /* 비율 고정 해제 */
+    padding: 6px;
+    border-radius: 30px;
+  }
+
+  .view-experience[data-view="ipad"] .ipad-screen { border-radius: 25px; }
+
+  /* 늘어난 만큼 홈 인디케이터도 아래로 */
+  .view-experience[data-view="ipad"] .ipad-home-indicator { bottom: 9px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   📱 모바일 컴팩트: 한 화면에 더 많이 담기
+   섹션 간격·이미지 높이·행 높이를 줄이고, 목록은 열 수를 늘린다.
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  /* 섹션 사이 간격 (46~62px → 22px) */
+  .view-experience[data-view="ipad"] .main-lookbook,
+  .view-experience[data-view="ipad"] .main-ledger,
+  .view-experience[data-view="ipad"] .merch-gallery-section,
+  .view-experience[data-view="ipad"] .poster-section,
+  .view-experience[data-view="ipad"] .lookbook-grid,
+  .view-experience[data-view="ipad"] .goods-tier-grid,
+  .view-experience[data-view="ipad"] .promise-progress,
+  .view-experience[data-view="ipad"] .reward-layout { margin-top: 22px; }
+
+  .view-experience[data-view="ipad"] .page-content { padding: 14px 12px; }
+  .view-experience[data-view="ipad"] .main-page { padding-top: 12px; }
+  .view-experience[data-view="ipad"] .editorial-index { padding: 0 12px; }
+  .view-experience[data-view="ipad"] .site-footer { margin: 0 12px; padding: 14px 0 18px; }
+
+  /* 제목 블록 */
+  .view-experience[data-view="ipad"] .content-sheet .section-title {
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+  }
+
+  .view-experience[data-view="ipad"] .content-sheet .section-title h2 {
+    font-size: 30px;
+    line-height: 1.02;
+  }
+
+  .view-experience[data-view="ipad"] .content-sheet .section-title p { font-size: 10.5px; }
+  .view-experience[data-view="ipad"] .subsection-heading,
+  .view-experience[data-view="ipad"] .editorial-heading { margin-bottom: 12px; padding-bottom: 10px; }
+
+  /* 히어로 */
+  .view-experience[data-view="ipad"] .editorial-hero { min-height: 0; padding: 16px 12px 18px; }
+  .view-experience[data-view="ipad"] .hero-metrics { margin-top: 16px; }
+  .view-experience[data-view="ipad"] .hero-metrics div { padding-top: 9px; }
+  .view-experience[data-view="ipad"] .hero-lower p { font-size: 11px; }
+
+  /* 큰 이미지 높이 (310px → 176px) */
+  .view-experience[data-view="ipad"] .lookbook-image img { height: 176px; }
+  .view-experience[data-view="ipad"] .outfit-preview-grid img { height: 158px; }
+  .view-experience[data-view="ipad"] .content-sheet .lookbook-card { padding: 12px; }
+  .view-experience[data-view="ipad"] .lookbook-card > p { margin-top: 10px; font-size: 10px; }
+
+  /* 굿즈: 카드 높이 축소 + 갤러리 3열 (6줄 → 4줄) */
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier { min-height: 0; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy { min-height: 0; padding: 12px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-image { min-height: 104px; }
+  .view-experience[data-view="ipad"] .goods-tier-grid { gap: 8px; }
+
+  .view-experience[data-view="ipad"] .merch-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .view-experience[data-view="ipad"] .merch-gallery figcaption { padding: 6px 0; font-size: 8.5px; }
+
+  /* 룰렛: 2열로 (18줄 → 9줄) */
+  .view-experience[data-view="ipad"] .roulette-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .view-experience[data-view="ipad"] .roulette-list > div { min-height: 0; padding: 7px 0; gap: 6px; }
+  .view-experience[data-view="ipad"] .roulette-list > div span { font-size: 9.5px; }
+  .view-experience[data-view="ipad"] .roulette-list > div strong { font-size: 9.5px; }
+  .view-experience[data-view="ipad"] .content-sheet .reward-panel { padding: 12px; }
+  .view-experience[data-view="ipad"] .panel-heading { padding-bottom: 12px; }
+  .view-experience[data-view="ipad"] .panel-note { font-size: 10px; }
+
+  /* 목록 행 높이 */
+  .view-experience[data-view="ipad"] .fixed-reward { min-height: 50px; }
+  .view-experience[data-view="ipad"] .promise-node { min-height: 0; }
+  .view-experience[data-view="ipad"] .mini-reward-list > div { padding: 8px 0; }
+  .view-experience[data-view="ipad"] .content-sheet .editorial-index button { min-height: 58px; }
+  .view-experience[data-view="ipad"] .promise-footer-note { margin-top: 16px; padding: 12px; }
+
+  /* 메인 하단 두 블록 */
+  .view-experience[data-view="ipad"] .goods-feature-copy { padding: 14px 12px; }
+  .view-experience[data-view="ipad"] .goods-feature-images { padding: 10px; }
+  .view-experience[data-view="ipad"] .reward-ledger { padding: 14px 12px; }
+}
+
+/* 📱 모바일 컴팩트 2차: 세로로 쌓이던 목록을 2열로 (스크롤 대폭 감소) */
+@media (max-width: 700px) {
+  /* 굿즈 6단계: 1열 → 2열 (6줄 → 3줄) */
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy { padding: 10px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > strong { font-size: 15px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > h3 { font-size: 12px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-copy > p { font-size: 9.5px; }
+  .view-experience[data-view="ipad"] .content-sheet .goods-tier-image { min-height: 88px; }
+
+  /* 굿즈 갤러리: 썸네일 칸을 정사각으로 (행 높이 235 → 130) */
+  .view-experience[data-view="ipad"] .merch-gallery figure > div {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    min-height: 0;
+  }
+
+  .view-experience[data-view="ipad"] .merch-gallery figure > div img { height: 100%; object-fit: contain; }
+
+  /* 메인 의상 미리보기: 1열 → 2열 */
+  .view-experience[data-view="ipad"] .outfit-preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .view-experience[data-view="ipad"] .outfit-preview-grid img { height: 148px; }
+
+  /* 의상 컬렉션 카드: 1열 → 2열 */
+  .view-experience[data-view="ipad"] .content-sheet .lookbook-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .view-experience[data-view="ipad"] .content-sheet .lookbook-card { padding: 9px; }
+  .view-experience[data-view="ipad"] .lookbook-image img { height: 148px; }
+  .view-experience[data-view="ipad"] .lookbook-label { gap: 6px 8px; margin-bottom: 10px; }
+  .view-experience[data-view="ipad"] .lookbook-label > span { font-size: 18px; }
+  .view-experience[data-view="ipad"] .lookbook-label h3 { font-size: 13px; }
+  .view-experience[data-view="ipad"] .lookbook-flag { display: none; }
+  .view-experience[data-view="ipad"] .lookbook-card > p { font-size: 9.5px; margin-top: 8px; }
+  .view-experience[data-view="ipad"] .lookbook-cue { padding: 5px 7px; font-size: 6.5px; }
+
+  /* 포스터 격자: 히어로 확대 해제 (2열 3줄) */
+  .view-experience[data-view="ipad"] .poster-grid > .poster-tile:first-child {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .view-experience[data-view="ipad"] .poster-grid > .poster-tile:first-child .poster-serial,
+  .view-experience[data-view="ipad"] .poster-grid > .poster-tile:first-child .poster-bottom strong {
+    font-size: inherit;
+  }
+
+  .view-experience[data-view="ipad"] .poster-grid { gap: 6px; }
+
+  /* 히어로 추가 압축 */
+  .view-experience[data-view="ipad"] .content-sheet .hero-title h1 { font-size: 34px; transform: none; }
+  .view-experience[data-view="ipad"] .hero-title { padding-top: 8px; }
+  .view-experience[data-view="ipad"] .hero-title h2 { font-size: 17px; }
+  .view-experience[data-view="ipad"] .hero-actions button { padding: 10px 12px; font-size: 9.5px; }
+}
