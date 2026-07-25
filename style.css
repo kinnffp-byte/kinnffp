@@ -5883,3 +5883,44 @@ body.dark .roulette-logo img { opacity: 0.7; }
     width: auto; max-width: 38%; max-height: 44%;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   진행률 줄: '31.3만' 이 '31.3 / 만' 으로 쪼개지던 문제
+   원인: 첫 칸이 210px 고정인데 숫자를 36px 로 키우면서 내용이 넘쳤고,
+        flex 아이템이라 기본 shrink 되어 글자가 두 줄로 접혔다.
+   해결: 첫 칸을 내용 크기(auto)로, 숫자 덩어리는 shrink 금지 + 줄바꿈 금지.
+   ════════════════════════════════════════════════════════════════ */
+.promise-progress-head {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  column-gap: 22px;
+}
+
+.promise-progress-head > div {
+  flex-wrap: nowrap;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.promise-progress-head > div > small,
+.promise-progress-head > div > strong,
+.promise-progress-head > div > span {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.promise-progress-head > div > small {
+  max-width: 62px;
+  white-space: normal;   /* 'LIVE PROGRESS' 만 두 줄 허용 */
+  line-height: 1.35;
+}
+
+.promise-progress-head p { min-width: 0; }
+
+/* 좁은 화면: 다시 접히도록 되돌린다(칸이 좁아 한 줄이 불가능) */
+@media (max-width: 620px) {
+  .promise-progress-head,
+  .view-experience[data-view="ipad"] .promise-progress-head { grid-template-columns: 1fr auto; }
+
+  .promise-progress-head > div,
+  .view-experience[data-view="ipad"] .promise-progress-head > div { flex-wrap: wrap; }
+}
