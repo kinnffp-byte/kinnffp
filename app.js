@@ -223,8 +223,8 @@
         '<img src="' + esc(p.image_url) + '" alt="' + esc(p.name) +
         '" referrerpolicy="no-referrer" loading="lazy">' +
         '<span class="poster-frame-line" aria-hidden="true"></span>' +
-        '<span class="poster-top"><span class="poster-serial">' + esc(active.index) +
-        '<i>/</i>' + pad(i + 1) + '</span><span class="poster-badge">' +
+        '<span class="poster-top"><span class="poster-serial">' + pad(i + 1) +
+        '</span><span class="poster-badge">' +
         esc(active.eyebrow.split(' ')[0]) + '</span></span>' +
         '<span class="poster-bottom"><span class="poster-rule" aria-hidden="true"></span>' +
         '<strong>' + esc(p.name) + '</strong><em>ZOOM ↗</em></span></button>';
