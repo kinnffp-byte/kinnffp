@@ -71,14 +71,6 @@
       if (lgSrc) { lg.src = lgSrc; lg.alt = txt(T['brand-name']); lg.hidden = false; if (bn) bn.hidden = true; }
       else { lg.hidden = true; if (bn) bn.hidden = false; }
     }
-    /* 히어로 우측 상단 로고 (제목 글자는 그대로 둔다) */
-    var hl = el('heroLogo');
-    var hlSrc = txt(T['hero-logo']).trim();
-    if (hl) {
-      if (hlSrc) { hl.src = hlSrc; hl.alt = txt(T['brand-name']); hl.hidden = false; }
-      else { hl.hidden = true; }
-    }
-
     /* 전환 커버 로고 */
     var cl = el('cover-logo');
     var clSrc = txt(T['cover-logo']).trim();
