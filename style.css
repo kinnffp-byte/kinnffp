@@ -5381,6 +5381,10 @@ body.dark {
   min-height: 0;
   max-width: none;
   max-height: none;
+  /* 행/열을 명시해야 칸 높이가 확정된다. auto 행이면 높이가 '내용 기준'이라
+     사진의 height/max-height 퍼센트가 무시돼 칸 밖으로 삐져나온다. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   padding: 10px;
   place-items: center;
   border-radius: 14px;
@@ -5389,15 +5393,24 @@ body.dark {
   aspect-ratio: auto;
 }
 
-/* 사진: 칸 안에서 가운데 + 절대 안 잘림 */
+/* 사진: 칸 안에서 가운데 + 절대 안 잘림
+   ⚠️ 앞쪽에 .goods-product-thumb img{position:absolute;inset:12px} 가 있다.
+      절대배치라 그리드 흐름에서 빠져 place-items:center 가 안 먹고
+      사진이 칸 왼쪽 위로 붙는다(텀블러·키링·바람막이 실사례).
+      반드시 position:static / inset:auto 로 되돌린 뒤 크기를 준다. */
 .goods-product-thumb img,
 .view-experience[data-view="ipad"] .content-sheet .goods-product-thumb img,
 .goods-tier-image .goods-product-thumb img {
-  width: auto;
-  height: auto;
+  position: static;
+  inset: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
+  margin: 0;
+  object-fit: contain;   /* 칸을 채우되 비율 유지 → 잘림 0 + 상하좌우 정중앙 */
+  object-position: center center;
 }
 
 body.dark .goods-product-thumb {
@@ -5528,4 +5541,60 @@ body.dark .image-modal .image-modal-frame { background: #1c2030; }
   }
 
   .image-modal .image-modal-close { top: 12px; right: 14px; width: 36px; height: 36px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ① 제목 우측 빈 원 제거
+      .section-title::after 로 깔리던 72px 장식 원(테두리만 있는 빈 동그라미).
+      전 화면 공통이라 한 줄로 같이 사라진다.
+   ════════════════════════════════════════════════════════════════ */
+.section-title::after { display: none; }
+
+/* ══════════════════════════════════════════════════════════════════
+   ② 사이드바 로고 — 주변 네모 박스 제거 + 크게
+      .brand-mark 는 원래 42px 정사각 "글자 마크" 용이라 테두리·배경이 있었는데
+      지금은 <img> 누끼라 그 테두리가 로고를 가두는 박스로 보였다.
+   ════════════════════════════════════════════════════════════════ */
+.brand-mark,
+.view-experience[data-view="ipad"] .ipad-archive-brand .brand-mark {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 48px;
+  height: auto;
+  margin-right: 11px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  vertical-align: middle;
+}
+
+/* 워드마크 이미지를 쓰는 경우(admin '로고(워드마크)')도 같이 키운다 */
+.brand-logo { max-width: 168px; }
+
+/* KIMFP 글자도 한 단계 크게 */
+.ipad-archive-brand strong,
+.view-experience[data-view="ipad"] .side-navigation .brand-block strong {
+  font-size: 27px;
+  letter-spacing: -0.015em;
+}
+
+@media (max-width: 1180px) {
+  .brand-mark,
+  .view-experience[data-view="ipad"] .ipad-archive-brand .brand-mark {
+    width: 42px;
+    margin-right: 9px;
+  }
+
+  .ipad-archive-brand strong,
+  .view-experience[data-view="ipad"] .side-navigation .brand-block strong { font-size: 24px; }
+}
+
+@media (max-width: 700px) {
+  /* 폰: 목차 줄에 마크만 남는 레이아웃 — 마크를 키우고 글자는 기존대로 숨김 */
+  .brand-mark,
+  .view-experience[data-view="ipad"] .ipad-archive-brand .brand-mark {
+    width: 34px;
+    margin-right: 0;
+  }
 }
