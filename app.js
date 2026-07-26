@@ -324,8 +324,31 @@
     }).join('');
   }
 
+  /* 룰렛 배지: '11' 을 크게 띄우고 밑에 설명을 다는 대신
+     '1000개시 11연차' 한 줄로 조립한다(숫자는 살짝만 강조).
+     문구에 {n} 을 넣으면 그 자리에 숫자가 들어간다. */
+  function renderRouletteBadge() {
+    var box = el('rouletteBadge'); if (!box) return;
+    var num = txt(T['roulette-badge-num']).trim();
+    var text = txt(T['roulette-badge-text']).trim();
+    var numHTML = num ? '<b>' + esc(num) + '</b>' : '';
+
+    if (!text) { box.innerHTML = numHTML; return; }
+    if (text.indexOf('{n}') >= 0) {
+      box.innerHTML = esc(text).replace('{n}', numHTML);
+      return;
+    }
+    if (!num) { box.innerHTML = esc(text); return; }
+    /* {n} 이 없는 예전 값 호환: 마지막 낱말 앞에 숫자를 끼워 넣는다.
+       '1000개 시 연차' + '11' → '1000개 시 11연차' */
+    var parts = text.split(/\s+/);
+    var last = parts.pop();
+    box.innerHTML = (parts.length ? esc(parts.join(' ')) + ' ' : '') + numHTML + esc(last);
+  }
+
   function renderAll() {
     applyText();
+    renderRouletteBadge();
     renderMainLooks(); renderMiniRewards(); renderPromises();
     renderFixed(); renderRoulette(); renderTiers(); renderMerch(); renderOutfit();
     fitThumbs();
